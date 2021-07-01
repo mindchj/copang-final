@@ -12,10 +12,11 @@ const ProductListRouteMain = () =>{
     return (
         <div>
             <Route exact path="/member/4" component={ProductList}/>
+            <Route exact path="/member/4" component={ProductAddTest}/>
             <Route path="/member/4/product/selectOne/:itemId" component={ProductDetail}/>
-            <Route path="/member/4/product/selectOne/:sid/ProductDescBottom" component={ProductDescBottom}/>
-            <Route path="/member/4/product/selectOne/:sid/ProductReviewBottom" component={ProductReviewBottom}/>
-            <Route path="/member/4/product/selectOne/:sid/ProductQuestionBottom" component={ProductQuestionBottom}/>
+            <Route path="/member/4/product/selectOne/:itemId/ProductDescBottom" component={ProductDescBottom}/>
+            <Route path="/member/4/product/selectOne/:itemId/ProductReviewBottom" component={ProductReviewBottom}/>
+            <Route path="/member/4/product/selectOne/:itemId/ProductQuestionBottom" component={ProductQuestionBottom}/>
             <Route path="/member/4/ProductAddTest" component={ProductAddTest}/>
             <Route path="/member/4/orderpage" component={OrderPageApp} />
         </div>

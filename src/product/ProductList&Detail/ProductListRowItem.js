@@ -15,7 +15,7 @@ const ProductListRowItem = (props) => {
             }>
             <dl>
                 <dt>
-                    <img alt={props.row.image} src="/에어맥스97.PNG" style={{ width: '230px', height: '230px' }} />
+                    <img alt={props.row.mainImg} src={props.row.mainImg} style={{ width: '230px', height: '230px' }} />
                 </dt>
                 <dd className="desc">
                     <div>

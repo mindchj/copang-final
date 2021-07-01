@@ -8,19 +8,20 @@ import StarIcon from '@material-ui/icons/Star';
 const ProductDetail = ({ match, history }) => {
     let itemId = match.params.itemId;
     
+    
     const [ProductOne, setProductOne] = useState([]);
 
     useEffect(() => {
         const res = async () => {
-            const result = await axios.get("https://alconn.co/api/item/list/itemId=" + itemId);
+            const result = await axios.get("https://alconn.co/api/item/list/itemid=" + itemId);
             setProductOne(result.data.data)
+            console.log(result)
         }
         res();
     }, [itemId])
-
     console.log(ProductOne)
     const [ProductList, setProductList] = useState([]);
-
+    console.log(ProductList)
     useEffect(() => {
         const res = async () => {
             const result = await axios.get("https://alconn.co/api/item/list");
@@ -65,7 +66,7 @@ const ProductDetail = ({ match, history }) => {
         <div className="total-wrap">
             <div className="totaldesc">
                 <div className="header">
-                    <div className="dsecImage" style={{ width: '410px', height: '410px' }}><img className="productImage" alt="../에어맥스97.PNG" src="/에어맥스97.PNG" /></div>
+                    <div className="dsecImage" style={{ width: '410px', height: '410px' }}><img className="productImage"  alt={ProductOne.mainImg} src={ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].mainImg} /></div>
                     <div className="productdesc" >
                         <div className="productName" style={{ width: '479px', borderBottom: '1px sloid gray' }}><h2>{ProductOne.itemName}</h2>{ProductOne.description}</div>
                         <div className="productStar"><StarIcon className="smstar"></StarIcon></div>
@@ -102,12 +103,12 @@ const ProductDetail = ({ match, history }) => {
                             <button className="perchase" onClick={
                                 () => {
                                     const data = {
-                                        name: ProductOne.name,
-                                        price: ProductOne.price,
+                                        name: ProductOne.itemName,
+                                        price: ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].price,
                                         entity: su,
                                         imageName: ProductOne.image,
                                         userSID: 20,
-                                        itemId
+                                        itemNo : itemId
                                     }
                                     history.push("/member/4/orderpage", data);
                                 }
@@ -124,12 +125,12 @@ const ProductDetail = ({ match, history }) => {
                                     <li row={row} key={idx}
                                         onClick={
                                             () => {
-                                                history.push("/member/4/product/selectOne/" + itemId);
+                                                history.push("/member/4/product/selectOne/" + row.itemId+"/ProductDescBottom");
                                             }
                                         }>
                                         <dl>
                                             <dt>
-                                                <img alt={row.image} src="/에어맥스97.PNG" style={{ width: '230px', height: '230px' }} />
+                                                <img alt={row.mainImg} src={row.mainImg} style={{ width: '230px', height: '230px' }} />
                                             </dt>
                                             <dd className="desc">
                                                 <div>
