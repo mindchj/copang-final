@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button } from 'reactstrap';
 import { Table } from 'reactstrap';
+import './Cart2.css';
 
 
 const Cart2 = () => {
@@ -114,10 +115,7 @@ const Cart2 = () => {
     //카트 라인 제거
     const removeLineCart = (item) => {
         const axiosRemoveLineCart = async () => {
-            const data = {
-                itemDetailId : item.itemDetailId,
-            }
-            const result = await axios.delete("https://alconn.co/api/cart/item/54",data);
+            const result = await axios.delete("https://alconn.co/api/cart/item/"+item.itemDetailId);
             console.log("removeLineCart 결과:");
             console.log(result);
             setRefresh(prev => prev+1);
@@ -125,9 +123,9 @@ const Cart2 = () => {
         axiosRemoveLineCart();
     }
     //카트 전부 비우기
-    const removeUserCart = (userSID) => {
+    const removeUserCart = () => {
         const axiosRemoveUserCart = async () => {
-            const result = await axios.delete(server+"/cart/removeuser/"+userSID);
+            const result = await axios.delete("https://alconn.co/api/cart");
             console.log("removeUserCart 결과:");
             console.log(result);
             setRefresh(prev => prev+1);
@@ -182,6 +180,10 @@ const Cart2 = () => {
         setTotal(total);
     }
 
+    const numberFormat = (num) => {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    }
+
     return(
         <div style={{width:'1000px',margin:'0 auto', padding:'20px'}}>
             <h2><b><i class='fas fa-shopping-cart'></i> 장바구니</b></h2><br/>
@@ -206,17 +208,17 @@ const Cart2 = () => {
                     cart && cart.map( (item, idx)=>
                         {
                             return(
-                                <tr key={idx}>
+                                <tr key={idx} className="body-td">
                                     <td>
                                         <div className="form-check">
                                             <input id={idx} onChange={onChangeCheckOne} type="checkbox" className="form-check-input" value=""/>
                                         </div>
                                     </td>
-                                    <td>{item.mainImg}</td>
+                                    <td><img alt="사진x" style={{width:'100px',height:'100px'}} src={item.mainImg}/></td>
                                     <td>{item.itemName}</td>
-                                    <td>{item.price}</td>
+                                    <td>{numberFormat(item.price)}</td>
                                     <td>{item.amount}</td>
-                                    <td> {item.price*item.amount}</td>
+                                    <td> {numberFormat(item.price*item.amount)}</td>
                                     <td>
                                         <Button style={{float:'right'}} color="primary" onClick={()=>removeLineCart(item)}><i className='fas fa-trash-alt'/></Button>&nbsp;&nbsp;&nbsp;
                                         <Button style={{float:'right',marginRight:'30px'}} color="primary" onClick={()=>removeOneCart(item)}><i className='fas fa-minus'/></Button>&nbsp;&nbsp;&nbsp;
@@ -234,7 +236,7 @@ const Cart2 = () => {
             <h2 style={{display:'inline',float:'right',marginRight:'30px'}}>
                 총 주문액&nbsp;
 
-                {total} 원
+                {numberFormat(total)} 원
             </h2>
             
         </div>
