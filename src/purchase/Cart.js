@@ -11,7 +11,7 @@ const Cart = () => {
     const [total, setTotal] = useState(0);
     const [refresh, setRefresh] = useState(0);
     const [idx, setIdx] = useState();
-    const [allchk, setAllchk] = useState();
+    const [allchk, setAllchk] = useState(false);
     
     //userSID의 카트리스트 받아와서 cart 에 저장
     const axiosCartList = async () => {
@@ -140,13 +140,13 @@ const Cart = () => {
 
     return(
         <div style={{width:'1000px',margin:'0 auto', padding:'20px'}}>
-            <h2><b><i class='fas fa-shopping-cart'></i> 장바구니</b></h2><br/>
+            <h2><b><i className='fas fa-shopping-cart'></i> 장바구니</b></h2><br/>
             <Table  hover>
                 <thead>
                     <tr>
                         <td>
                             <div className="form-check">
-                                <input onChange={onChangeCheckAll} type="checkbox" className="form-check-input" checked={allchk}/>
+                                <input onChange={onChangeCheckAll} type="checkbox" className="form-check-input" checked={allchk} value=""/>
                             </div>
                         </td>
                         <td style={{width:'100px'}}><h4><b>사진</b></h4></td>
