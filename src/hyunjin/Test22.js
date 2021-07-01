@@ -33,7 +33,6 @@ const Test22 = () => {
     }
 
     const onchangeInput = (e) => {
-        console.log(e.target.files[0].name);
         setImgname(e.target.files[0].name);
     }
 

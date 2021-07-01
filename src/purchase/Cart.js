@@ -1,19 +1,14 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Button } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
-import DeleteIcon from '@material-ui/icons/Delete';
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-
-import {Table} from 'reactstrap';
+import { Button } from 'reactstrap';
+import { Table } from 'reactstrap';
 
 
 const Cart = () => {
     const server = "http://192.168.0.13:9001";
-    const userSID = 5;
+    const userSID = 3;
     const [cart, setCart] = useState();
-    const [total, setTotal] = useState();
+    const [total, setTotal] = useState(0);
     const [refresh, setRefresh] = useState(0);
     const [idx, setIdx] = useState();
     const [allchk, setAllchk] = useState();
@@ -23,12 +18,6 @@ const Cart = () => {
         const {data} = await axios.get(server+"/cart/selectuser/"+userSID);
         console.log("cartList 결과:");
         console.log(data);
-        let total = 0;
-        data.map( (item) => {
-            total += item.entity*item.price;
-            return null;
-        })
-        setTotal(total);
         setCart(data);
     }
 
@@ -37,9 +26,16 @@ const Cart = () => {
         axiosCartList();
     },[refresh])
 
+    // cart 내역 바뀔때마다 항목 갯수 업데이트
     useEffect( () => {
         cart && setIdx(cart.length);
+        getTotal();
     },[cart])
+
+    useEffect( () => {
+        console.log("idx변화 캐치");
+        getTotal();
+    },[idx])
 
     //카트 항목 1개 증가
     const addCart = (item) => {
@@ -107,14 +103,17 @@ const Cart = () => {
         axiosCartToOrder();
     }
 
+    // 체크박스 전체 클릭시 처리
     const onChangeCheckAll = (e) => {
         setAllchk(e.target.checked);
         for(let i=0; i<idx; i++)
         {
             document.getElementById(i).checked = e.target.checked;
         }
+        getTotal();
     }
 
+    // 체크박스 1 항목 클릭시 처리
     const onChangeCheckOne = (e) => {
         let check = true;
         // 체크박스중 하나라도 false면 전부 false 처리
@@ -124,15 +123,24 @@ const Cart = () => {
                 check = false;
         }
         setAllchk(check);
+        getTotal();
     }
 
-    const btnStyle = {
-        float : 'left',
+    // 주문 총액 계산하여 출력 업데이트
+    const getTotal = () => {
+        let total = 0;
+        cart && cart.map( (row,idxorder) => {
+            const item = document.getElementById(idxorder);
+            if(item.checked === true)
+                total += row.price*row.entity;
+            return null;
+        })
+        setTotal(total);
     }
 
     return(
-        <div style={{width:'900px',margin:'0 auto', padding:'20px', border:'2px solid gray'}}>
-            <h2><b>장바구니</b></h2><br/>
+        <div style={{width:'1000px',margin:'0 auto', padding:'20px'}}>
+            <h2><b><i class='fas fa-shopping-cart'></i> 장바구니</b></h2><br/>
             <Table  hover>
                 <thead>
                     <tr>
@@ -141,11 +149,12 @@ const Cart = () => {
                                 <input onChange={onChangeCheckAll} type="checkbox" className="form-check-input" checked={allchk}/>
                             </div>
                         </td>
-                        <td>사진</td>
-                        <td style={{width:'300px'}}>상품</td>
-                        <td>가격</td>
-                        <td style={{width:'80px'}}>수량</td>
-                        <td><Button style={{float:'right'}} startIcon={<DeleteOutlineIcon/>} onClick={()=>removeUserCart(cart[0].userSID)} variant="outlined">전부 비우기</Button></td>
+                        <td style={{width:'100px'}}><h4><b>사진</b></h4></td>
+                        <td style={{width:'300px'}}><h4><b>상품</b></h4></td>
+                        <td style={{width:'100px'}}><h4><b>가격</b></h4></td>
+                        <td style={{width:'100px'}}><h4><b>수량</b></h4></td>
+                        <td style={{width:'100px'}}><h4><b>합계</b></h4></td>
+                        <td style={{width:'290px'}}><Button style={{float:'right'}} color="primary" onClick={()=>removeUserCart(cart[0].userSID)}>전체 비우기　<i className='fas fa-trash'/></Button></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -161,13 +170,13 @@ const Cart = () => {
                                     </td>
                                     <td>{item.image}</td>
                                     <td>{item.productName}</td>
-                                    <td>{item.price*item.entity}</td>
+                                    <td>{item.price}</td>
                                     <td>{item.entity}</td>
+                                    <td> {item.price*item.entity}</td>
                                     <td>
-                                    <Button style={btnStyle} startIcon={<AddIcon/>} onClick={()=>addCart(item)} variant="outlined"></Button>&nbsp;&nbsp;&nbsp;
-                                    <Button style={btnStyle} startIcon={<RemoveIcon/>} onClick={()=>removeOneCart(item)} variant="outlined"></Button>&nbsp;&nbsp;&nbsp;
-                                    <Button style={btnStyle} startIcon={<DeleteIcon/>} onClick={()=>removeLineCart(item)} variant="outlined"></Button>&nbsp;&nbsp;&nbsp;
-                                        
+                                        <Button style={{float:'right'}} color="primary" onClick={()=>removeLineCart(item)}><i className='fas fa-trash-alt'/></Button>&nbsp;&nbsp;&nbsp;
+                                        <Button style={{float:'right',marginRight:'30px'}} color="primary" onClick={()=>removeOneCart(item)}><i className='fas fa-minus'/></Button>&nbsp;&nbsp;&nbsp;
+                                        <Button style={{float:'right',marginRight:'10px'}} color="primary" onClick={()=>addCart(item)}><i className='fas fa-plus'/></Button>&nbsp;&nbsp;&nbsp;
                                     </td>
                                 </tr>
                             )
@@ -177,8 +186,12 @@ const Cart = () => {
                 </tbody>
             </Table>
             <hr/>
-            <h2 style={{display:'inline'}}>총 주문액 : {total}</h2>
-            {cart && cart[0] && <Button style={{alignItems:'center',float:'right'}} onClick={()=>cartToOrder(cart[0].userSID)} variant="outlined">주문하기!</Button>}
+            {cart && cart[0] && <Button style={{alignItems:'center',float:'right'}} size="lg" color="primary" onClick={()=>cartToOrder(cart[0].userSID)}>주문하기</Button>}
+            <h2 style={{display:'inline',float:'right',marginRight:'30px'}}>
+                총 주문액&nbsp;
+
+                {total} 원
+            </h2>
             
         </div>
     )
