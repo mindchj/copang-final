@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import './Product.css';
 
 const ProductListRowItem = (props) => {
-    console.log(props.row)
     let itemId = props.row.itemId
 
     return (

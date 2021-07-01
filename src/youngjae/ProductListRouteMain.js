@@ -12,7 +12,6 @@ const ProductListRouteMain = () =>{
     return (
         <div>
             <Route exact path="/member/4" component={ProductList}/>
-            <Route exact path="/member/4" component={ProductAddTest}/>
             <Route path="/member/4/product/selectOne/:itemId" component={ProductDetail}/>
             <Route path="/member/4/product/selectOne/:itemId/ProductDescBottom" component={ProductDescBottom}/>
             <Route path="/member/4/product/selectOne/:itemId/ProductReviewBottom" component={ProductReviewBottom}/>
