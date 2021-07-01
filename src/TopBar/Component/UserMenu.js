@@ -1,6 +1,6 @@
 /*eslint-disable jsx-a11y/anchor-is-valid */
 
-//import { USER_SERVER } from '../../../Config';
+// import { USER_SERVER } from '../../Config';
 import React from 'react';
 import { Breadcrumbs } from '@material-ui/core';
 import axios from 'axios';
@@ -13,6 +13,7 @@ function UserMenu(props) {
   // const user = useSelector(state => state.user)
   const USER_SERVER = '/api/auth';
   const logoutHandler = () => {
+    delete axios.defaults.headers.common['Authorization'];
     // axios.get(`${USER_SERVER}/auth/logout`).then(response => {
     //   if (response.status === 200) {
     //     props.history.push("/login");
@@ -20,9 +21,10 @@ function UserMenu(props) {
     //     alert('Log Out Failed')
     //   }
     // });
-    window.localStorage.setItem('accessToken', "");
+    window.localStorage.setItem('userId', "");
   };
-  return !window.localStorage.getItem('accessToken')  ? (
+  return !window.localStorage.getItem('userId')  ? (
+  //return !window.localStorage.getItem('accessToken')  ? (
     <Breadcrumbs aria-label="breadcrumb" style={{marginRight:'20px'}}>
       <div key="mail">
         <Link to="/login">로그인</Link>

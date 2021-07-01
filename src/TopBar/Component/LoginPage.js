@@ -16,6 +16,8 @@ import Container from '@material-ui/core/Container';
 import { withRouter } from "react-router-dom";
 import { loginUser } from "../../_actions/user_actions";
 import { useDispatch } from "react-redux";
+
+import axios from 'axios';
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -77,6 +79,7 @@ function LoginPage(props) {
                     if (response.payload.message === 'success') {
                         window.localStorage.setItem('userId', response.payload.data.username);
                         window.localStorage.setItem('accessToken', accessToken);
+                        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                         props.history.push("/");
                     } else {
                         setFormErrorMessage('비밀번호 또는 계정을 확인해주세요')
@@ -85,7 +88,7 @@ function LoginPage(props) {
                 .catch(err => {
                     setFormErrorMessage('비밀번호 또는 계정을 확인해주세요')
                     setTimeout(() => {
-                        setFormErrorMessage("")
+                        setFormErrorMessage("로그인 실패")
                     }, 3000);
                 });
         }, 500);
