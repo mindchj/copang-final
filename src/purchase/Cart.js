@@ -15,6 +15,7 @@ const Cart = () => {
     const [cart, setCart] = useState();
     const [total, setTotal] = useState();
     const [refresh, setRefresh] = useState(0);
+    const [idx, setIdx] = useState();
     
     //userSID의 카트리스트 받아와서 cart 에 저장
     const axiosCartList = async () => {
@@ -34,6 +35,10 @@ const Cart = () => {
     useEffect( ()=>{
         axiosCartList();
     },[refresh])
+
+    useEffect( () => {
+        cart && setIdx(cart.length);
+    },[cart])
 
     //카트 항목 1개 증가
     const addCart = (item) => {
@@ -101,6 +106,35 @@ const Cart = () => {
         axiosCartToOrder();
     }
 
+    const onChangeCheckAll = (e) => {
+        //idx 수만큼 반복해서 체크박스들 체크여부 total 구하기
+        let check = true;
+        for(let i=0; i<=idx; i++)
+        {
+            if(document.getElementById(i).checked===false)
+            {
+                console.log("false체크발견");
+                check = false;
+            }
+        }
+        console.log("result:"+check);
+        // 하나이상 check === false 이면 all check true
+        for(let i=0;i<=idx;i++)
+        {
+            const temp = document.getElementById(i);
+            temp.check = !check;
+        }
+        // all check true 이면 all check false
+    }
+
+    const onChangeCheckOne = (e) => {
+        console.log(e.target);
+        console.log("id:"+e.target.id);
+        console.log("checked:"+e.target.checked);
+        const temp = document.getElementById(e.target.id).checked;
+        console.log(temp);
+    }
+
     const btnStyle = {
         float : 'right',
     }
@@ -111,6 +145,11 @@ const Cart = () => {
             <Table  hover>
                 <thead>
                     <tr>
+                        <td>
+                            <div className="form-check">
+                                <input onChange={onChangeCheckAll} type="checkbox" className="form-check-input" value=""/>
+                            </div>
+                        </td>
                         <td>사진</td>
                         <td>상품</td>
                         <td>수량</td>
@@ -121,17 +160,26 @@ const Cart = () => {
                 <tbody>
                 {
                     cart && cart.map( (item, idx)=>
-                        <tr key={idx}>
-                            <td>{item.image}</td>
-                            <td>{item.productName}</td>
-                            <td>{item.entity}</td>
-                            <td>{item.price*item.entity}</td>
-                            <td>
-                                <Button style={btnStyle} startIcon={<DeleteIcon/>} onClick={()=>removeLineCart(item)} variant="outlined"></Button>&nbsp;&nbsp;&nbsp;
-                                <Button style={btnStyle} startIcon={<RemoveIcon/>} onClick={()=>removeOneCart(item)} variant="outlined"></Button>&nbsp;&nbsp;&nbsp;
-                                <Button style={btnStyle} startIcon={<AddIcon/>} onClick={()=>addCart(item)} variant="outlined"></Button>&nbsp;&nbsp;&nbsp;
-                            </td>
-                        </tr>
+                        {
+                            return(
+                                <tr key={idx}>
+                                    <td>
+                                        <div className="form-check">
+                                            <input id={idx} onChange={onChangeCheckOne} type="checkbox" className="form-check-input" value=""/>
+                                        </div>
+                                    </td>
+                                    <td>{item.image}</td>
+                                    <td>{item.productName}</td>
+                                    <td>{item.entity}</td>
+                                    <td>{item.price*item.entity}</td>
+                                    <td>
+                                        <Button style={btnStyle} startIcon={<DeleteIcon/>} onClick={()=>removeLineCart(item)} variant="outlined"></Button>&nbsp;&nbsp;&nbsp;
+                                        <Button style={btnStyle} startIcon={<RemoveIcon/>} onClick={()=>removeOneCart(item)} variant="outlined"></Button>&nbsp;&nbsp;&nbsp;
+                                        <Button style={btnStyle} startIcon={<AddIcon/>} onClick={()=>addCart(item)} variant="outlined"></Button>&nbsp;&nbsp;&nbsp;
+                                    </td>
+                                </tr>
+                            )
+                        }
                     )
                 }
                 </tbody>
