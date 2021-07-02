@@ -9,6 +9,7 @@ import './css/Tab.css';
 import {MyCopangPay} from './MyCopangPay';
 import MyCopangAddress from './MyCopangAddress';
 import MyCopangAddressAddForm from './MyCopangAddressForm';
+import AddressUpdateForm from './AddressUpdateForm';
 
 // Navigation
 // const MyCopangNavi = () => {
@@ -24,19 +25,19 @@ import MyCopangAddressAddForm from './MyCopangAddressForm';
 const Order = () => {
     const [orderList, setOrderList] = useState([]);
 
-    const orderListUrl = "https://yts.mx/api/v2/list_movies.json";
-    useEffect(() => {
-        //getOrderList 비동기 함수 생성 
-        const getOrderList = async () => {
-            const {
-                data: {
-                    data: { movies }
-                }
-            } = await axios.get(orderListUrl);
-            setOrderList(movies);
-        }
-        getOrderList();
-    }, []);
+    // const orderListUrl = "https://al.conn/api/order/client/";
+    // useEffect(() => {
+    //     //getOrderList 비동기 함수 생성 
+    //     const getOrderList = async () => {
+    //         const {
+    //             data: {
+    //                 data: { orderItems }
+    //             }
+    //         } = await axios.get(orderListUrl);
+    //         setOrderList(orderItems);
+    //     }
+    //     getOrderList();
+    // }, []);
 
     return (
         <div className="mc-main-content">
@@ -238,6 +239,7 @@ const MyCopangTemplate = () => {
                                 <Route path="/co-pay" component={MyCopangPay} />
                                 <Route exact path="/my-addr" component={MyCopangAddress} />
                                 <Route exact path="/address-add-page" component={MyCopangAddressAddForm} />
+                                <Route exact path="/address-update-page" component={AddressUpdateForm} />
                             </Switch>
                         </div>
                     </div>

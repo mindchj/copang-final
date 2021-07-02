@@ -11,44 +11,36 @@ import axios from 'axios';
 
 export default function MyCopangAddressForm({ history }) {
   let xs = 10;
-  const [addrValues, setAddrValues] = useState({ name: "", postCode: "", phoneNumber: "", requestMessage: "" });
+  const [addrValues, setAddrValues] = useState({ address: "", detail:"", receiverName: "",  receiverPhone: "", preRequest: ""});
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(e.target);
-    setAddrValues({ ...addrValues, [name]: value });
+    setAddrValues({ ...addrValues, [name] : value });
   }
-
-  // const SubmitAddr = (addrValues) => {
-  //   const uri = "11111111111";
-  //   useEffect(() => {
-  //     const postAddr = async () => {
-  //       const data = await axios.post(uri, addrValues)
-  //     }
-  //     postAddr();
-  //   }, []);
+  // const onClickChange = (e) => {
+  //   console.log(e.target.checked)
+  //   e.target.value = e.target.checked
   // }
-  const onSubmit = () => {
-    // console.log({ ...addrValues });
-    // console.log(addrValues);
-    history.push("/my-addr",addrValues)
-    // history.push({
-    //   pathname: "/my-addr",
-    //   state: {...addrValues}
-    // })
+  const SubmitAddr = () => {
+    const uri = 'https://alconn.co/api/address';
+    const postAddr = async () => {
+      await axios.post(uri, addrValues);
+    }
+    postAddr()
+    .then(history.push("/my-addr"))
   }
 
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        배송지 주소
+        배송지 주소 추가
       </Typography>
       <Grid container spacing={4}>
         <Grid item xs={xs} sm={4}>
           <TextField
             required
-            id="firstName"
-            name="name"
-            value={addrValues.name}
+            id="receiverName"
+            name="receiverName"
+            value={addrValues.receiverName}
             label="받는 사람"
             fullWidth
             autoComplete="given-name"
@@ -58,9 +50,9 @@ export default function MyCopangAddressForm({ history }) {
         <Grid item xs={xs} sm={6}>
           <TextField
             required
-            id="phoneNumber"
-            name="phoneNumber"
-            value={addrValues.phoneNumber}
+            id="receiverPhone"
+            name="receiverPhone"
+            value={addrValues.receiverPhone}
             label="전화번호"
             fullWidth
             onChange={handleChange}
@@ -69,9 +61,9 @@ export default function MyCopangAddressForm({ history }) {
         <Grid item xs={xs}>
           <TextField
             required
-            id="postCode"
-            name="postCode"
-            value={addrValues.postCode}
+            id="address"
+            name="address"
+            value={addrValues.address}
             label="배송 주소를 입력해주세요"
             fullWidth
             autoComplete="shipping address-line"
@@ -80,9 +72,21 @@ export default function MyCopangAddressForm({ history }) {
         </Grid>
         <Grid item xs={xs}>
           <TextField
-            id="requestMessage"
-            name="requestMessage"
-            value={addrValues.requestMessage}
+            required
+            id="detail"
+            name="detail"
+            value={addrValues.detail}
+            label="상세 주소 입력해주세요"
+            fullWidth
+            autoComplete="shipping address-line"
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={xs}>
+          <TextField
+            id="preRequest"
+            name="preRequest"
+            value={addrValues.preRequest}
             label="요청 사항을 말씀해주세요"
             fullWidth
             onChange={handleChange}
@@ -91,13 +95,16 @@ export default function MyCopangAddressForm({ history }) {
         <Grid item xs={xs}>
           <FormControlLabel
             control={
-              <Checkbox color="primary" name="saveAddress" value="yes" />
+              <Checkbox color="primary" name="saveAddress" value={addrValues.saveAddress}
+              onChange={handleChange}
+              // onClick={onClickChange}
+              />
             }
             label="기본 배송지로 선택"
           />
         </Grid>
         <Grid container item xs={xs} justify="center" >
-          <Button variant="contained" color="primary" onClick={onSubmit} >저장하기</Button>
+          <Button variant="contained" color="primary" onClick={SubmitAddr}>저장하기</Button>
         </Grid>
       </Grid>
     </React.Fragment>

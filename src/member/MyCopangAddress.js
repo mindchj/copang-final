@@ -3,55 +3,53 @@ import axios from 'axios';
 import { Button } from '@material-ui/core';
 import styled from 'styled-components';
 
-// 배송지 목록 패치에오기 
-// const FetchAddress = () => {
-//     const [addrList, setAddrList] = useState([]);
+const FetchAddress = () => {
 
-//     const addrListUrl = ;
-//     useEffect(() => {
+}
 
-//         const getAddrList = async () => {
-//             const { data } = await axios.get(addrListUrl);
-//             setAddrList(data );
-//         }
-//         getAddrList();
-//     }, []);
-// }
+const MyCopangAddress = ({ history, match, location }, props) => {
+    const [addrList, setAddrList] = useState([]);
+    // 주소 목록 읽어오기 
+    const addrListUrl = 'https://alconn.co/api/address';
+    const getAddrList = async () => {
+        const { data : {
+            data
+        }} = await axios.get(addrListUrl);
+        setAddrList(data);
+        // console.log(data);
+    }
+    useEffect(() => {
+        getAddrList()
+    }, []);
 
-const MyCopangAddress = ({ history,match,location },props) => {
-    const addrList = [
-        {
-            id: 1,
-            name: "오택원",
-            label: "기본배송지",
-            addr: "경기도 성남시 분당구 구미동",
-            phone: "010-1111-1111",
-            location: " 문 앞",
-        },
-        {
-            id: 2,
-            name: "유유유유",
-            label: "낫띵",
-            addr: "ㅁㄴㅇㄹ호",
-            phone: "010-1111-1111",
-            location: " 문 앞",
-        }
-    ]
-
+    //
     const MyCopangAddrBoxItem = styled.div`
         border: 3px solid gray;
         margin-bottom : 1px;
     `;
+    const onDelete = (addressId) => {
+        console.log(addressId);
+        const deleteUri = 'https://alconn.co/api/address/'+addressId;
+        const deleteAddrList = async () => {
+            await axios.delete(deleteUri)
+        }
+        deleteAddrList()
+        .then( () =>   getAddrList() );
+        
+    }
 
     return (
         <div className="MyCopangAddr-box">
+            
             {addrList.map(item => (
-                <MyCopangAddrBoxItem key={item.id}>
-                    <div className="MyCopangAddr-title">{item.name}</div>
-                    <div className="MyCopangAddr-label">{item.label}</div>
-                    <div className="MyCopangAddr-addr">{item.addr}</div>
-                    <div className="MyCopangAddr-phone">{item.phone}</div>
-                    <div className="MyCopangAddr-location">{item.location}</div>
+                <MyCopangAddrBoxItem key={item.addressId}>
+                    <div className="MyCopangAddr-title">{item.receiverName}</div>
+                    <div className="MyCopangAddr-addr">{item.address}</div>
+                    <div className="MyCopangAddr-detail">{item.detail}</div>
+                    <div className="MyCopangAddr-phone">{item.receiverPhone}</div>
+                    <div className="MyCopangAddr-preRequest">{item.preRequest}</div>
+                    <Button onClick={()=>onDelete(item.addressId)}>삭제</Button>
+                    <Button onClick={()=> history.push({pathname:"/address-update-page", state : {addrValues:item}})}>수정</Button>
                 </MyCopangAddrBoxItem>
             ))
             }

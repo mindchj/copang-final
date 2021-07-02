@@ -15,7 +15,7 @@ div.header{
     justify-content: space-between;
     min-width: 60%; 
     width: 60%;
-    margin-left: 25%;
+    margin-left: 18%;
 }
 
 div.dsecImage{
@@ -138,12 +138,12 @@ div.cartPerchase{
 }
 
 div.otherProduct{
-    width : 80%;
-    margin-left: 23%;
+    width : 75%;
+    margin-left: 14%;
 }
 
 div.productMenuBar{
-    margin-left: 18%;
+    margin-left:14%;
     width: 75%;
 }
 
@@ -177,7 +177,7 @@ div.product-question-desc{
 }
 
 div.product-question-desc-header{
-    margin-left: 9%;
+    margin-left: 10%;
     width: 83%;
     height: 1000px;
     border:1px solid #aaa;
@@ -224,7 +224,7 @@ div.product-review{
 }
 
 div.product-review-header{
-    margin-left: 9%;
+    margin-left: 10%;
     width: 83%;
     height: 1000px;
     border-top:1px solid #aaa;

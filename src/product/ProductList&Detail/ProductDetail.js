@@ -5,6 +5,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import StarIcon from '@material-ui/icons/Star';
 
 
+const numberFormat = (num) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
+
 const ProductDetail = ({ match, history }) => {
     //history로 보낸 itemId를 match.params로 받음 
     let itemId = match.params.itemId;
@@ -61,7 +65,7 @@ const ProductDetail = ({ match, history }) => {
                     <div className="productdesc" >
                         <div className="productName" style={{ width: '479px', borderBottom: '1px sloid gray' }}><h2>{ProductOne.itemName}</h2>{ProductOne.description}</div>
                         <div className="productStar"><StarIcon className="smstar"></StarIcon></div>
-                        <div className="productPrice"><div style={{ marginTop: '10px' }}><strong style={{ fontSize: '16pt', color: '#AE0000' }}>{ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].price}</strong>원</div></div>
+                        <div className="productPrice"><div style={{ marginTop: '10px' }}><strong style={{ fontSize: '16pt', color: '#AE0000' }}>{ProductOne.itemDetailFormList&&numberFormat(ProductOne.itemDetailFormList[0].price)}</strong>원</div></div>
                         <div className="productSizeColor">
                             <div className="productSize">
                                 {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].optionName} : &nbsp; <button onClick={() => history.push("/member/4/ProductAddTest")}>추가폼</button>
@@ -147,7 +151,7 @@ const ProductDetail = ({ match, history }) => {
                                                     </div>
                                                     <div className="price-area">
                                                         <em className="sale">
-                                                            <strong className="price-value">{row.price}</strong>원
+                                                            <strong className="price-value">{numberFormat(row.price)}</strong>원
                                                         </em>
                                                     </div>
                                                 </div>
