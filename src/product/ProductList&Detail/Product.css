@@ -392,3 +392,71 @@ span.writeDate{
     font-size: 10pt;
     color: #aaa;
 }
+
+button.review-rules{
+    float: right;
+    font-size: 10pt;
+    color: #346aff;
+    background-color: white;
+    border: none;
+}
+
+button.write-review{
+    float: right;
+    background-color: #346aff;
+    width: 106px;
+    height: 32px;
+    font-size: 10pt;
+    color: #eee;
+    border: none;
+    border-radius: 10px;
+    margin-left: 1%;   
+}
+
+div.review-header-section{
+    border-top: 1px solid #346aff;
+    border-left:1px solid #ddd;
+    border-right:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+    height: 10%;
+}
+
+div.review-header-section-content{
+    width: 90%;
+    height: 100%;
+    float: right;
+}
+
+div.service-review-question-wrap{
+    border-top: 1px solid black;
+
+}
+
+div.service-review-question{
+    border-bottom: 1px solid #ddd;
+    height: 100px;
+}
+
+div.service-review-wrap{
+    border-bottom: 1px solid #ddd ;
+    height: 100px;
+}
+
+div.product-review-wrap{
+    border-top:1px solid black;
+}
+
+div.product-review-question{
+    border-bottom: 1px solid #ddd;
+    height: 100px;
+}
+
+div.review-content{
+    border-bottom: 1px solid #ddd;
+    height: 100px;
+}
+
+div.review-image-wrap{
+    border: 1px soild #ddd;
+    height: 100px;
+}

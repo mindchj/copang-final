@@ -110,17 +110,18 @@ const ProductDetail = ({ match, history }) => {
                                     });
                                 }
                                 axiosAddOneCart();
+                                console.log(sendData)
                                 alert("장바구니에 담겼습니다.")
                                 }}>장바구니 담기</button>
                             <button className="perchase" onClick={
                                 () => {
                                     const data = {
-                                        name: ProductOne.itemName,
+                                        itemName: ProductOne.itemName,
                                         price: ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].price,
-                                        entity: su,
-                                        imageName: ProductOne.image,
-                                        userSID: 20,
-                                        itemNo : itemId
+                                        amount: su,
+                                        mainImg: ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].mainImg,
+                                        itemNo : itemId,
+                                        from : 'product'
                                     }
                                     history.push("/member/4/orderpage", data);
                                 }

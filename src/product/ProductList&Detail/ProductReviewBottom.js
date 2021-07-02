@@ -3,7 +3,7 @@ import axios from 'axios';
 import Modal from './ProductReviewModal';
 import StarIcon from '@material-ui/icons/Star';
 
-const ProductReviewBottom = () => {
+const ProductReviewBottom = (props) => {
 
     const [Review, setReview] = useState([]);
     useEffect(() => {
@@ -29,7 +29,7 @@ const ProductReviewBottom = () => {
             <div className="product-review">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <div className="product-review-header">
-                    <div style={{ fontWeight: 'bold', fontSize: '1.5em', marginTop: '3%' }}>상품평<button style={{ float: 'right', fontSize: '10pt', color: '#346AFF',border:'none',backgroundColor:'white'}} onClick={openModal}>상품평 운영원칙</button></div>
+                    <div style={{ fontWeight: 'bold', fontSize: '1.5em', marginTop: '3%' }}>상품리뷰<button className="write-review" onClick={()=>props.history.push("/member/4/ProductReviewBottom/review/write")}>상품리뷰 작성</button><button className="review-rules" onClick={openModal}>상품리뷰 운영원칙</button></div>
                     <Modal open={modalOpen} close={closeModal} header="상품평 운영원칙">
                         <div style={{fontWeight:'bold', fontSize:'1.5em'}}>※ 상품평 운영원칙 및 관련 법령에 위반되는 경우에는 해당 상품평에 대한 임시 대처, 비공개 전환, 삭제 등의 필요한 조치가 취해질 수 있습니다.</div>
                         ①  본 운영정책에서 말하는 상품평 및 상품문의 게시판(이하 ‘게시판 등’)은 다음과 같습니다.<br />
