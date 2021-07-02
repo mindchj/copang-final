@@ -10,6 +10,10 @@ function BottomSection(props) {
     console.log(props.totalPrice);
   }, [props.totalPrice]);
 
+  const numberFormat = (num) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  }
+
   return (
     <div>
       <div className="row bottom">
@@ -19,7 +23,7 @@ function BottomSection(props) {
           </h5>
         </div>
         <div className="col-3">
-          <h3 className="text-right">{props.totalPrice}원</h3>
+          <h3 className="text-right">{props.totalPrice && numberFormat(props.totalPrice)}원</h3>
         </div>
       </div>
       <div className="row button justify-content-end">

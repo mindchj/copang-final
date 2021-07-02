@@ -2,6 +2,9 @@ import React from "react";
 //import axios from "axios";
 //import {totalPrice} from "./ProductInfo";
 
+const numberFormat = (num) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
 
 function TopSection(props){
 
@@ -14,7 +17,7 @@ function TopSection(props){
                 <h1>Review your order</h1>
             </div>
             <div className = "col ">
-                <h4>Total Price : {props.totalPrice}원 </h4>
+                <h4>Total Price : {props.totalPrice && numberFormat(props.totalPrice)}원 </h4>
             </div>
             <div className = "col">
                 <button type = "button" 

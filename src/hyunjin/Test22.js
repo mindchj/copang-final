@@ -23,9 +23,9 @@ const Test22 = () => {
             const token = localStorage.getItem("accessToken");
             console.log(token);
             const data = {
-                "itemId" : 1002,
-                "itemDetailId" : 1003,
-                "amount" : 2
+                "itemId" : 1009,
+                "itemDetailId" : 1010,
+                "amount" : 7
             }
             const result = await axios.post("https://alconn.co/api/cart/item",data)
             console.log(result);

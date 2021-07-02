@@ -6,58 +6,12 @@ import './Cart2.css';
 
 
 const Cart2 = () => {
-    const server = "http://192.168.0.13:9001";
-    const userSID = 3;
     const [cart, setCart] = useState();
     const [total, setTotal] = useState(0);
     const [refresh, setRefresh] = useState(0);
     const [idx, setIdx] = useState();
     const [allchk, setAllchk] = useState();
-    
-
-
-
-    const getCart2 = () => {
-        const axiosGetCart = async () => {
-            const result = await axios.get("https://alconn.co/api/cart");
-            console.log(result);
-        }
-        axiosGetCart();
-    }
-
-    const addCart2 = () => {
-        const axiosAddCart = async () => {
-            const data = {
-                "itemId" : 1002,
-                "itemDetailId" : 1003,
-                "amount" : 2
-            }
-            const result = await axios.post("https://alconn.co/api/cart/item",data)
-            console.log(result);
-        }
-        axiosAddCart();
-    }
-
-
-    // amount: 5
-    // cartId: 1043
-    // itemDetailId: 1003
-    // itemId: 1002
-    // itemName: "과자"
-    // mainImg: ""
-    // optionName: "맛"
-    // optionValue: "매운맛"
-    // price: 600
-    // unitTotal: 0
-
-
-
-
-
-
-
-
-
+ 
     //userSID의 카트리스트 받아와서 cart 에 저장
     const axiosCartList = async () => {
         const {data} = await axios.get("https://alconn.co/api/cart");
@@ -78,7 +32,6 @@ const Cart2 = () => {
     },[cart])
 
     useEffect( () => {
-        console.log("idx변화 캐치");
         getTotal();
     },[idx])
 
@@ -133,16 +86,16 @@ const Cart2 = () => {
         axiosRemoveUserCart();
     }
     //카트 담긴 내역을 주문서로 이동
-    const cartToOrder = (userSID) => {
-        //여기서 구매창으로 페이지 이동시킴. 밑의 axios는 원래 구매창에서 실행할 함수
-        const axiosCartToOrder = async () => {
-            const result = await axios.get(server+"/order/insertcart/"+userSID);
-            console.log("cartToOrder 결과:");
-            console.log(result);
-            //구매창으로 이동 후 결제 되었다 가정, 장바구니 비우고 주문서 추가
-            setRefresh(prev => prev+1);
+    const cartToOrder = () => {
+        console.log(total);
+        if(total === 0 )
+        {
+            alert("주문할 항목을 선택해 주세요");
+            console.log("주문액 0");
         }
-        axiosCartToOrder();
+        //여기서 구매창으로 페이지 이동시킴. 밑의 axios는 원래 구매창에서 실행할 함수
+        //여기서 history.push(url)로 구매창 이동시키면 알아서 토큰으로 장바구니 로드해오기
+        //구매창 작업자에게, 구매 완료후 장바구니 비워줄 것 요청
     }
 
     // 체크박스 전체 클릭시 처리
@@ -232,7 +185,7 @@ const Cart2 = () => {
                 </tbody>
             </Table>
             <hr/>
-            {cart && cart[0] && <Button style={{alignItems:'center',float:'right'}} size="lg" color="primary" onClick={()=>cartToOrder(cart[0].userSID)}>주문하기</Button>}
+            {cart && cart[0] && <Button style={{alignItems:'center',float:'right'}} size="lg" color="primary" onClick={cartToOrder}>주문하기</Button>}
             <h2 style={{display:'inline',float:'right',marginRight:'30px'}}>
                 총 주문액&nbsp;
 

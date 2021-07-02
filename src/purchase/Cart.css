@@ -1,0 +1,32 @@
+thead h4{
+    height : 30px;
+    line-height: 50px;
+}
+
+tbody td{
+    height: 100px;
+    line-height: 100px;
+    vertical-align: middle;
+}
+
+thead input {
+    height:50px;
+   line-height:50px;
+}
+
+tbody input {
+    height:100px;
+    line-height: 100px;
+}
+
+thead button {
+    margin-top: 5%;
+}
+
+tbody button {
+    margin-top: 13%;
+}
+
+.body-td {
+    font-size: 13pt;
+}
