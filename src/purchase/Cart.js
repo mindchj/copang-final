@@ -11,6 +11,7 @@ const Cart2 = (props) => {
     const [idx, setIdx] = useState();
     const [allchk, setAllchk] = useState();
     const [clientId, setClientId] = useState();
+    const [cartId, setCartId] = useState();
     
 
     //user의 카트리스트 받아와서 cart 에 저장
@@ -20,7 +21,7 @@ const Cart2 = (props) => {
         console.log(data);
         setCart(data.data.cartItems);
         setClientId(data.data.clientId);
-
+        setCartId(data.data.cartId);
     }
 
     //refresh 될 때마다 카트리스트 리렌더링
@@ -88,10 +89,6 @@ const Cart2 = (props) => {
         }
         axiosRemoveUserCart();
     }
-    // cart 데이터를 받아서 order 데이터로 변환
-    const convert = (cart) => {
-
-    }
     //카트 담긴 내역을 주문서로 이동
     const cartToOrder = () => {
         if(total === 0 )
@@ -110,6 +107,7 @@ const Cart2 = (props) => {
             const cartData = {
                 from : "cart",
                 clientId : clientId,
+                cartId : cartId,
                 list : cartOrder,
             }
             console.log(cartData);

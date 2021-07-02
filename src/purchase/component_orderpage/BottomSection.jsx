@@ -27,11 +27,9 @@ useEffect( ()=>{
   }
 
   const placeOrder = () => {
-    console.log(props.clientId);
-    console.log("convert 후");
-    console.log(props.convert());
     const orderData = {
       clientId : props.clientId,
+      cartId : props.cartId,
       addressId : addId, //임시값, address 작업후 수정
       totalAmount : 0, //임시값
       totalPrice : 0, // 임시값
@@ -41,7 +39,27 @@ useEffect( ()=>{
     console.log(orderData);
     const axiosPlaceOrder = async () => {
       const result = await axios.post("https://alconn.co/api/orders",orderData);
+      console.log("order result:");
       console.log(result);
+      //주문후 기존 장바구니 체크박스 체크한 상품들 비우기
+      const cartItems = props.convert();
+      // cartItems.map( (item) => {
+      //   const axiosDelCart = () => {
+      //     const res = axios.delete("https://alconn.co/api/cart/item/"+item.itemDetailId);
+      //     console.log(res);
+      //   }
+      //   axiosDelCart();
+      // })
+      for(let i=0; i<cartItems.length; i++)
+      {
+        console.log("for 문 시작");
+        const axiosDelCart = () => {
+          const res = axios.delete("https://alconn.co/api/cart/item/"+cartItems[i].itemDetailId);
+          console.log("delete 결과:");
+          console.log(res);
+        }
+        axiosDelCart();
+      }
     }
     axiosPlaceOrder();
   }
