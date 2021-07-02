@@ -5,25 +5,25 @@ const Menu = () => {
         <div>
             <ul>
                 <li>
-                    <Link to="/member/1">Member1</Link>
+                    <Link to="/member/1">장바구니</Link>
                 </li>
                 <li>
-                    <Link to="/member/2">Member2</Link>
+                    <Link to="/member/2">판매자 상품등록</Link>
                 </li>
                 <li>
-                    <Link to="/member/3">Member3</Link>
+                    <Link to="/member/3">주문/결제 완료창</Link>
                 </li>
                 <li>
-                    <Link to="/member/4">Member4</Link>
+                    <Link to="/member/4">상품 리스트</Link>
                 </li>
                 <li>
-                    <Link to="/member/5">Member5</Link>
+                    <Link to="/member/5">마이 페이지</Link>
                 </li>
                 <li>
-                    <Link to="/member/6">Member6</Link>
+                    <Link to="/member/6">Test</Link>
                 </li>
                 <li>
-                    <Link to="/member/7">Member7</Link>
+                    <Link to="/member/7">Test2</Link>
                 </li>
             </ul>
             <hr/>

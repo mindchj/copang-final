@@ -18,6 +18,26 @@ function ProductInfo({ location }) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   }
 
+  const convert = () => {
+      let orderData = [];
+      for(let i=0; i<product.length; i++)
+      {
+        orderData.push(
+          {
+            itemName : product[i].itemName,
+            itemDetailId : product[i].itemDetailId,
+            optionName : product[i].optionName,
+            optionValue : product[i].optionValue,
+            itemId : product[i].itemId,
+            price : product[i].price,
+            amount : product[i].amount,
+            unitTotal : product[i].unitTotal,
+          }
+        )
+      }
+      return orderData;
+  }
+
   useEffect(() => {
     //location.state.from 이 "cart" 이면 cart 라는 서버 DB의 장바구니 테이블에서 데이터를 가져온다.
     //곧 해당 주문은 장바구니 페이지에서 주문하기 버튼을 통해 들어온 것
@@ -85,7 +105,7 @@ function ProductInfo({ location }) {
         );
       })}
       <Payment />
-      <BottomSection totalPrice={totalPrice} />
+      <BottomSection totalPrice={totalPrice} convert={convert} clientId={location.state.clientId} />
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Button } from 'reactstrap';
-import { Table } from 'reactstrap';
+import { Table, Button } from 'reactstrap';
 import './Cart.css';
 
 
@@ -11,6 +10,7 @@ const Cart2 = (props) => {
     const [refresh, setRefresh] = useState(0);
     const [idx, setIdx] = useState();
     const [allchk, setAllchk] = useState();
+    const [clientId, setClientId] = useState();
     
 
     //user의 카트리스트 받아와서 cart 에 저장
@@ -19,6 +19,8 @@ const Cart2 = (props) => {
         console.log("cartList 결과:");
         console.log(data);
         setCart(data.data.cartItems);
+        setClientId(data.data.clientId);
+
     }
 
     //refresh 될 때마다 카트리스트 리렌더링
@@ -86,6 +88,10 @@ const Cart2 = (props) => {
         }
         axiosRemoveUserCart();
     }
+    // cart 데이터를 받아서 order 데이터로 변환
+    const convert = (cart) => {
+
+    }
     //카트 담긴 내역을 주문서로 이동
     const cartToOrder = () => {
         if(total === 0 )
@@ -103,10 +109,11 @@ const Cart2 = (props) => {
             }
             const cartData = {
                 from : "cart",
+                clientId : clientId,
                 list : cartOrder,
             }
             console.log(cartData);
-            props.history.push("/member/3",cartData);
+            props.history.push("/order/do",cartData);
         }
         //여기서 구매창으로 페이지 이동시킴. 밑의 axios는 원래 구매창에서 실행할 함수
         //여기서 history.push(url)로 구매창 이동시키면 알아서 토큰으로 장바구니 로드해오기
