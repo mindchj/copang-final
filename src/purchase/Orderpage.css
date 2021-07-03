@@ -70,6 +70,7 @@ div.product div.productImage img {
 div.product div.col-5 h5.productName {
   color: rgb(0, 124, 248);
   font-weight: bold;
+  margin-left: 50px;
 }
 
 div.payment {

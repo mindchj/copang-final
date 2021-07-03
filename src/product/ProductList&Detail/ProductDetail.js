@@ -5,23 +5,25 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import StarIcon from '@material-ui/icons/Star';
 
 
-const ProductDetail = ({ match, history }) => {
-    let itemId = match.params.itemId;
-    
-    
-    const [ProductOne, setProductOne] = useState([]);
+const numberFormat = (num) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
 
+const ProductDetail = ({ match, history }) => {
+    //history로 보낸 itemId를 match.params로 받음 
+    let itemId = match.params.itemId;
+
+    //개별상품의 정보를 itemId로 받아 ProductOne에 저장 
+    const [ProductOne, setProductOne] = useState([]);
     useEffect(() => {
         const res = async () => {
             const result = await axios.get("https://alconn.co/api/item/list/itemid=" + itemId);
             setProductOne(result.data.data)
-            console.log(result)
         }
         res();
     }, [itemId])
-    console.log(ProductOne)
+
     const [ProductList, setProductList] = useState([]);
-    console.log(ProductList)
     useEffect(() => {
         const res = async () => {
             const result = await axios.get("https://alconn.co/api/item/list");
@@ -29,13 +31,6 @@ const ProductDetail = ({ match, history }) => {
         }
         res();
     }, [])
-
-    const sendData = {
-        userSID: 5,
-        entity: 2,
-        itemId,
-    }
-
     const [Review, setReview] = useState([]);
     useEffect(() => {
         const res = async () => {
@@ -54,13 +49,13 @@ const ProductDetail = ({ match, history }) => {
             setSu(su - 1);
         }
     }
-    const addOneCart = () => {
-        const axiosAddOneCart = async () => {
-            await axios.post("http://192.168.0.13:9001/cart/add", sendData);
-        }
-        axiosAddOneCart();
-        alert("장바구니에 담았습니다.")
-    }
+    // const addOneCart = () => {
+    //     const axiosAddOneCart = async () => {
+    //         await axios.post("https://alconn.co/api/cart/item",);
+    //     }
+    //     axiosAddOneCart();
+    //     alert("장바구니에 담았습니다.")
+    // }
 
     return (
         <div className="total-wrap">
@@ -70,7 +65,7 @@ const ProductDetail = ({ match, history }) => {
                     <div className="productdesc" >
                         <div className="productName" style={{ width: '479px', borderBottom: '1px sloid gray' }}><h2>{ProductOne.itemName}</h2>{ProductOne.description}</div>
                         <div className="productStar"><StarIcon className="smstar"></StarIcon></div>
-                        <div className="productPrice"><div style={{ marginTop: '10px' }}><strong style={{ fontSize: '16pt', color: '#AE0000' }}>{ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].price}</strong>원</div></div>
+                        <div className="productPrice"><div style={{ marginTop: '10px' }}><strong style={{ fontSize: '16pt', color: '#AE0000' }}>{ProductOne.itemDetailFormList&&numberFormat(ProductOne.itemDetailFormList[0].price)}</strong>원</div></div>
                         <div className="productSizeColor">
                             <div className="productSize">
                                 {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].optionName} : &nbsp; <button onClick={() => history.push("/member/4/ProductAddTest")}>추가폼</button>
@@ -82,6 +77,7 @@ const ProductDetail = ({ match, history }) => {
                                     })}
                                 </select>
                             </div>
+                            <div>잔고수량 : {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].stockQuantity}</div>
                         </div>
                         <div className="productSeller">
                             <div className="seller">판매자 : {ProductOne.sellerSID}</div>
@@ -99,16 +95,33 @@ const ProductDetail = ({ match, history }) => {
                                     </div>
                                 </div>
                             </div>
-                            <button className="cart" onClick={addOneCart}>장바구니 담기</button>
+                            <button className="cart" onClick={()=>{
+                                const sendData = {
+                                    itemDetailId: ProductOne.itemDetailFormList[0].itemDetailId,
+                                    itemId,
+                                    amount:su
+                                }
+                                const axiosAddOneCart = async () => {
+                                    const token =localStorage.getItem("accessToken");
+                                    await axios.post("https://alconn.co/api/cart/item",sendData,{
+                                        headers:{
+                                            Authorization:`Bearer ${token}`
+                                        }
+                                    });
+                                }
+                                axiosAddOneCart();
+                                console.log(sendData)
+                                alert("장바구니에 담겼습니다.")
+                                }}>장바구니 담기</button>
                             <button className="perchase" onClick={
                                 () => {
                                     const data = {
-                                        name: ProductOne.itemName,
+                                        itemName: ProductOne.itemName,
                                         price: ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].price,
-                                        entity: su,
-                                        imageName: ProductOne.image,
-                                        userSID: 20,
-                                        itemNo : itemId
+                                        amount: su,
+                                        mainImg: ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].mainImg,
+                                        itemNo : itemId,
+                                        from : 'product'
                                     }
                                     history.push("/member/4/orderpage", data);
                                 }
@@ -139,7 +152,7 @@ const ProductDetail = ({ match, history }) => {
                                                     </div>
                                                     <div className="price-area">
                                                         <em className="sale">
-                                                            <strong className="price-value">{row.price}</strong>원
+                                                            <strong className="price-value">{numberFormat(row.price)}</strong>원
                                                         </em>
                                                     </div>
                                                 </div>

@@ -11,7 +11,7 @@ function MemberInfo(){
             const {data} = await axios.get(serverURL);
             setMember(data);
         }
-        getMemberData();
+        //getMemberData();
     })
 
     return (

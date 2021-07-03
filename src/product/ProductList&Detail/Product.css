@@ -15,7 +15,7 @@ div.header{
     justify-content: space-between;
     min-width: 60%; 
     width: 60%;
-    margin-left: 25%;
+    margin-left: 18%;
 }
 
 div.dsecImage{
@@ -138,12 +138,12 @@ div.cartPerchase{
 }
 
 div.otherProduct{
-    width : 80%;
-    margin-left: 23%;
+    width : 75%;
+    margin-left: 14%;
 }
 
 div.productMenuBar{
-    margin-left: 18%;
+    margin-left:14%;
     width: 75%;
 }
 
@@ -177,7 +177,7 @@ div.product-question-desc{
 }
 
 div.product-question-desc-header{
-    margin-left: 9%;
+    margin-left: 10%;
     width: 83%;
     height: 1000px;
     border:1px solid #aaa;
@@ -224,7 +224,7 @@ div.product-review{
 }
 
 div.product-review-header{
-    margin-left: 9%;
+    margin-left: 10%;
     width: 83%;
     height: 1000px;
     border-top:1px solid #aaa;
@@ -391,4 +391,72 @@ button.question-cancel-btn{
 span.writeDate{
     font-size: 10pt;
     color: #aaa;
+}
+
+button.review-rules{
+    float: right;
+    font-size: 10pt;
+    color: #346aff;
+    background-color: white;
+    border: none;
+}
+
+button.write-review{
+    float: right;
+    background-color: #346aff;
+    width: 106px;
+    height: 32px;
+    font-size: 10pt;
+    color: #eee;
+    border: none;
+    border-radius: 10px;
+    margin-left: 1%;   
+}
+
+div.review-header-section{
+    border-top: 1px solid #346aff;
+    border-left:1px solid #ddd;
+    border-right:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+    height: 10%;
+}
+
+div.review-header-section-content{
+    width: 90%;
+    height: 100%;
+    float: right;
+}
+
+div.service-review-question-wrap{
+    border-top: 1px solid black;
+
+}
+
+div.service-review-question{
+    border-bottom: 1px solid #ddd;
+    height: 100px;
+}
+
+div.service-review-wrap{
+    border-bottom: 1px solid #ddd ;
+    height: 100px;
+}
+
+div.product-review-wrap{
+    border-top:1px solid black;
+}
+
+div.product-review-question{
+    border-bottom: 1px solid #ddd;
+    height: 100px;
+}
+
+div.review-content{
+    border-bottom: 1px solid #ddd;
+    height: 100px;
+}
+
+div.review-image-wrap{
+    border: 1px soild #ddd;
+    height: 100px;
 }

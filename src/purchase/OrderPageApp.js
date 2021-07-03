@@ -5,7 +5,9 @@ import "./Orderpage.css";
 function OrderPageApp({ location }) {
   return (
     <div className="container">
-      <ProductInfo location={location} />
+      <div className="jumbotron">
+        <ProductInfo location={location} />
+      </div>
     </div>
   );
 }

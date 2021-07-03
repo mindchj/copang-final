@@ -5,8 +5,6 @@ import './Product.css';
 import ProductListRowItem from './ProductListRowItem';
 
 
-
-
 const ProductList = (history) =>{
     const [ProductList, setProductList] = useState([]);
 

@@ -3,7 +3,11 @@ import { withRouter } from 'react-router-dom';
 import './Product.css';
 
 const ProductListRowItem = (props) => {
-    console.log(props.row)
+
+    const numberFormat = (num) => {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    }
+
     let itemId = props.row.itemId
 
     return (
@@ -24,7 +28,7 @@ const ProductListRowItem = (props) => {
                         </div>
                         <div className="price-area">
                             <em className="sale">
-                                <strong className="price-value">{props.row.price}</strong>원
+                                <strong className="price-value">{numberFormat(props.row.price)}</strong>원
                             </em>
                         </div>
                     </div>
