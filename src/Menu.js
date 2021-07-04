@@ -11,7 +11,7 @@ const Menu = () => {
                     <Link to="/member/2">판매자 상품등록</Link>
                 </li>
                 <li>
-                    <Link to="/member/3">주문/결제 완료창</Link>
+                    <Link to="/member/3">리덕스 Example</Link>
                 </li>
                 <li>
                     <Link to="/member/4">상품 리스트</Link>
