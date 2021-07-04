@@ -41,9 +41,9 @@ const OptionList = (props) => {
         </div>
       </div>
 
-      {props.singleOptionValue.map((option) => {
+      {props.singleOptionValue.map((option, idx) => {
         return (
-          <div className="row optionList">
+          <div key={idx} className="row optionList">
             <div className="col-1 align-self-center">
               <input type="checkbox" className="form-control-lg"></input>
             </div>

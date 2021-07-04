@@ -78,7 +78,7 @@ const Container = ({product, setItemName, setItemComment, addFormList, delFormLi
 // 7. Container 컴포넌트에 store state 와 액션처리 리듀서 매핑
 export default connect(
     state => ({
-        product : state,
+        product : state.setter,
     }),
     {
         setItemName,

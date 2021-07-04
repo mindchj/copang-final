@@ -27,8 +27,8 @@ const CategoryForm = () => {
         <div className="row">
           <div className="col-3">
             <label htmlFor="parentCategoryForm">대분류</label>
-            <select className="custom-select" id="parentCategoryForm">
-              <option value="" disabled selected>
+            <select className="custom-select" id="parentCategoryForm" value={"default"}>
+              <option value="default" disabled>
                 Main Category
               </option>
               {parentCategory.map((entry, index) => {
@@ -42,13 +42,13 @@ const CategoryForm = () => {
           </div>
           <div className="col-3">
             <label htmlFor="subCategoryForm">중분류</label>
-            <select className="custom-select" id="subCategoryForm">
-              <option value="" disabled selected>
+            <select className="custom-select" id="subCategoryForm" value={"default"}>
+              <option value="default" disabled>
                 Sub-Category
               </option>
-              {childCategory.map((entry, idx) => {
-                return entry.map((data) => {
-                  return <option value={data}>{data}</option>;
+              {childCategory.map((entry) => {
+                return entry.map((data, idx) => {
+                  return <option key={idx} value={data}>{data}</option>;
                 });
               })}
             </select>
