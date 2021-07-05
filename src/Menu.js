@@ -20,10 +20,13 @@ const Menu = () => {
                     <Link to="/member/5">마이 페이지</Link>
                 </li>
                 <li>
-                    <Link to="/member/6">Test</Link>
+                    <Link to="/member/6">(Test)상품 추가폼</Link>
                 </li>
                 <li>
-                    <Link to="/member/7">Test2</Link>
+                    <Link to="/member/7">임시 코드 테스트</Link>
+                </li>
+                <li>
+                    <Link to="/member/8">서버 API 테스트</Link>
                 </li>
             </ul>
             <hr/>

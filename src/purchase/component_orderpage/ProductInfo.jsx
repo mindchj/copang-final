@@ -55,6 +55,7 @@ function ProductInfo({ location }) {
     //location.state의 어디서 읽어와야 할지 추후 수정
     else if(location.state.from === "product") {
       console.log("not fromCart진입");
+      console.log(location.state);
       const getDataDirect = async () => {
         const anotherData = [location.state];
         console.log(anotherData);
@@ -105,7 +106,7 @@ function ProductInfo({ location }) {
         );
       })}
       <Payment />
-      <BottomSection totalPrice={totalPrice} convert={convert} clientId={location.state.clientId} cartId={location.state.cartId}/>
+      <BottomSection totalPrice={totalPrice} convert={convert} clientId={location.state.clientId} cartId={location.state.cartId} from={location.state.from}/>
     </div>
   );
 }

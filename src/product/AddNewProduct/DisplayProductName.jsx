@@ -1,6 +1,7 @@
 import React from "react";
+import ProductAddTest from "./ProductAddTest";
 
-const DisplayProductName = () => {
+const DisplayProductName = (props) => {
   return (
     <div className="container-fluid">
       <div className="jumbotron">
@@ -16,9 +17,11 @@ const DisplayProductName = () => {
               type="text"
               className="form-control"
               placeholder="노출상품명 입력"
-              id="insertDisplayName"
-              name="insertDisplayName"
+              id="itemName"
+              name="itemName"
               required="required"
+              value={props.product.itemName}
+              onChange={props.handleChange}
             ></input>
           </div>
         </div>

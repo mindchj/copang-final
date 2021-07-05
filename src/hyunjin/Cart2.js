@@ -139,7 +139,7 @@ const Cart2 = () => {
 
     return(
         <div style={{width:'1000px',margin:'0 auto', padding:'20px'}}>
-            <h2><b><i class='fas fa-shopping-cart'></i> 장바구니</b></h2><br/>
+            <h2><b><i className='fas fa-shopping-cart'></i> 장바구니</b></h2><br/>
             <Table  hover>
                 <thead>
                     <tr>

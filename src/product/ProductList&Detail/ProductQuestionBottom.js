@@ -8,7 +8,7 @@ const ProductQuestionBottom=()=>{
     const [Question, setQuestion] = useState([]);
     useEffect(() => {
         const res = async () => {
-            const result = await axios.get("http://192.168.0.13:9001/question/list");
+            const result = await axios.get("");
             setQuestion(result.data)
         }
         res();

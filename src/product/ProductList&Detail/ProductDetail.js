@@ -22,7 +22,7 @@ const ProductDetail = ({ match, history }) => {
         }
         res();
     }, [itemId])
-
+    console.log(ProductOne);
     const [ProductList, setProductList] = useState([]);
     useEffect(() => {
         const res = async () => {
@@ -31,14 +31,7 @@ const ProductDetail = ({ match, history }) => {
         }
         res();
     }, [])
-    const [Review, setReview] = useState([]);
-    useEffect(() => {
-        const res = async () => {
-            const result = await axios.get("http://192.168.0.13:9001/question/list");
-            setReview(result.data)
-        }
-        res();
-    }, [])
+    console.log(ProductList);
 
     const [su, setSu] = useState(1);
     const upSu = () => {
@@ -49,13 +42,6 @@ const ProductDetail = ({ match, history }) => {
             setSu(su - 1);
         }
     }
-    // const addOneCart = () => {
-    //     const axiosAddOneCart = async () => {
-    //         await axios.post("https://alconn.co/api/cart/item",);
-    //     }
-    //     axiosAddOneCart();
-    //     alert("장바구니에 담았습니다.")
-    // }
 
     return (
         <div className="total-wrap">
@@ -68,7 +54,7 @@ const ProductDetail = ({ match, history }) => {
                         <div className="productPrice"><div style={{ marginTop: '10px' }}><strong style={{ fontSize: '16pt', color: '#AE0000' }}>{ProductOne.itemDetailFormList&&numberFormat(ProductOne.itemDetailFormList[0].price)}</strong>원</div></div>
                         <div className="productSizeColor">
                             <div className="productSize">
-                                {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].optionName} : &nbsp; <button onClick={() => history.push("/member/4/ProductAddTest")}>추가폼</button>
+                                {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].optionName} : &nbsp;
                                 <select>
                                     {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList.map((row,idx) => {
                                         return(
@@ -121,6 +107,9 @@ const ProductDetail = ({ match, history }) => {
                                         amount: su,
                                         mainImg: ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].mainImg,
                                         itemNo : itemId,
+                                        optionValue:ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].optionValue,
+                                        optionName:ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].optionName,
+                                        itemDetailId:ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].itemDetailId,
                                         from : 'product'
                                     }
                                     history.push("/member/4/orderpage", data);
@@ -174,7 +163,7 @@ const ProductDetail = ({ match, history }) => {
                             () => {
                                 history.push("/member/4/product/selectOne/" + itemId + "/ProductReviewBottom");
                             }
-                        }>상품리뷰({Review.length})</li>
+                        }>상품리뷰</li>
                         <li className="ProductQuestionBottom" onClick={
                             () => {
                                 history.push("/member/4/product/selectOne/" + itemId + "/ProductQuestionBottom");

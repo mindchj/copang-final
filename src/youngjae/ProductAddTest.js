@@ -4,6 +4,7 @@ import axios from 'axios';
 const ProductAddTest = () => {
 
     const [img, setImg] = useState(null);
+    const [input, setInput] = useState();
 
     const onChange = (e) => {
         setImg(e.target.files[0]);
@@ -50,6 +51,7 @@ const ProductAddTest = () => {
 
     const productData = {
         "itemName": product.itemName,
+        "categoryId": product.categoryId,
         "itemComment" : "상품설명입니다.",
         "itemDetailFormList": [{
             "price": product2.price,
@@ -63,14 +65,22 @@ const ProductAddTest = () => {
 
     const addProduct = () => {
         const axiosAddProduct = async () => {
-            await axios.post("https://alconn.co/api/item/add", productData)
+            const result = await axios.post("https://alconn.co/api/item/add", productData)
+            console.log(result);
         }
         axiosAddProduct();
         alert("상품이 등록되었습니다.");
     }
 
+    const deleteProduct = async () => {
+        const result = await axios.delete("https://alconn.co/api/item/delete/"+input);
+        console.log(result);
+    }
+
     return (
         <div>
+            input : <input onChange={(e)=>setInput(e.target.value)}/><br/>
+            <button onClick={deleteProduct}>상품삭제byitemID</button>
             <div>
                 <div style={{ float: 'left' }}>itemName</div>
                 <input type="text" name="itemName" value={product.itemName} onChange={handleChange} placeholder="상품명을 입력하시오." />
@@ -90,6 +100,10 @@ const ProductAddTest = () => {
             <div>
                 <div style={{ float: 'left' }}>optionValue</div>
                 <input type="text" name="optionValue" value={product2.optionValue} onChange={handleChange2} placeholder="옵션값 입력하시오." />
+            </div>
+            <div>
+                <div style={{ float: 'left' }}>카테고리id</div>
+                <input type="text" name="categoryId" value={product.categoryId} onChange={handleChange} placeholder="카테고리값 입력하시오." />
             </div>
             <div>
                 <div style={{ float: 'left' }}>대표이미지</div><br /><br />

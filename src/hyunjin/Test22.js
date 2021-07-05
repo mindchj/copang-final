@@ -1,45 +1,24 @@
-import axios from "axios";
+import { useState } from "react";
 
 const Test22 = () => {
+    const [img, setImg] = useState();
+    const [obj, setObj] = useState({
+        aa:"aa",
+        bb:"bb",
+    })
 
-    const getCart = () => {
-        const axiosGetCart = async () => {
-            const token = localStorage.getItem("accessToken");
-            console.log(token);
-            const data = {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                  }
-            }
-            const result = await axios.get("https://alconn.co/api/cart",data);
-            console.log("reslut:");
-            console.log(result);
-        }
-        axiosGetCart();
+    const changeImg = (e) => {
+        setImg(URL.createObjectURL(e.target.files[0]));
+        setObj({...obj, img});
     }
-
-    const addCart = () => {
-        const axiosAddCart = async () => {
-            const token = localStorage.getItem("accessToken");
-            console.log(token);
-            const data = {
-                "itemId" : 1009,
-                "itemDetailId" : 1010,
-                "amount" : 7
-            }
-            const result = await axios.post("https://alconn.co/api/cart/item",data)
-            console.log(result);
-        }
-        axiosAddCart();
-    }
-
-     return (
+    return(
         <div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" value=""/>Option 1
-            </div>
-            <button onClick={getCart}>장바구니 조회(로그인후 할 것)</button>
-            <button onClick={addCart}>장바구니 추가(1002,1003,3)</button>
+            각종 코드 테스트
+            <br/>
+            이미지첨부<input onChange={changeImg} type="file"/><br/>
+            {img && <img src={img}/>}<br/>
+            이미지2<br/>
+            <img src={obj.img}/>
             
         </div>
     )

@@ -3,10 +3,11 @@ import React, { useState } from "react";
 import OptionList from "./OptionList";
 import { useEffect } from "react";
 
-const Option = () => {
+const Option = (props) => {
   const [optionName, setOptionName] = useState();
-  const [optionValue, setOptionValue] = useState([]);
+  const [optionValue, setOptionValue] = useState();
   const [singleOptionValue, setSingleOptionValue] = useState([]);
+  const [optionList, setOptionList] = useState([]);
 
   const handleChangeName = (e) => {
     setOptionName(e.target.value);
@@ -18,8 +19,23 @@ const Option = () => {
 
   const clickAddToList = () => {
     console.log(`optionName: ${optionName} & optionValue: ${optionValue}`);
-    const valueSplit = optionValue.split(",");
+    const valueSplit = props.product2.optionValue.split(",");
     setSingleOptionValue(Object.keys(valueSplit).map((key) => valueSplit[key]));
+    // if (optionList.length === 0) {
+    //   setOptionList({
+    //     optionName: optionName,
+    //     optionValue: optionValue,
+    //   });
+    //   setOptionName("");
+    //   setOptionValue("");
+    // } else if (optionList.length > 0) {
+    //   optionList.push({
+    //     optionName: optionName,
+    //     optionValue: optionValue,
+    //   });
+    // }
+
+    // console.log(optionList);
   };
 
   const clickDeleteOption = () => {
@@ -29,7 +45,7 @@ const Option = () => {
   };
 
   useEffect(() => {
-    console.log(singleOptionValue);
+    //console.log(singleOptionValue);
   }, [singleOptionValue]);
 
   return (
@@ -59,7 +75,10 @@ const Option = () => {
               name="optionName"
               id="optionName"
               value={optionName}
-              onChange={handleChangeName}
+              onChange={(e) => {
+                handleChangeName(e);
+                props.handleChange2(e);
+              }}
             ></input>
           </div>
           <div className="col-5">
@@ -69,7 +88,10 @@ const Option = () => {
               name="optionValue"
               id="optionValue"
               value={optionValue}
-              onChange={handleChangeValue}
+              onChange={(e) => {
+                handleChangeValue(e);
+                props.handleChange2(e);
+              }}
             ></input>
           </div>
         </div>
@@ -101,10 +123,88 @@ const Option = () => {
               삭제
             </button>
           </div>
-          <OptionList
-            optionName={optionName}
-            singleOptionValue={singleOptionValue}
-          />
+
+          <div className="container-fluid">
+            <div className="row optionListCategory">
+              <div className="col-1 align-self-center">
+                <input type="checkbox" className="form-control-lg"></input>
+              </div>
+              <div className="col-2 my-auto mx-auto">
+                {/* <div className="row d-flex justify-content-center"> */}
+                <h5>옵션명</h5>
+                {/* </div> */}
+                {/* <div className="row d-flex justify-content-center">
+            <h5 style={{ color: "dodgerblue" }}>{props.optionName}</h5>
+          </div> */}
+              </div>
+              <div className="col-2 my-auto mx-auto">
+                <h5>옵션값</h5>
+              </div>
+              <div className="col-3 mx-auto">
+                <h5>단가(원)</h5>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  id="btnApplyAll"
+                >
+                  일괄적용
+                </button>
+              </div>
+
+              <div className="col-3 mx-auto">
+                <h5>재고수량</h5>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  id="btnApplyAll"
+                >
+                  일괄적용
+                </button>
+              </div>
+            </div>
+
+            {props.optionList.map((option) => {
+              return (
+                <div className="row optionList">
+                  <div className="col-1 align-self-center">
+                    <input type="checkbox" className="form-control-lg"></input>
+                  </div>
+                  <div
+                    className="col-3"
+                    style={{ textAlign: "center", lineHeight: "50px" }}
+                  >
+                    {option.optionName}
+                  </div>
+                  <div
+                    className="col-3"
+                    style={{ textAlign: "center", lineHeight: "50px" }}
+                  >
+                    {option.optionValue}
+                  </div>
+                  <div className="col-3 align-self-center">
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="price"
+                      placeholder="0"
+                      value={props.price}
+                      onChange={(e) => props.handleChange2(e)}
+                    ></input>
+                  </div>
+                  <div className="col-3 align-self-center">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="0"
+                      name="stockQuantity"
+                      value={props.stockQuantity}
+                      onChange={(e) => props.handleChange2(e)}
+                    ></input>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

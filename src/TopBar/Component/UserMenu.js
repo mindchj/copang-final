@@ -10,26 +10,32 @@ import { FormControl as Form, Button, Input, Checkbox, Typography } from '@mater
 
 
 function UserMenu(props) {
-  // const user = useSelector(state => state.user)
-  const USER_SERVER = '/api/auth';
+  const user = useSelector(state => state.user)
+  console.log("usermenu");
+ 
+  // console.log(user.userData.message);
   const logoutHandler = () => {
+    axios.get("https://alconn.co/api/auth/logout").then(response => {
+      console.log(response);
+      if (response.status === 200) {
+        props.history.push("/login");
+      } else {
+        alert('Log Out Failed')
+      }
+    });
     delete axios.defaults.headers.common['Authorization'];
-    // axios.get(`${USER_SERVER}/auth/logout`).then(response => {
-    //   if (response.status === 200) {
-    //     props.history.push("/login");
-    //   } else {
-    //     alert('Log Out Failed')
-    //   }
-    // });
-    window.localStorage.setItem('userId', "");
+    window.localStorage.removeItem('accessToken');
+    window.localStorage.removeItem('userId');
+    document.cookie = "accessToken = ; expires = Wed; 01 Jan 1970";
+    props.history.push('/login');
   };
-  return !window.localStorage.getItem('userId')  ? (
-  //return !window.localStorage.getItem('accessToken')  ? (
-    <Breadcrumbs aria-label="breadcrumb" style={{marginRight:'20px'}}>
+  return (!window.localStorage.getItem('accessToken')) ? (
+    <Breadcrumbs aria-label="breadcrumb" style={{ marginRight: '20px' }}>
+      <div style={{float:'left'}}><Link to="/sellerRegister">입점</Link></div>
       <div key="mail">
         <Link to="/login">로그인</Link>
       </div>
-      <div key="app" style={{display:'block'}}>
+      <div key="app" style={{ display: 'block' }}>
         <Link to="/register">회원가입</Link>
       </div>
     </Breadcrumbs>
