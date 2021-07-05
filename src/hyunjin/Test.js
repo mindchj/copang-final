@@ -5,6 +5,7 @@ const Test = () => {
 
     const [res, setRes] = useState();
     const [input, setInput] = useState();
+    const [data,setData] = useState();
 
     const getProductList = async () => {
         const result = await axios.get("https://alconn.co/api/item/list");
@@ -52,6 +53,7 @@ const Test = () => {
     }
     const updateReview = async () => {
         const result = await axios.put("https://alconn.co/api/review/"+input,reviewData);
+        setData(reviewData);
         setRes(result.data.data);
     }
 
@@ -71,10 +73,11 @@ const Test = () => {
 
     const addOption = async () => {
         const result = await axios.post("https://alconn.co/api/item/add/detail",addOptionData);
+        setData(addOptionData);
         setRes(result.data.data);
     }
     const deleteOption = async () => {
-        const result = await axios.delete("https://alconn.co/api/item/delete/item-detail="+53);
+        const result = await axios.delete("https://alconn.co/api/item/delete/item-detail="+54);
         setRes(result.data.data);
     }
 
@@ -96,6 +99,7 @@ const Test = () => {
 
     const updateOption = async () => {
         const result = await axios.put("https://alconn.co/api/item/update",updateOptionData);
+        setData(updateOptionData);
         setRes(result.data.data);
     }
 
@@ -116,6 +120,7 @@ const Test = () => {
     }
     const updateOptionList = async () => {
         const result = await axios.put("https://alconn.co/api/item/update/list",updateOptionListData);
+        setData(updateOptionListData);
         setRes(result.data.data);
     }
     
@@ -134,6 +139,7 @@ const Test = () => {
     }
     const addQuestion = async () => {
         const result = await axios.post("https://alconn.co/api/inquiry",question);
+        setData(question);
         setRes(result.data.data);
     }
     const getQuestionUser = async () => {
@@ -152,18 +158,21 @@ const Test = () => {
     const reply = { content : "문의사항에 대한 답변" };
     const addReply = async () => {
         const result = await axios.post("https://alconn.co/api/inquiry/"+151+"/reply",reply);
+        setData(reply);
         setRes(result.data.data);
     }
 
     const question2 = { content : "문의 수정" };
     const updateQuestion = async () => {
         const result = await axios.put("https://alconn.co/api/inquiry/"+151,question2);
+        setData(question2);
         setRes(result.data.data);
     }
 
     const reply2 = { content : "답변 수정" };
     const updateReply = async () => {
         const result = await axios.put("https://alconn.co/api/inquiry/"+151+"/reply",reply2);
+        setData(reply2);
         setRes(result.data.data);
     }
 
@@ -171,7 +180,7 @@ const Test = () => {
         <div>
             서버 API 응답 테스트<br/>
             input 입력: <input onChange={(e)=>setInput(e.target.value)}/><br/>
-            <button onClick={()=>setRes()}>결과창 비우기</button>
+            <button onClick={ () => {setRes(); setData();}}>결과창 비우기</button>
             <button onClick={getProductList}>상품목록</button>
             <button onClick={getProductId}>상품byID</button>
             <button onClick={getProductReview}>리뷰by상품ID</button>
@@ -196,7 +205,8 @@ const Test = () => {
             <button onClick={addReply}>문의 답변</button>
             <button onClick={updateQuestion}>문의 수정</button>
             <button onClick={updateReply}>답변 수정</button>
-            
+            <br/>넘겨준 값: <br/>
+            {JSON.stringify(data)}<br/>
             <br/>결과값:<br/>
             {res && JSON.stringify(res)}
             
