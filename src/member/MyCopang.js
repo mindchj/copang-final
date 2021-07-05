@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Link, NavLink, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
+// import DaumPostcode from "react-daum-postcode";
 
 import './css/MyCopang.css';
 import './css/OrderList.css';
 import './css/Tab.css';
 
-import {MyCopangPay} from './MyCopangPay';
+import { MyCopangPay } from './MyCopangPay';
 import MyCopangAddress from './MyCopangAddress';
 import MyCopangAddressAddForm from './MyCopangAddressForm';
 import AddressUpdateForm from './AddressUpdateForm';
+import MyCopangReview from './MyCopangReview';
+import ProductReviewWriteForm from '../product/ProductList&Detail/ProductReviewWriteForm';
 
 // Navigation
 // const MyCopangNavi = () => {
@@ -22,22 +25,19 @@ import AddressUpdateForm from './AddressUpdateForm';
 //     )
 // }
 
-const Order = () => {
+const Order = ({ history }) => {
     const [orderList, setOrderList] = useState([]);
 
-    // const orderListUrl = "https://al.conn/api/order/client/";
-    // useEffect(() => {
-    //     //getOrderList 비동기 함수 생성 
-    //     const getOrderList = async () => {
-    //         const {
-    //             data: {
-    //                 data: { orderItems }
-    //             }
-    //         } = await axios.get(orderListUrl);
-    //         setOrderList(orderItems);
-    //     }
-    //     getOrderList();
-    // }, []);
+    const orderListUrl = "https://alconn.co/api/orders/client";
+    //getOrderList 비동기 함수 생성 
+    useEffect(() => {
+        const getOrderList = async () => {
+            const { data: { data } } = await axios.get(orderListUrl);
+            setOrderList(data);
+            console.log(data)
+        }
+        getOrderList();
+    }, [])
 
     return (
         <div className="mc-main-content">
@@ -46,32 +46,38 @@ const Order = () => {
                 orderList.map(order => (
                     <div className="container">
                         <div className="box-header">
-                            <div className="header-date">{order.year}</div>
+                            {/* <div className="header-date">{order.orderId}</div> */}
+                            <div>{order.orderDate}</div>
                             <div className="header-detail">주문 상세 정보 보기 </div>
                         </div>
-                        <div className="product-container">
-                            <div className="product-image">
-                                <img src="favicon.ico" alt="product" />
-                            </div>
-                            <div className="title-price-divide">
-                                <div >{order.title}</div>
-                                <div className="price-ea-basket-container">
-                                    <div className="price-ea-container">
-                                        <div>가격</div>
-                                        <div>점?</div>
-                                        <div>갯수</div>
+                        {/* <div >{order.orderStatus}</div> */}
+                        {order.orderItems.map(product => (
+                            <div className="product-container">
+                            
+
+                                <div className="product-image">
+                                    <img src="favicon.ico" alt="product" />
+                                </div>
+                                <div className="title-price-divide">
+                                    <div>아이템 이름 : {product.itemName}</div>
+                                    <div className="price-ea-basket-container">
+                                        <div className="price-ea-container">
+                                            <div>{product.price} 원</div>
+                                        </div>
+                                        <div>{product.amount} 개</div>
+                                        <button className="btn-basket">장바구니 담기</button>
                                     </div>
-                                    <button className="btn-basket">장바구니 담기</button>
+                                    <br></br>
+                                </div>
+                                <div className="btn-container">
+                                    <div className="btn-container-flex">
+                                        <button className="content-btn btn-1">배송 조회</button>
+                                        <button className="content-btn btn-2">교환, 반품 신청</button>
+                                        <button className="content-btn btn-3" onClick={() => history.push({ pathname: "/mycopang/review", state: { orderId: order.orderId } })}>리뷰 작성하기</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="btn-container">
-                                <div className="btn-container-flex">
-                                    <button className="content-btn btn-1">배송 조회</button>
-                                    <button className="content-btn btn-2">교환, 반품 신청</button>
-                                    <button className="content-btn btn-3">리뷰 작성하기</button>
-                                </div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 ))
             }
@@ -189,7 +195,7 @@ const MyCopangTemplate = () => {
                                 <li className="title-mid">My 활동</li>
                                 <li>문의하기</li>
                                 <li>문의내역 확인</li>
-                                <li>리뷰 관리</li>
+                                <li><Link exact="true" to="/review-page">리뷰 관리</Link></li>
                                 <li>찜 리스트</li>
                             </ul>
                         </div>
@@ -240,6 +246,8 @@ const MyCopangTemplate = () => {
                                 <Route exact path="/my-addr" component={MyCopangAddress} />
                                 <Route exact path="/address-add-page" component={MyCopangAddressAddForm} />
                                 <Route exact path="/address-update-page" component={AddressUpdateForm} />
+                                <Route exact path="/mycopang/review" component={ProductReviewWriteForm} />
+                                <Route exact path="/review-page" component={MyCopangReview} />
                             </Switch>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import {
     Grid,
     Typography,
@@ -16,25 +16,57 @@ const AddressUpdateForm = ({ location,history }) => {
         detail: location.state.addrValues.detail,
         receiverName: location.state.addrValues.receiverName,
         receiverPhone: location.state.addrValues.receiverPhone,
-        preRequest: location.state.addrValues.preRequest
+        preRequest: location.state.addrValues.preRequest,
+        priority : location.state.addrValues.priority
     }
     );
+    // const [defaultAddr, setDeefaultAddr] = useState ({
+    //     defaultAddress : location.state.defaultAddr.defaultAddress
+    // })
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setAddrValues({ ...addrValues, [name]: value });
     }
-
-    const updateAddr = (addressId) => {
-
-        // console.log(addressId);
-        const uri = 'https://alconn.co/api/address/'+addressId;
-        const putAddr =  async () => {
-            await axios.put(uri, addrValues)
-            history.push("/my-addr")
-        }
-        putAddr()
-
+    
+    const useToggle = (initalState = addrValues.priority === 'PRIMARY' ? true : false ) => {
+        const [state, setState ] = useState(initalState);
+        const toggle = useCallback( () => setState(state => !state), [])
+        return [state,toggle]
     }
+
+    const [isChecked,setIsChecked] = useToggle();
+    
+    const updateAddr = (addressId) => {
+        // console.log(addressId);
+        const uri = 'https://alconn.co/api/address/'+addressId; 
+        if (isChecked === false ) {
+            const putAddr =  async () => {
+                await axios.put(uri, addrValues)
+                history.push("/my-addr")
+            }
+            putAddr()
+        }
+        const uriDefault = 'https://alconn.co/api/address/'+addressId;
+        if (isChecked === true ) {
+            const putDefaultAddr =  async () => {
+                await axios.put(uri, addrValues)
+                await axios.patch(uriDefault, addrValues)
+                history.push("/my-addr")
+            }
+            putDefaultAddr()
+        }
+        
+    }
+
+    // const updateDefaultAddr = () => {
+    //     const defaultAddrUri = 'https://alconn.co/api/address/default';
+    //     const postDefaultAddr = async () => {
+    //         await axios.post(defaultAddrUri,defaultAddr).then(res => console.log(res))
+    //     }
+    //     postDefaultAddr()
+    // }
+
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
@@ -101,9 +133,10 @@ const AddressUpdateForm = ({ location,history }) => {
                 <Grid item xs={xs}>
                     <FormControlLabel
                         control={
-                            <Checkbox color="primary" name="saveAddress" value={addrValues.saveAddress}
-                                // onChange={handleChange}
-                            // onClick={onClickChange}
+                            <Checkbox color="primary" name="defaultAddress" checked = {isChecked ? true : false}
+                                // onChange={handleDefaultAddrChange}
+                                // onClick={updateDefaultAddr}
+                                onClick = {() => setIsChecked()}
                             />
                         }
                         label="기본 배송지로 선택"
