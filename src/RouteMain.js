@@ -13,6 +13,7 @@ import ProductListRouteMain from './youngjae/ProductListRouteMain';
 import MyCopang from "./member/MyCopang";
 import LoginPage from "./TopBar/Component/LoginPage";
 import RegisterPage from "./TopBar/Component/RegisterPage";
+import RegisterSellerPage from "./Seller/Component/RegisterSellerPage";
 import OrderComplete from "./purchase/OrderComplete";
 import OrderPageApp from "./purchase/OrderPageApp";
 
@@ -25,7 +26,7 @@ const RouteMain = () => {
   return (
     <div>
       {/* 자동로그인 */}
-      {autoLoginWithAccessToken()}    
+      { autoLoginWithAccessToken()}
       <Suspense fallback={(<div>Loading...</div>)}>
         <div style={{minWidth:'940px', maxWidth: '1280px', margin: 'auto'}}>
           <TopBar />
@@ -40,10 +41,11 @@ const RouteMain = () => {
             <Route path="/member/5" component={MyCopang} />
             <Route path="/login" component={Auth(LoginPage, false)} />
             <Route path="/register" component={Auth(RegisterPage, false)} />
+            <Route path="/sellerRegister" component={Auth(RegisterSellerPage, false)} />
             <Route path="/cart" component={Auth(Cart, true)} />
             <Route path="/mycopang" component={Auth(MyCopang, true)} />
-            <Route path="/order/complete" component={OrderComplete} />
-            <Route path="/order/do" component={OrderPageApp} />
+            <Route path="/order/complete" component={Auth(OrderComplete)} />
+            <Route path="/order/do" component={Auth(OrderPageApp)} />
           </Switch>
         </div>
       </Suspense>
