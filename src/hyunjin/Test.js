@@ -46,6 +46,15 @@ const Test = () => {
         setRes(result.data.data);
     }
 
+    const reviewData = {
+        content: "content 수정!",
+        rating: 2,
+    }
+    const updateReview = async () => {
+        const result = await axios.put("https://alconn.co/api/review/"+input,reviewData);
+        setRes(result.data.data);
+    }
+    
 
     return (
         <div>
@@ -62,6 +71,7 @@ const Test = () => {
             <button onClick={getUserReview}>유저리뷰</button><br/>
             <button onClick={getCategoryMain}>카테고리 대소분류</button>
             <button onClick={getCategoryList}>카테고리 목록</button>
+            <button onClick={updateReview}>리뷰 수정by reviewID</button>
 
             
             <br/>결과값:<br/>
