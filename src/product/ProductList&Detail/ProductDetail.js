@@ -31,14 +31,7 @@ const ProductDetail = ({ match, history }) => {
         }
         res();
     }, [])
-    const [Review, setReview] = useState([]);
-    useEffect(() => {
-        const res = async () => {
-            const result = await axios.get("http://192.168.0.13:9001/question/list");
-            setReview(result.data)
-        }
-        res();
-    }, [])
+    
 
     const [su, setSu] = useState(1);
     const upSu = () => {
@@ -49,13 +42,6 @@ const ProductDetail = ({ match, history }) => {
             setSu(su - 1);
         }
     }
-    // const addOneCart = () => {
-    //     const axiosAddOneCart = async () => {
-    //         await axios.post("https://alconn.co/api/cart/item",);
-    //     }
-    //     axiosAddOneCart();
-    //     alert("장바구니에 담았습니다.")
-    // }
 
     return (
         <div className="total-wrap">
@@ -174,7 +160,7 @@ const ProductDetail = ({ match, history }) => {
                             () => {
                                 history.push("/member/4/product/selectOne/" + itemId + "/ProductReviewBottom");
                             }
-                        }>상품리뷰({Review.length})</li>
+                        }>상품리뷰</li>
                         <li className="ProductQuestionBottom" onClick={
                             () => {
                                 history.push("/member/4/product/selectOne/" + itemId + "/ProductQuestionBottom");
