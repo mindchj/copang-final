@@ -93,12 +93,12 @@ const ProductReviewWriteForm = (props) => {
 
     return (
         <div>
-            <div style={{ width: '50%', marginLeft: '25%', height: '1200px' }}>
+            <div style={{ height: '1200px' }}>
                 <div className="review-header-wrap"><span style={{ fontSize: '28pt', fontWeight: 'bolder' }}>리뷰관리</span><span style={{ fontSize: '12pt', color: '#346Aff', cursor: 'pointer' }}>리뷰 운영원칙</span></div>
                 <div className="review-header-section">
                     <div className="review-header-section-content">
                         <div style={{ float: 'left', width: '100px', height: '100px' }}><AccountCircleIcon style={{ width: '100%', height: '100%' }}></AccountCircleIcon></div>
-                        <div style={{ float: 'left', margin: '3%', fontSize: '15pt' }}>사용자이름</div>
+                        <div style={{ float: 'left', margin: '3%', fontSize: '15pt' }}>{localStorage.getItem("userId")}</div>
                         <div style={{ float: 'left', width: '1px', height: '74px', border: '1px solid #ddd', marginTop: '2%' }}></div>
                         <div style={{ float: 'left', margin: '3%' }}><span><strong>도움</strong></span><br /><span>0명</span></div>
                         <div style={{ float: 'left', margin: '3%' }}><span><strong>랭킹</strong></span><br /><span>-등</span></div>
@@ -147,9 +147,9 @@ const ProductReviewWriteForm = (props) => {
                     </div>
                     <div className="review-image-wrap">
                         <div style={{ float: 'left', margin:'3%' }}><span>사진첨부</span></div>
-                        <span><button style={{float:'right',marginTop:'3%'}} onClick={imgUpload}>사진등록</button><input type="file" onChange={onChange} style={{margin:'3%', float:'right',width:'200px'}}></input></span>
+                        <span><button style={{float:'right'}} onClick={imgUpload}>사진등록</button><input type="file" onChange={onChange} style={{ float:'right',width:'200px'}}></input></span>
                     </div>
-                    <div style={{ borderTop: '1px solid #ddd',borderBottom:'1px solid #ddd',height:'100px' }}>
+                    <div style={{ borderTop: '1px solid #ddd',borderBottom:'1px solid #ddd',height:'150px' }}>
                         <div style={{ float: 'left', margin: '3%' }}><span>한줄요약</span></div>
                         <span ><textarea style={{float:'right', marginTop: '3%',marginBottom:'3%', width: '500px', height: '50px' }} name="content" onChange={handleReviewChange} value={review.content}></textarea></span>
                     </div>
