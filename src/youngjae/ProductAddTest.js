@@ -4,6 +4,7 @@ import axios from 'axios';
 const ProductAddTest = () => {
 
     const [img, setImg] = useState(null);
+    const [input, setInput] = useState();
 
     const onChange = (e) => {
         setImg(e.target.files[0]);
@@ -71,8 +72,15 @@ const ProductAddTest = () => {
         alert("상품이 등록되었습니다.");
     }
 
+    const deleteProduct = async () => {
+        const result = await axios.delete("https://alconn.co/api/item/delete/"+input);
+        console.log(result);
+    }
+
     return (
         <div>
+            input : <input onChange={(e)=>setInput(e.target.value)}/><br/>
+            <button onClick={deleteProduct}>상품삭제byitemID</button>
             <div>
                 <div style={{ float: 'left' }}>itemName</div>
                 <input type="text" name="itemName" value={product.itemName} onChange={handleChange} placeholder="상품명을 입력하시오." />
