@@ -12,8 +12,8 @@ import { FormControl as Form, Button, Input, Checkbox, Typography } from '@mater
 function UserMenu(props) {
   const user = useSelector(state => state.user)
   console.log("usermenu");
-  console.log(user);
-  console.log(user.userData);
+ 
+  // console.log(user.userData.message);
   const logoutHandler = () => {
     axios.get("https://alconn.co/api/auth/logout").then(response => {
       console.log(response);
@@ -31,6 +31,7 @@ function UserMenu(props) {
   };
   return (!window.localStorage.getItem('accessToken')) ? (
     <Breadcrumbs aria-label="breadcrumb" style={{ marginRight: '20px' }}>
+      <div style={{float:'left'}}><Link to="/sellerRegister">입점</Link></div>
       <div key="mail">
         <Link to="/login">로그인</Link>
       </div>

@@ -21,7 +21,7 @@ const CategoryForm = () => {
   return (
     <div className="container-fluid">
       <div className="jumbotron">
-        <div className="row">
+        <div className="row" style={{ marginBottom: "30px" }}>
           <h2>카테고리</h2>
         </div>
         <div className="row">

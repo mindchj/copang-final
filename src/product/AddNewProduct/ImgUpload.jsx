@@ -2,28 +2,28 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const ImgUpload = () => {
-  const [img, setImg] = useState(null);
+const ImgUpload = (props) => {
+  // const [img, setImg] = useState(null);
 
-  const onChange = (e) => {
-    setImg(e.target.files[0]);
-    console.log(e.target.files[0]);
-  };
+  // const onChange = (e) => {
+  //   setImg(e.target.files[0]);
+  //   console.log(e.target.files[0]);
+  // };
 
-  //데이터보낼때 imgUrl도 같이 보내줘야함.
-  const [imgUrl, setimgUrl] = useState();
-  const imgUpload = async () => {
-    const formData = new FormData();
-    formData.append("image", img);
-    const res = await axios.post("https://alconn.co/upload", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    console.log(res);
-    setimgUrl(res.data.data.publicPath);
-    console.log(imgUrl);
-  };
+  // //데이터보낼때 imgUrl도 같이 보내줘야함.
+  // const [imgUrl, setimgUrl] = useState();
+  // const imgUpload = async () => {
+  //   const formData = new FormData();
+  //   formData.append("image", img);
+  //   const res = await axios.post("https://alconn.co/upload", formData, {
+  //     headers: {
+  //       "Content-Type": "multipart/form-data",
+  //     },
+  //   });
+  //   console.log(res);
+  //   setimgUrl(res.data.data.publicPath);
+  //   console.log(imgUrl);
+  // };
 
   return (
     <div className="container-fluid">
@@ -40,7 +40,7 @@ const ImgUpload = () => {
               <input
                 style={{ width: "100%", height: "100%" }}
                 type="file"
-                onChange={onChange}
+                onChange={props.onChange}
               />
             </div>
             <br />
@@ -58,11 +58,11 @@ const ImgUpload = () => {
                   height: "100%",
                 }}
                 alt=""
-                src={imgUrl}
+                src={props.imgUrl}
               />
             </div>
             <br />
-            <div style={{ float: "left" }}>
+            {/* <div style={{ float: "left" }}>
               <button
                 type="button"
                 className="btn btn-primary"
@@ -70,7 +70,7 @@ const ImgUpload = () => {
               >
                 이미지 등록
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

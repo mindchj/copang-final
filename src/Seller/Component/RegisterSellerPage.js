@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { registerUser } from "../../_actions/user_actions";
+import { registerSeller } from "../../_actions/user_actions";
 import { useDispatch } from 'react-redux';
 function Copyright() {
     return (
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function RegisterPage(props) {
+export default function RegisterSellerPage(props) {
     const classes = useStyles();
     const dispatch = useDispatch();
     const [Username, setUsername] = useState("");
@@ -64,12 +64,12 @@ export default function RegisterPage(props) {
             let dataToSubmit = {
                 username: Username,
                 password: Password,
-                phone: Mobile,
-                realName: RealName,
+                realname: RealName,
+                mobile: Mobile,
                 description: Description
             };
 
-            dispatch(registerUser(dataToSubmit)).then(response => {
+            dispatch(registerSeller(dataToSubmit)).then(response => {
                 if (response.payload.message) {
                     props.history.push("/login");
                 } else {
@@ -84,9 +84,7 @@ export default function RegisterPage(props) {
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
+                
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
@@ -100,7 +98,7 @@ export default function RegisterPage(props) {
                                 required
                                 fullWidth
                                 id="realName"
-                                label="실명"
+                                label="Name"
                                 autoFocus
                                 onChange={(e) => { setRealName(e.currentTarget.value) }}
                             />
@@ -123,7 +121,7 @@ export default function RegisterPage(props) {
                                 required
                                 fullWidth
                                 id="username"
-                                label="아이디"
+                                label="Username"
                                 name="username"
                                 autoComplete="username"
                                 onChange={(e) => { setUsername(e.currentTarget.value) }}
@@ -183,12 +181,12 @@ export default function RegisterPage(props) {
                         className={classes.submit}
                         onClick={registerHandler}
                     >
-                        Sign Up
+                        판매자 가입
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
                             <Link to="/login" variant="body2">
-                                Already have an account? Sign in
+                                로그인
                             </Link>
                         </Grid>
                     </Grid>
