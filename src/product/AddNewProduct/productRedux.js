@@ -9,13 +9,15 @@ const SET_ITEM_COMMENT = "setItemComment";
 const ADD_FORM_LIST = "addFormList";
 const DEL_FORM_LIST = "delFormList";
 const MOD_FORM_LIST = "modFormList";
+const MOD_FORM_ONE = "modFormOne";
 
 // 2. 액션타입 생성 (redux-actions의 createAction 함수 사용)
 const setItemName = createAction(SET_ITEM_NAME, itemName => itemName);
 const setItemComment = createAction(SET_ITEM_COMMENT, itemComment => itemComment);
 const addFormList = createAction(ADD_FORM_LIST, form => form);
 const delFormList = createAction(DEL_FORM_LIST, idx => idx);
-const modFormList = createAction(MOD_FORM_LIST, (form, idx) => ({ form: form, idx: idx }));
+const modFormList = createAction( MOD_FORM_LIST, (idx, form) => ({ form: form, idx: idx }) );
+const modFormOne = createAction( MOD_FORM_ONE, (idx, key, value) => ({ idx: idx, key: key, value: value }) )
 
 // 3. store state 초기값
 const init = {
@@ -55,7 +57,18 @@ export const setter = handleActions(
             let newState = state;
             newState.itemDetailFormList[action.payload.idx] = action.payload.form;
             return newState;
-        }
+        },
+        [MOD_FORM_ONE] : (state, action) => {
+            console.log("MOD_FORM_ONE 진입");
+            let newState = state;
+            console.log(action);
+            newState.itemDetailFormList[action.payload.idx] = {
+                ...newState.itemDetailFormList[action.payload.idx],
+                [action.payload.key] : action.payload.value,
+            };
+            console.log(newState);
+            return newState;
+        },
     },
     init,
 )
@@ -64,12 +77,12 @@ export const setter = handleActions(
 export const store = createStore(setter);
 
 // 6. Provider 내부에서 store와 통신할 Container 컴포넌트 정의
-const Container = ({product, setItemName, setItemComment, addFormList, delFormList, modFormList}) => {
+const Container = ({product, setItemName, setItemComment, addFormList, delFormList, modFormList, modFormOne}) => {
 
     return (
         <div>
             <Example product={product} setItemName={setItemName} setItemComment={setItemComment}
-                     addFormList={addFormList} delFormList={delFormList} modFormList={modFormList} />
+                     addFormList={addFormList} delFormList={delFormList} modFormList={modFormList} modFormOne={modFormOne}/>
         </div>
     )
 
@@ -86,6 +99,7 @@ export default connect(
         addFormList,
         delFormList,
         modFormList,
+        modFormOne,
     }
 )(Container);
 

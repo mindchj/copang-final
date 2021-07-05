@@ -1,39 +1,44 @@
 import React, { useEffect } from 'react';
-import { auth } from '../_actions/user_actions';
+import { auth } from '../../_actions/user_actions';
 import { useSelector, useDispatch } from "react-redux";
 
-export default function (ComposedClass, reload, adminRoute = null) {
-    function AuthenticationCheck(props) {
 
+/*
+option : true - 로그인 되어야하는 컴포넌트
+option : false - 로그아웃 되었을때 볼 수 있는 컴포넌트
+option : null 로그인/아웃 상관없는 컴포넌트
+*/
+function Auth(Component, option, adminRoute = null) {
+    function AuthenticationCheck(props) {
         let user = useSelector(state => state.user);
         const dispatch = useDispatch();
-
+        
         useEffect(() => {
-
-            dispatch(auth()).then(async response => {
-                if (await !response.payload.isAuth) {
-                    if (reload) {
-                        props.history.push('/login')
+            console.log("effect called!")
+            dispatch(auth())
+                .then(async response => {
+                    if (await (!(response.payload.message  === "success") && option))  //인증 실패하면 login 으로
+                    {
+                        props.history.push('/login');
                     }
-                } else {
-                    if (adminRoute && !response.payload.isAdmin) {
-                        props.history.push('/')
+                    else if ((adminRoute && response.payload.message !=="success") === 0){
+                        console.log(option === false);
+                        props.history.push('/');
                     }
-                    else {
-                        if (reload === false) {
-                            props.history.push('/')
-                        }
+                        
+                    else if ((props.history.location.pathname==="/login"||props.history.location.pathname==="/register") && response.payload.message ==="success"){    
+                        console.log(option === false)
+                        props.history.push('/');
                     }
                 }
-            })
-            
-        }, [dispatch, props.history, user.googleAuth])
+                )
+        }, [props.history])
 
         return (
-            <ComposedClass {...props} user={user} />
+            <Component {...props} user={user} />
         )
     }
     return AuthenticationCheck
 }
 
-
+export default Auth;

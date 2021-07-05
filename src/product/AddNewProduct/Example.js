@@ -2,12 +2,14 @@
 
 import React, { useEffect, useState } from 'react';
 
-const Example = ({product, setItemName, setItemComment, addFormList, delFormList, modFormList}) => {
+const Example = ({product, setItemName, setItemComment, addFormList, delFormList, modFormList, modFormOne}) => {
 
     const [refresh, setRefresh] = useState(0);
     const [iName, setIName] = useState("");
     const [iComment, setIComment] = useState("");
     const [idx, setIdx] = useState(0);
+    const [key, setKey] = useState("");
+    const [value, setValue] = useState("");
     const [form, setForm] = useState(
         {
             price : 0,
@@ -43,7 +45,12 @@ const Example = ({product, setItemName, setItemComment, addFormList, delFormList
     }
 
     const modFunc = () =>{
-        modFormList(form, idx);
+        modFormList(idx, form);
+        setRefresh(prev => prev+1);
+    }
+
+    const modOneFunc = () => {
+        modFormOne(idx, key, value);
         setRefresh(prev => prev+1);
     }
 
@@ -69,12 +76,16 @@ const Example = ({product, setItemName, setItemComment, addFormList, delFormList
             subImg_____ : <input name="subImg" onChange={onChange} value={form.subImg}/><br/>
 
             작업할 idx : <input name="idx" onChange={(e)=>setIdx(e.target.value)} value={idx}/><br/>
+            수정할 key : <input name="key" onChange={(e)=>setKey(e.target.value)} value={key}/><br/>
+            수정할 value : <input name="value" onChange={(e)=>setValue(e.target.value)} value={value}/><br/>
+
+            <button onClick={ modOneFunc }>key, value 수정</button><br/>
 
             <button onClick={ addFunc }>formList 추가</button><br/>
 
             <button onClick={ delFunc }>formList {idx} 삭제</button><br/>
 
-            <button onClick={ modFunc }>formList {idx} 수정</button>
+            <button onClick={ modFunc }>formList {idx} 수정</button><br/>
 
             <hr/>
             <table className="table table-bordered" style={{width:'1000px',tableLayout:'fixed'}}>
