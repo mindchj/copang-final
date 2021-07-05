@@ -41,24 +41,20 @@ useEffect( ()=>{
       const result = await axios.post("https://alconn.co/api/orders",orderData);
       console.log("order result:");
       console.log(result);
+
       //주문후 기존 장바구니 체크박스 체크한 상품들 비우기
-      const cartItems = props.convert();
-      // cartItems.map( (item) => {
-      //   const axiosDelCart = () => {
-      //     const res = axios.delete("https://alconn.co/api/cart/item/"+item.itemDetailId);
-      //     console.log(res);
-      //   }
-      //   axiosDelCart();
-      // })
-      for(let i=0; i<cartItems.length; i++)
+      if(props.from === "cart")
       {
-        console.log("for 문 시작");
-        const axiosDelCart = () => {
-          const res = axios.delete("https://alconn.co/api/cart/item/"+cartItems[i].itemDetailId);
-          console.log("delete 결과:");
-          console.log(res);
+        const cartItems = props.convert();
+        for(let i=0; i<cartItems.length; i++)
+        {
+          const axiosDelCart = () => {
+            const res = axios.delete("https://alconn.co/api/cart/item/"+cartItems[i].itemDetailId);
+            console.log("delete 결과:");
+            console.log(res);
+          }
+          axiosDelCart();
         }
-        axiosDelCart();
       }
     }
     axiosPlaceOrder();

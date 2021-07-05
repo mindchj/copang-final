@@ -50,6 +50,7 @@ const ProductAddTest = () => {
 
     const productData = {
         "itemName": product.itemName,
+        "categoryId": product.categoryId,
         "itemComment" : "상품설명입니다.",
         "itemDetailFormList": [{
             "price": product2.price,
@@ -63,7 +64,8 @@ const ProductAddTest = () => {
 
     const addProduct = () => {
         const axiosAddProduct = async () => {
-            await axios.post("https://alconn.co/api/item/add", productData)
+            const result = await axios.post("https://alconn.co/api/item/add", productData)
+            console.log(result);
         }
         axiosAddProduct();
         alert("상품이 등록되었습니다.");
@@ -90,6 +92,10 @@ const ProductAddTest = () => {
             <div>
                 <div style={{ float: 'left' }}>optionValue</div>
                 <input type="text" name="optionValue" value={product2.optionValue} onChange={handleChange2} placeholder="옵션값 입력하시오." />
+            </div>
+            <div>
+                <div style={{ float: 'left' }}>카테고리id</div>
+                <input type="text" name="categoryId" value={product.categoryId} onChange={handleChange} placeholder="카테고리값 입력하시오." />
             </div>
             <div>
                 <div style={{ float: 'left' }}>대표이미지</div><br /><br />

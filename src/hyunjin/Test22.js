@@ -1,46 +1,32 @@
-import axios from "axios";
+import { useState } from "react";
 
 const Test22 = () => {
 
-    const getCart = () => {
-        const axiosGetCart = async () => {
-            const token = localStorage.getItem("accessToken");
-            console.log(token);
-            const data = {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                  }
-            }
-            const result = await axios.get("https://alconn.co/api/cart",data);
-            console.log("reslut:");
-            console.log(result);
+    const [p1, setP1] = useState({});
+    const [p2, setP2] = useState([]);
+
+    const onChangep1 = (e) => {
+        const state = {
+            [e.target.name] : e.target.value,
         }
-        axiosGetCart();
+        setP1(state);
     }
 
-    const addCart = () => {
-        const axiosAddCart = async () => {
-            const token = localStorage.getItem("accessToken");
-            console.log(token);
-            const data = {
-                "itemId" : 1009,
-                "itemDetailId" : 1010,
-                "amount" : 7
-            }
-            const result = await axios.post("https://alconn.co/api/cart/item",data)
-            console.log(result);
-        }
-        axiosAddCart();
+    const onClickp2 = () => {
+        setP2([
+            ...p2,
+            p1,
+        ])
     }
 
-     return (
+    return(
         <div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" value=""/>Option 1
-            </div>
-            <button onClick={getCart}>장바구니 조회(로그인후 할 것)</button>
-            <button onClick={addCart}>장바구니 추가(1002,1003,3)</button>
-            
+            옵션명 : <input name="name" onChange={onChangep1} value={p1.name}/>  옵션값 : <input name="value" onChange={onChangep1} value={p1.value}/>
+            <br/>
+            <br/>
+            <button onClick={onClickp2}>목록에 추가</button>
+            <br/>
+            목록 : {JSON.stringify(p2)}
         </div>
     )
 }

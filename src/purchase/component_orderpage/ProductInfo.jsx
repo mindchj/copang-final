@@ -105,7 +105,7 @@ function ProductInfo({ location }) {
         );
       })}
       <Payment />
-      <BottomSection totalPrice={totalPrice} convert={convert} clientId={location.state.clientId} cartId={location.state.cartId}/>
+      <BottomSection totalPrice={totalPrice} convert={convert} clientId={location.state.clientId} cartId={location.state.cartId} from={location.state.from}/>
     </div>
   );
 }
