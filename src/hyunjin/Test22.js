@@ -1,32 +1,25 @@
 import { useState } from "react";
 
 const Test22 = () => {
+    const [img, setImg] = useState();
+    const [obj, setObj] = useState({
+        aa:"aa",
+        bb:"bb",
+    })
 
-    const [p1, setP1] = useState({});
-    const [p2, setP2] = useState([]);
-
-    const onChangep1 = (e) => {
-        const state = {
-            [e.target.name] : e.target.value,
-        }
-        setP1(state);
+    const changeImg = (e) => {
+        setImg(URL.createObjectURL(e.target.files[0]));
+        setObj({...obj, img});
     }
-
-    const onClickp2 = () => {
-        setP2([
-            ...p2,
-            p1,
-        ])
-    }
-
     return(
         <div>
-            옵션명 : <input name="name" onChange={onChangep1} value={p1.name}/>  옵션값 : <input name="value" onChange={onChangep1} value={p1.value}/>
+            각종 코드 테스트
             <br/>
-            <br/>
-            <button onClick={onClickp2}>목록에 추가</button>
-            <br/>
-            목록 : {JSON.stringify(p2)}
+            이미지첨부<input onChange={changeImg} type="file"/><br/>
+            {img && <img src={img}/>}<br/>
+            이미지2<br/>
+            <img src={obj.img}/>
+            
         </div>
     )
 }

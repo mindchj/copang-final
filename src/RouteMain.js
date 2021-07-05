@@ -21,6 +21,7 @@ import Menu from "./Menu";
 
 import AddForm from "./youngjae/ProductAddTest";
 import Test22 from "./hyunjin/Test22";
+import Test from "./hyunjin/Test";
 
 //import SearchBox from "./header/SearchBox/SearchBox";
 
@@ -44,6 +45,7 @@ const RouteMain = () => {
             <Route path="/member/5" component={MyCopang} />
             <Route path="/member/6" component={AddForm} />
             <Route path="/member/7" component={Test22} />
+            <Route path="/member/8" component={Test} />
             <Route path="/login" component={Auth(LoginPage, false)} />
             <Route path="/register" component={Auth(RegisterPage, false)} />
             <Route path="/sellerRegister" component={Auth(RegisterSellerPage, false)} />

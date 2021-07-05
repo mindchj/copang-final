@@ -55,6 +55,7 @@ function ProductInfo({ location }) {
     //location.state의 어디서 읽어와야 할지 추후 수정
     else if(location.state.from === "product") {
       console.log("not fromCart진입");
+      console.log(location.state);
       const getDataDirect = async () => {
         const anotherData = [location.state];
         console.log(anotherData);
