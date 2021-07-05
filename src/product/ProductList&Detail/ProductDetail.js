@@ -22,7 +22,7 @@ const ProductDetail = ({ match, history }) => {
         }
         res();
     }, [itemId])
-
+    console.log(ProductOne);
     const [ProductList, setProductList] = useState([]);
     useEffect(() => {
         const res = async () => {
@@ -31,7 +31,7 @@ const ProductDetail = ({ match, history }) => {
         }
         res();
     }, [])
-    
+    console.log(ProductList);
 
     const [su, setSu] = useState(1);
     const upSu = () => {
@@ -54,7 +54,7 @@ const ProductDetail = ({ match, history }) => {
                         <div className="productPrice"><div style={{ marginTop: '10px' }}><strong style={{ fontSize: '16pt', color: '#AE0000' }}>{ProductOne.itemDetailFormList&&numberFormat(ProductOne.itemDetailFormList[0].price)}</strong>원</div></div>
                         <div className="productSizeColor">
                             <div className="productSize">
-                                {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].optionName} : &nbsp; <button onClick={() => history.push("/member/4/ProductAddTest")}>추가폼</button>
+                                {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].optionName} : &nbsp;
                                 <select>
                                     {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList.map((row,idx) => {
                                         return(
@@ -107,6 +107,9 @@ const ProductDetail = ({ match, history }) => {
                                         amount: su,
                                         mainImg: ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].mainImg,
                                         itemNo : itemId,
+                                        optionValue:ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].optionValue,
+                                        optionName:ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].optionName,
+                                        itemDetailId:ProductList.itemDetailId,
                                         from : 'product'
                                     }
                                     history.push("/member/4/orderpage", data);

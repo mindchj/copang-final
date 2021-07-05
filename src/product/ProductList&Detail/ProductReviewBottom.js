@@ -18,12 +18,15 @@ const ProductReviewBottom = (props) => {
         res();
     }, [itemId])
     console.log(ProductOne)
+    
+    
 
     const [Review, setReview] = useState([]);
     useEffect(() => {
         const res = async () => {
-            const result = await axios.get("http://192.168.0.13:9001/question/list");
-            setReview(result.data)
+            const result = await axios.get("https://alconn.co/api/review/user");
+            setReview(result.data.data)
+            console.log(result.data.data)
         }
         res();
     }, [])
@@ -43,7 +46,7 @@ const ProductReviewBottom = (props) => {
             <div className="product-review">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <div className="product-review-header">
-      
+
                     <div style={{ fontWeight: 'bold', fontSize: '1.5em', marginTop: '3%' }}>상품리뷰<button className="write-review" onClick={()=>props.history.push("/member/4/order")}>상품리뷰 작성</button><button className="review-rules" onClick={openModal}>상품리뷰 운영원칙</button></div>
 
                     <Modal open={modalOpen} close={closeModal} header="상품평 운영원칙">
@@ -112,28 +115,29 @@ const ProductReviewBottom = (props) => {
                                         <span className="user-photo glyphicon glyphicon-user"></span>
                                     </div>
                                     <div style={{ float:'left' }}>
-                                        <div>{row.writeID}</div>
+                                        <div>{localStorage.getItem("userId")}</div>
                                         <span>
                                             <div>
                                                 {
-                                                    row.stars === '1' ? <div><StarIcon className="smstar"></StarIcon><span className="writeDate">{row.writeDate}</span></div>
-                                                        : row.stars === '2' ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><span className="writeDate">{row.writeDate}</span></div>
-                                                            : row.stars === '3' ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon> <StarIcon className="smstar"></StarIcon><span className="writeDate">{row.writeDate}</span></div>
-                                                                : row.stars === '4' ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><span className="writeDate">{row.writeDate}</span></div>
-                                                                    : row.stars === '5' ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><span className="writeDate">{row.writeDate}</span></div> : <div>별x</div>
+                                                    row.rating === 1 ? <div><StarIcon className="smstar"></StarIcon><span className="writeDate">{row.registerDate}</span></div>
+                                                        : row.rating === 2 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><span className="writeDate">{row.registerDate}</span></div>
+                                                            : row.rating === 3 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon> <StarIcon className="smstar"></StarIcon><span className="writeDate">{row.registerDate}</span></div>
+                                                                : row.rating === 4 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><span className="writeDate">{row.registerDate}</span></div>
+                                                                    : row.rating === 5 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><span className="writeDate">{row.registerDate}</span></div> : <div>별x</div>
                                                 }
                                                 {/* <span className="smstar glyphicon glyphicon-star"></span>
                                             <span className="smstar glyphicon glyphicon-star"></span>
                                             <span className="smstar glyphicon glyphicon-star"></span>
                                             <span className="smstar glyphicon glyphicon-star"></span>
                                         <span className="smstar glyphicon glyphicon-star"></span>&nbsp; */}
-                                                
                                             </div>
                                         </span>
                                     </div>
+                                    <div>{ProductOne.itemName},{ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].optionName}:{ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].optionValue},{row.amount}</div>
                                     <br /><br /><br />
+                                    <div><strong>{row.title}</strong></div>
                                     <div className="product-review-content">
-                                        {row.writeContent}
+                                        {row.content}
                                     </div>
                                 </div>
                             )

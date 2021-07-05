@@ -1,27 +1,41 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-import StarIcon from '@material-ui/icons/Star';
+// import StarIcon from '@material-ui/icons/Star';
 import CardTravelIcon from '@material-ui/icons/CardTravel';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
+import Rating from '@material-ui/lab/Rating';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+
 
 //리뷰작성하기클릭->주문목록(orderId보내기)->리뷰작성폼(현재 페이지/orderId받기)
 const ProductReviewWriteForm = (props) => {
-    let itemId = props.match.params.itemId;
-    
+    // let itemId = props.match.params.itemId;
+    // 별점함수
+    const [value, setValue] = React.useState(2);
+
+    //만족도 true & false
+    const useToggle = (initialState = true) => {
+        const [state, setState] = useState(initialState);
+        const toggle = useCallback(() => setState(state => !state), []);
+        return [state, toggle]
+    }
+
+    const [isSatisfied, setIsSatisfied] = useToggle();
+
+    useEffect(() => {
+        console.log(isSatisfied);
+    }, [isSatisfied])
+
 
     //개별상품의 정보를 itemId로 받아 ProductOne에 저장 
-    const [ProductOne, setProductOne] = useState([]);
-    useEffect(() => {
-        const res = async () => {
-            const result = await axios.get("https://alconn.co/api/item/list/itemid=" + itemId);
-            setProductOne(result.data.data)
-        }
-        res();
-    }, [itemId])
+
     // let itemDetailId=ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].itemDetailId;
-    
+
     const [img, setImg] = useState(null);
 
     const onChange = (e) => {
@@ -40,9 +54,9 @@ const ProductReviewWriteForm = (props) => {
         setimgUrl(res.data.data.publicPath)
     }
 
-    const [review,setReview] =useState({
-        "title" : "",
-        "content" : ""
+    const [review, setReview] = useState({
+        "title": "",
+        "content": ""
     })
 
     const handleReviewChange = (e) => {
@@ -51,21 +65,22 @@ const ProductReviewWriteForm = (props) => {
     }
 
 
-    const reviewData ={
+    const reviewData = {
         // "itemId":Number(itemId),
         // "itemDetailId" : itemDetailId,
         // "orderItemId" : 10,
-        "title" : review.title,
-        "content" : review.content,
-        "image" : imgUrl,
-        "rating" : 5,
-        "satisfied" : true
+        "title": review.title,
+        "content": review.content,
+        "image": imgUrl,
+        "rating": value,
+        "satisfied": isSatisfied
     }
     const writeReview = () => {
         const axioswriteReview = async () => {
             const token = localStorage.getItem("accessToken");
-            const res=await axios.post("https://alconn.co/api/review/register", reviewData,{
-                headers:{ Authorization: `Bearer ${token}`
+            const res = await axios.post("https://alconn.co/api/review/register", reviewData, {
+                headers: {
+                    Authorization: `Bearer ${token}`
                 }
             })
             console.log(res);
@@ -99,8 +114,8 @@ const ProductReviewWriteForm = (props) => {
                     <div className="service-review-wrap">
                         <div style={{ float: 'left', lineHeight: '100px' }}><div></div><strong>만족도</strong></div>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span style={{ lineHeight: '100px' }}><ThumbUpIcon></ThumbUpIcon></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span><ThumbDownIcon></ThumbDownIcon></span>
+                        <span onClick={setIsSatisfied} style={{ lineHeight: '100px', cursor: 'pointer' }}>{isSatisfied ? <ThumbUpIcon style={{ color: 'blue' }}></ThumbUpIcon> : <ThumbUpAltIcon></ThumbUpAltIcon>}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span onClick={setIsSatisfied} style={{ lineHeight: '100px', cursor: 'pointer' }}>{isSatisfied ? <ThumbDownAltIcon></ThumbDownAltIcon> : <ThumbDownIcon style={{ color: 'red' }}></ThumbDownIcon >}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                 </div><br /><br />
                 <div className="product-review-wrap">
@@ -111,25 +126,37 @@ const ProductReviewWriteForm = (props) => {
                         <div style={{ fontSize: '11pt' }}>이 상품의 품질에 대해서 얼마나 만족하시나요?</div>
                     </div>
                     <div className="service-review-wrap">
-                        <div style={{ float: 'left',margin:'2%' }}><img style={{ width: '100px', height: '100px' }} alt="이미지x" src={ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].mainImg} /></div>
-                        <span style={{margin:'3%',lineHeight:'130px'}}>{ProductOne.itemName},{ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].optionValue}</span>
-                        <span style={{ color: 'orange',margin:'3%' }}><StarIcon /><StarIcon /><StarIcon /><StarIcon /><StarIcon /><h style={{ color: 'black' }}>최고</h></span>
+                        <span style={{ margin: '3%' }}>
+                            <Box component="fieldset" mb={3} borderColor="transparent">
+                                <Typography component="legend"></Typography>
+                                <Rating
+                                    name="simple-controlled"
+                                    value={value}
+                                    onChange={(event, newValue) => {
+                                        
+                                        setValue(newValue);
+                                    
+                                    }}
+                                />
+                            </Box>
+                        </span>
                     </div>
                     <div className="review-content">
-                    <div style={{ float: 'left', margin:'3%' }}><strong>한줄요약</strong></div>
-                        <span><textarea name="title" onChange={handleReviewChange} value={review.title}></textarea></span>
+                        <div style={{float:'left', margin:'3%'}}><span>상세리뷰</span></div>
+                        <span style={{marginRight:'3%'}}><textarea style={{float:'right', marginTop: '3%',marginBottom:'3%', width: '500px', height: '100px' }} name="title" onChange={handleReviewChange} value={review.title}></textarea></span>
                     </div>
                     <div className="review-image-wrap">
-                        <div style={{ float: 'left',margin:'3%' }}><strong>사진첨부</strong></div>
-                        <span><input type="file" onChange={onChange}></input ><button onClick={imgUpload}>사진등록</button></span>
+                        <div style={{ float: 'left', margin:'3%' }}><span>사진첨부</span></div>
+                        <span><button style={{float:'right',marginTop:'3%'}} onClick={imgUpload}>사진등록</button><input type="file" onChange={onChange} style={{margin:'3%', float:'right',width:'200px'}}></input></span>
                     </div>
-                    <div style={{borderTop:'1px solid #ddd'}}>
-                        <div style={{ float: 'left', margin:'3%' }}><strong>한줄요약</strong></div>
-                        <span><textarea name="content" onChange={handleReviewChange} value={review.content}></textarea></span>
+                    <div style={{ borderTop: '1px solid #ddd',borderBottom:'1px solid #ddd',height:'100px' }}>
+                        <div style={{ float: 'left', margin: '3%' }}><span>한줄요약</span></div>
+                        <span ><textarea style={{float:'right', marginTop: '3%',marginBottom:'3%', width: '500px', height: '50px' }} name="content" onChange={handleReviewChange} value={review.content}></textarea></span>
                     </div>
                 </div>
+                <button type="submit" onClick={writeReview}>등록하기</button>
             </div>
-            <button type="submit" onClick={writeReview}>등록하기</button>
+
         </div>
     )
 }

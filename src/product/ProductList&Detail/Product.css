@@ -438,11 +438,13 @@ div.service-review-question{
 }
 
 div.service-review-wrap{
-    height: 100px;
+    height: 8%;
+    min-height: 7%;
 }
 
 div.product-review-wrap{
     border-top:1px solid black;
+    height: 600px;
 }
 
 div.product-review-question{
@@ -452,10 +454,14 @@ div.product-review-question{
 
 div.review-content{
     border-top: 1px solid #ddd;
-    height: 100px;
+    height: 150px;
 }
 
 div.review-image-wrap{
     height: 100px;
     border-top: 1px solid #ddd
+}
+
+.clickedstar {
+    color: rgb(212, 180, 0);
 }
