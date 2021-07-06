@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 //import axios from "axios";
 import TopSection from "./TopSection";
-import MemberInfo from "./MemberInfo";
 import ProductCategory from "./ProductCategory";
 import BottomSection from "./BottomSection";
-import Payment from "./Payment";
+import img from "./profile.png";
+import axios from "axios";
 
 function ProductInfo({ location }) {
   const [product, setProduct] = useState([]);
   const [totalPrice, setTotalPrice] = useState();
+  const [addr, setAddr] = useState("");
+  const [idx, setIdx] = useState();
+  const [payment, setPayment] = useState();
 
   const reducer = (accumulator, currentValue) => {
     return accumulator + currentValue;
@@ -69,12 +72,50 @@ function ProductInfo({ location }) {
       };
       getDataDirect();
     }
+    getAddr();
   }, []);
+
+  const getAddr = async () => {
+    const result = await axios.get("https://alconn.co/api/address");
+    const address = result.data.data;
+    let idx;
+    for(let i=0; i<address.length;i++)
+    {
+      if(address[i].priority==="PRIMARY")
+        idx = i;
+    }
+    setIdx(idx);
+    setAddr(address);
+    console.log(address);
+  }
+
+  const getPayment = (e) => {
+    setPayment(e.target.value);
+  }
 
   return (
     <div>
       <TopSection totalPrice={totalPrice} />
-      <MemberInfo />
+      <div className = "row member">
+            <div className = "col-2">
+                <h3>Customer</h3><br></br>
+                <img src = {img} alt = "profile-pic"></img>
+            </div>
+            { addr &&
+              <div className = "col memberInfo my-auto">
+                  <h5>주소 : {addr[idx].address}</h5>
+                  <h5>상세 주소 : {addr[idx].detail}</h5>
+                  <h5>요청 사항 : {addr[idx].preRequest}</h5>
+              </div>
+            } 
+            <div>
+              <select onChange={(e)=>setIdx(e.target.selectedIndex)}>
+                {addr && addr.map( (row,idx) => 
+                  <option key={idx}>{row.address} {row.detail}</option>
+                )}
+              </select>
+            </div>
+        </div>
       <ProductCategory />
 
       {/* 매핑을 사용해서 상품 리스트를 읽어와서 반복출력을 한다 
@@ -105,8 +146,24 @@ function ProductInfo({ location }) {
           </div>
         );
       })}
-      <Payment />
-      <BottomSection totalPrice={totalPrice} convert={convert} clientId={location.state.clientId} cartId={location.state.cartId} from={location.state.from}/>
+      <div className = "row payment align-items-center">
+            <div className = "col">
+                <h5>Payment Option</h5>
+                <div class="form-check-inline">
+                    <label class="form-check-label">신용카드</label>
+                        <input type="radio" class="form-check-input" name="payment" value="credit" onChange={getPayment}/>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label">계좌이체</label>
+                        <input type="radio" class="form-check-input" name="payment" value="transfer" onChange={getPayment}/>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label">카카오페이</label>
+                        <input type="radio" class="form-check-input" name="payment" value="kakao" onChange={getPayment}/>
+                </div>
+            </div>
+        </div>
+      <BottomSection totalPrice={totalPrice} convert={convert} clientId={location.state.clientId} cartId={location.state.cartId} from={location.state.from} addr={addr[idx]}/>
     </div>
   );
 }

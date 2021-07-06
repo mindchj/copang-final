@@ -77,7 +77,7 @@ const Test = () => {
         setRes(result.data.data);
     }
     const deleteOption = async () => {
-        const result = await axios.delete("https://alconn.co/api/item/delete/item-detail="+54);
+        const result = await axios.delete("https://alconn.co/api/item/delete/item-detail/"+1183);
         setRes(result.data.data);
     }
 

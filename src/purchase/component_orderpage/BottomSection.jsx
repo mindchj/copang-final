@@ -30,7 +30,7 @@ useEffect( ()=>{
     const orderData = {
       clientId : props.clientId,
       cartId : props.cartId,
-      addressId : addId, //임시값, address 작업후 수정
+      addressId : props.addr.addressId,
       totalAmount : 0, //임시값
       totalPrice : 0, // 임시값
       orderItems : props.convert(),
@@ -41,6 +41,12 @@ useEffect( ()=>{
       const result = await axios.post("https://alconn.co/api/orders",orderData);
       console.log("order result:");
       console.log(result);
+
+      //여기서 주문완료후 받아온 response로 결제API 송신
+
+      //이후 받아온 response로 주문API 재송신
+
+
 
       //주문후 기존 장바구니 체크박스 체크한 상품들 비우기
       if(props.from === "cart")
@@ -56,6 +62,7 @@ useEffect( ()=>{
           axiosDelCart();
         }
       }
+      
     }
     axiosPlaceOrder();
   }

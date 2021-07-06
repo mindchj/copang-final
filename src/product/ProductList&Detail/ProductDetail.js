@@ -43,6 +43,12 @@ const ProductDetail = ({ match, history }) => {
         }
     }
 
+    const [optIdx, setOptIdx] = useState(0);
+    const onChangeOptIdx = (e) => {
+        console.log(e);
+        setOptIdx(e.target.selectedIndex);
+    }
+
     return (
         <div className="total-wrap">
             <div className="totaldesc">
@@ -54,16 +60,16 @@ const ProductDetail = ({ match, history }) => {
                         <div className="productPrice"><div style={{ marginTop: '10px' }}><strong style={{ fontSize: '16pt', color: '#AE0000' }}>{ProductOne.itemDetailFormList&&numberFormat(ProductOne.itemDetailFormList[0].price)}</strong>원</div></div>
                         <div className="productSizeColor">
                             <div className="productSize">
-                                {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].optionName} : &nbsp;
-                                <select>
+                                {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[optIdx].optionName} : &nbsp;
+                                <select onChange={(e)=>onChangeOptIdx(e)}>
                                     {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList.map((row,idx) => {
                                         return(
-                                            <option row={row} key={idx}>{ProductOne.itemDetailFormList[0].optionValue}</option>
+                                            <option row={row} key={idx}>{ProductOne.itemDetailFormList[idx].optionValue}</option>
                                         )
                                     })}
                                 </select>
                             </div>
-                            <div>잔고수량 : {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].stockQuantity}</div>
+                            <div>잔고수량 : {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[optIdx].stockQuantity}</div>
                         </div>
                         <div className="productSeller">
                             <div className="seller">판매자 : {ProductOne.sellerSID}</div>
@@ -83,7 +89,7 @@ const ProductDetail = ({ match, history }) => {
                             </div>
                             <button className="cart" onClick={()=>{
                                 const sendData = {
-                                    itemDetailId: ProductOne.itemDetailFormList[0].itemDetailId,
+                                    itemDetailId: ProductOne.itemDetailFormList[optIdx].itemDetailId,
                                     itemId,
                                     amount:su
                                 }
@@ -101,17 +107,21 @@ const ProductDetail = ({ match, history }) => {
                                 }}>장바구니 담기</button>
                             <button className="perchase" onClick={
                                 () => {
+                                    console.log("aaaaa");
+                                    console.log(ProductOne.itemDetailFormList);
+                                    console.log(optIdx);
+                                    console.log(ProductOne.itemDetailFormList[optIdx]);
                                     const data = {
                                         itemName: ProductOne.itemName,
-                                        price: ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].price,
+                                        price: ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[optIdx].price,
                                         amount: su,
-                                        mainImg: ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].mainImg,
+                                        mainImg: ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[optIdx].mainImg,
                                         itemNo : itemId,
-                                        optionValue:ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].optionValue,
-                                        optionName:ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].optionName,
-                                        itemDetailId:ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].itemDetailId,
+                                        optionValue:ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[optIdx].optionValue,
+                                        optionName:ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[optIdx].optionName,
+                                        itemDetailId:ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[optIdx].itemDetailId,
                                         from : 'product'
-                                    }
+                                    };
                                     history.push("/member/4/orderpage", data);
                                 }
                             }>바로구매</button>

@@ -53,13 +53,29 @@ const ProductAddTest = () => {
         "itemName": product.itemName,
         "categoryId": product.categoryId,
         "itemComment" : "상품설명입니다.",
-        "itemDetailFormList": [{
-            "price": product2.price,
-            "stockQuantity": product2.stockQuantity,
-            "optionName": product2.optionName,
-            "optionValue": product2.optionValue,
-            "mainImg": imgUrl
-        }]
+        "itemDetailFormList": [
+            {
+                "price": product2.price,
+                "stockQuantity": product2.stockQuantity,
+                "optionName": product2.optionName,
+                "optionValue": product2.optionValue,
+                "mainImg": imgUrl
+            },
+            {
+                price: 3000,
+                stockQuantity: 33,
+                optionName: "2nd option",
+                optionValue: "2nd value",
+                mainImg: imgUrl,
+            },
+            {
+                price: 4500,
+                stockQuantity: 22,
+                optionName: "3rd option",
+                optionValue: "3rd value",
+                mainImg: imgUrl,
+            }
+        ]
     }
 
 
