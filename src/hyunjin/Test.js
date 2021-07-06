@@ -162,7 +162,7 @@ const Test = () => {
         setRes(result.data.data);
     }
 
-    const question2 = { content : "문의 수정" };
+    const question2 = { content : "문의 수정3333" };
     const updateQuestion = async () => {
         const result = await axios.put("https://alconn.co/api/inquiry/"+151,question2);
         setData(question2);
