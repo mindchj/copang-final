@@ -1,18 +1,73 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductQuestionModal from './ProductQuestionModal';
-// import { TableCell,TableRow } from '@material-ui/core';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-const ProductQuestionBottom=()=>{
+
+const ProductQuestionBottom=(props)=>{
     
+    const [refresh,setRefresh]=useState(0)
+
+    const onClickReply=(idx,row)=>{
+        Question[idx].check=!Question[idx].check
+        setRefresh(prev => prev+1)
+        console.log(row.inquiryId)
+    }
+
+    useEffect(()=>{},[refresh])
+    
+    const [replyContent, setReplyContent]=useState({
+        replyContent:""
+    })
+
+    const handleChange3 =(e)=>{
+        const {name,value}=e.target;
+        console.log(e.target);
+        setReplyContent({replyContent,[name]:value})
+    }
+
+    const [optionValue, setOptionValue] = useState({
+        optionValue:""
+    })
+
+    const handleChange2 = (e) =>{
+        const {name,value}=e.target;
+        console.log(e.target);
+        setOptionValue({optionValue,[name]:value});
+    }
+    const [content, setContent] = useState({
+        content:""
+    })
+    
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        console.log(e.target);
+        setContent({ content, [name]: value });
+    };
+
+
+    let itemId=props.match.params.itemId;
     const [Question, setQuestion] = useState([]);
     useEffect(() => {
         const res = async () => {
-            const result = await axios.get("");
-            setQuestion(result.data)
+
+            const result = await axios.get("https://alconn.co/api/inquiry/client");
+            for(let i=0; i<result.data.data.length; i++){
+                result.data.data[i].check = false;
+            }
+            setQuestion(result.data.data)
         }
         res();
     }, [])
+    const [ProductOne, setProductOne] = useState([]);
+    useEffect(() => {
+        const res = async () => {
+            const result = await axios.get("https://alconn.co/api/item/list/itemid=" + itemId);
+            setProductOne(result.data.data)
+        }
+        res();
+    }, [itemId])
+    
 
     const [modalOpen, setModelOpen] = useState(false);
 
@@ -27,13 +82,30 @@ const ProductQuestionBottom=()=>{
     const addQuestion = (Question) => {
         const axiosAddQuestion = async () =>{
             const questionData = {
-                writeID : Question.writeID,
-                writeContent : Question.writeContent,
-                writeDate : Question.writeDate
+                "clientId":localStorage.getItem("userId"),
+                "clienetName":Question.clientName,
+                "itemId":itemId,
+                "content":content.content,
+                "itemDetailId":ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].itemDetailId,
+                "optionValue":optionValue.optionValue,
+                "optionName":ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].optionName,
+                "itemName":ProductOne.itemName
             }
-            await axios.post("severAPI",questionData);
+            await axios.post("https://alconn.co/api/inquiry",questionData);
         }
         axiosAddQuestion();
+    }
+    console.log(Question)
+    const addReply =(idx)=>{
+        const axiosAddReply = async () =>{
+            const replyData ={
+                "inquiry": Question[idx].inquiryId,
+                "content": replyContent.replyContent
+            }
+            await axios.post("https://alconn.co/api/inquiry/"+Question[idx].inquiryId+"/reply",replyData)
+        }
+        axiosAddReply();
+        console.log(Question[idx].inquiryId)
     }
     return(
             <div className="product-question-desc">
@@ -43,26 +115,17 @@ const ProductQuestionBottom=()=>{
                         <div style={{fontWeight:'bold', fontSize:'1.5em', marginTop:'3%'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         상품문의<span className="product-question-span"><button type="button" className="product-question-button" onClick={openModal}>문의하기</button></span></div>
                         <ProductQuestionModal open={modalOpen} close={closeModal} header="상품 문의">
-                            <table className="table table-bordered">
+                            <table className="table table-bordered" style={{width:'500px', height:'600px'}}>
                                 <tbody>
-                                    <tr>
+                                    <tr style={{height:'50px'}}>
                                         <th>상품정보</th>
                                         <td>
                                             <div>
                                                 <div role="button" title="신발사이즈(mm)을(를) 선택하세요.">
-                                                <select name="option" placeholder="신발사이즈(mm)을(를) 선택하세요.">
-                                                    <option value="1">123456789</option>  
-                                                    <option value="2">2</option>    
-                                                    <option value="3">3</option>    
-                                                    <option value="4">4</option>    
-                                                </select>
-                                                </div>
-                                                <div role="button" title="신발사이즈(mm)을(를) 선택하세요.">
-                                                <select name="option" placeholder="신발사이즈(mm)을(를) 선택하세요.">
-                                                    <option value="1">987654321</option>  
-                                                    <option value="2">2</option>    
-                                                    <option value="3">3</option>    
-                                                    <option value="4">4</option>    
+                                                {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].optionName} : <select name="optionValue" onChange={handleChange2}>
+                                                    <option value={optionValue.optionValue} >
+                                                        {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].optionValue}
+                                                    </option>                  
                                                 </select>
                                                 </div>
                                             </div>
@@ -71,13 +134,13 @@ const ProductQuestionBottom=()=>{
                                     <tr>
                                         <th>판매자</th>
                                         <td>
-                                            판매자
+                                            
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>문의내용</th>
-                                        <td>
-                                            <textarea cols="100" rows="10"></textarea>
+                                        <td> 
+                                            <textarea cols="100" name="content" value={content.content} onChange={handleChange}></textarea>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -108,14 +171,19 @@ const ProductQuestionBottom=()=>{
                         <div className="product-question-body-wrap">
                             <div className="product-question-body">
                                 {
-                                    Question&&Question.map((row,idx) => {
+                                    Question&&Question.map((row,idx) => {                                
                                         return(
                                             <div className="product-question-body2" row={row} key={idx}>
-                                                <strong><span style={{backgroundColor:'#777777',color:'white'}}>질문</span>&nbsp;<span className="glyphicon glyphicon-user"></span>&nbsp;{row.writeID}</strong><span className="product-question-writeday">{row.writeDate}</span><br/><br/>
-                                                <div>{row.writeContent}</div><br/>
+                                                <strong><span style={{backgroundColor:'#777777',color:'white'}}>질문</span>&nbsp;<AccountCircleIcon></AccountCircleIcon>&nbsp;{row.clientName}</strong><span className="product-question-writeday">{row.registerDate}</span><br/>
+                                                <div style={{fontSize:'10pt',color:'#777'}}>{row.itemName}{row.optionName},{row.optionValue}</div>
+                                                <div>{row.content}</div>
+                                                <div><button onClick={()=>onClickReply(idx,row)} style={{border:'none', backgroundColor:'white',color:'#346AFF'}} >답글달기</button></div>                                                
                                                 {
-                                                    row.replyID && <div className="question-reply-wrap"><br></br><strong><span style={{backgroundColor:'#346AFF',color:'white'}}>답글</span>&nbsp;<span className="glyphicon glyphicon-eject"></span>&nbsp;{row.replyID}</strong><span className="product-question-writeday">{row.replyDate}</span><br/><br/>
-                                                    <div>{row.replyContent}</div><br/>
+                                                    row.check?<div><textarea name="replyContent" onChange={handleChange3} value={replyContent.replyContent}></textarea><button onClick={()=>addReply(idx)} style={{border:'none', backgroundColor:'white',color:'#346AFF'}}>답글완료</button></div>:null
+                                                }
+                                                {
+                                                    row.replyID && <div className="question-reply-wrap"><br></br><strong><span style={{backgroundColor:'#346AFF',color:'white'}}>답글</span>&nbsp;<span className="glyphicon glyphicon-eject"></span>&nbsp;{row.reply.sellerName}</strong><span className="product-question-writeday">{row.reply.registerDate}</span><br/><br/>
+                                                    <div>{row.reply.Content}</div><br/>
                                                     </div>
                                                 }
                                             </div>      
@@ -125,7 +193,6 @@ const ProductQuestionBottom=()=>{
                             </div>    
                         </div>
                     </div>
-                    
                 </div>
             </div>
     )

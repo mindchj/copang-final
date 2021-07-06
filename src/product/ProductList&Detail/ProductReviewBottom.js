@@ -4,7 +4,6 @@ import Modal from './ProductReviewModal';
 import StarIcon from '@material-ui/icons/Star';
 
 const ProductReviewBottom = (props) => {
-    console.log(props)
 
     let itemId = props.match.params.itemId;
 
@@ -17,16 +16,12 @@ const ProductReviewBottom = (props) => {
         }
         res();
     }, [itemId])
-    console.log(ProductOne)
-    
-    
 
     const [Review, setReview] = useState([]);
     useEffect(() => {
         const res = async () => {
-            const result = await axios.get("https://alconn.co/api/review/user");
+            const result = await axios.get("https://alconn.co/api/review/"+itemId);
             setReview(result.data.data)
-            console.log(result.data.data)
         }
         res();
     }, [])

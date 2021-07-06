@@ -12,7 +12,7 @@ const numberFormat = (num) => {
 const ProductDetail = ({ match, history }) => {
     //history로 보낸 itemId를 match.params로 받음 
     let itemId = match.params.itemId;
-
+    
     //개별상품의 정보를 itemId로 받아 ProductOne에 저장 
     const [ProductOne, setProductOne] = useState([]);
     useEffect(() => {
@@ -22,7 +22,7 @@ const ProductDetail = ({ match, history }) => {
         }
         res();
     }, [itemId])
-    console.log(ProductOne);
+    
     const [ProductList, setProductList] = useState([]);
     useEffect(() => {
         const res = async () => {
@@ -31,7 +31,7 @@ const ProductDetail = ({ match, history }) => {
         }
         res();
     }, [])
-    console.log(ProductList);
+
 
     const [su, setSu] = useState(1);
     const upSu = () => {
@@ -166,7 +166,7 @@ const ProductDetail = ({ match, history }) => {
                         }>상품리뷰</li>
                         <li className="ProductQuestionBottom" onClick={
                             () => {
-                                history.push("/member/4/product/selectOne/" + itemId + "/ProductQuestionBottom");
+                                history.push("/member/4/product/selectOne/"+itemId+"/ProductQuestionBottom");
                             }
                         }>상품문의</li>
                     </ul>

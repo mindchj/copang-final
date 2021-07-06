@@ -319,7 +319,7 @@ div.product-review-content{
 
 div.prod-quantity__form{
     display: table;
-    width: 83px;
+    width: 100%;
     height: 40px;
     border: 1px solid #ccc;
 }

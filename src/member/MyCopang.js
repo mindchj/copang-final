@@ -13,6 +13,7 @@ import MyCopangAddressAddForm from './MyCopangAddressForm';
 import AddressUpdateForm from './AddressUpdateForm';
 import MyCopangReview from './MyCopangReview';
 import ProductReviewWriteForm from '../product/ProductList&Detail/ProductReviewWriteForm';
+// import MyCopangShip from './MyCopangShip';
 
 // Navigation
 // const MyCopangNavi = () => {
@@ -38,6 +39,20 @@ const Order = ({ history }) => {
         }
         getOrderList();
     }, [])
+    // 주문 목록 -> 장바구니 담기 
+    const onSendCart = (product) => {
+        const sendData = {
+            itemDetailId: product.itemDetailId,
+            itemId : product.itemId,
+            amount: product.amount
+        }
+
+        const axiosAddOneCart = async () => {
+            await axios.post("https://alconn.co/api/cart/item", sendData);
+        }
+        axiosAddOneCart();
+        alert("장바구니에 담겼습니다.")
+    }
 
     return (
         <div className="mc-main-content">
@@ -53,7 +68,7 @@ const Order = ({ history }) => {
                         {/* <div >{order.orderStatus}</div> */}
                         {order.orderItems.map(product => (
                             <div className="product-container">
-                            
+
 
                                 <div className="product-image">
                                     <img src="favicon.ico" alt="product" />
@@ -65,15 +80,15 @@ const Order = ({ history }) => {
                                             <div>{product.price} 원</div>
                                         </div>
                                         <div>{product.amount} 개</div>
-                                        <button className="btn-basket">장바구니 담기</button>
+                                        <button className="btn-basket" onClick={()=>onSendCart(product)}>장바구니 담기</button>
                                     </div>
                                     <br></br>
                                 </div>
                                 <div className="btn-container">
                                     <div className="btn-container-flex">
-                                        <button className="content-btn btn-1">배송 조회</button>
+                                        <button className="content-btn btn-1" onClick={()=>history.push("/ship-tracking")}>배송 조회</button>
                                         <button className="content-btn btn-2">교환, 반품 신청</button>
-                                        <button className="content-btn btn-3" onClick={() => history.push({ pathname: "/mycopang/review", state: { orderId: order.orderId } })}>리뷰 작성하기</button>
+                                        <button className="content-btn btn-3" onClick={() => history.push({ pathname: "/mycopang/review", state: { orderInfo : order } })}>리뷰 작성하기</button>
                                     </div>
                                 </div>
                             </div>
@@ -140,8 +155,8 @@ const MainTab = () => {
     }
     return (
         <div className="main-tab">
-            <NavLink exact to='/order' style={{ textDecoration: 'none' }} activeStyle={activeStyle} className="tab-box-label" >전체</NavLink>
-            <NavLink to='/order' style={{ textDecoration: 'none' }} activeStyle={activeStyle} className="tab-box-label">배송상품</NavLink>
+            <NavLink exact to='/mycopang' style={{ textDecoration: 'none' }} activeStyle={activeStyle} className="tab-box-label" >전체</NavLink>
+            <NavLink exact to='/mycopang' style={{ textDecoration: 'none' }} activeStyle={activeStyle} className="tab-box-label">배송상품</NavLink>
             <NavLink to='/trip' style={{ textDecoration: 'none' }} activeStyle={activeStyle} className="tab-box-label">여행상품</NavLink>
             <NavLink to='/ticket' style={{ textDecoration: 'none' }} activeStyle={activeStyle} className="tab-box-label">티켓상품</NavLink>
         </div>
@@ -177,7 +192,7 @@ const MyCopangTemplate = () => {
                         <div className="mc-shopping">
                             <ul>
                                 <li className="title-mid">My쇼핑</li>
-                                <li><Link exact="true" to="/order" style={{ textDecoration: 'none' }}>주문목록</Link></li>
+                                <li><Link exact="true" to="/mycopang" style={{ textDecoration: 'none' }}>주문목록</Link></li>
                                 <li><Link exact="true" to="/cancel-return" style={{ textDecoration: 'none' }}>취소/반품/교환/환불내역</Link></li>
                                 <li>정기배송관리</li>
                                 <li>영수증 조회/출력</li>
@@ -237,7 +252,7 @@ const MyCopangTemplate = () => {
                         </div>
                         <div className="mc-main-content">
                             <Switch>
-                                <Route exact path="/order" component={Order} />
+                                <Route exact path="/mycopang" component={Order} />
                                 <Route exact path="/cancel-return" component={Cancel} />
                                 <Route path="/trip" component={TripRender} />
                                 <Route path="/ticket" component={TicketRender} />
@@ -248,6 +263,7 @@ const MyCopangTemplate = () => {
                                 <Route exact path="/address-update-page" component={AddressUpdateForm} />
                                 <Route exact path="/mycopang/review" component={ProductReviewWriteForm} />
                                 <Route exact path="/review-page" component={MyCopangReview} />
+                                {/* <Route exact path="/ship-tracking" component={MyCopangShip} /> */}
                             </Switch>
                         </div>
                     </div>
