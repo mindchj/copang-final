@@ -43,7 +43,7 @@ const AddressUpdateForm = ({ location,history }) => {
         if (isChecked === false ) {
             const putAddr =  async () => {
                 await axios.put(uri, addrValues)
-                history.push("/my-addr")
+                history.push("/mycopang/my-addr")
             }
             putAddr()
         }
@@ -52,7 +52,7 @@ const AddressUpdateForm = ({ location,history }) => {
             const putDefaultAddr =  async () => {
                 await axios.put(uri, addrValues)
                 await axios.patch(uriDefault, addrValues)
-                history.push("/my-addr")
+                history.push("/mycopang/my-addr")
             }
             putDefaultAddr()
         }

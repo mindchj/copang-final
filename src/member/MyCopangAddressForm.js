@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Grid,
   Typography,
@@ -16,26 +16,10 @@ export default function MyCopangAddressForm({ history }) {
     const { name, value } = e.target;
     setAddrValues({ ...addrValues, [name]: value });
   }
-  // const handleDefaultAddrChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setDeefaultAddr({ ...defaultAddr, [name]: value })
-  // }
-  // const onClickChange = (e) => {
-  //   console.log(e.target.checked)
-  //   e.target.value = e.target.checked
-  // }
-  // const updateDefaultAddr = (e) => {
-  //   e.preventDefault();
-  //   const defaultAddrUri = 'https://alconn.co/api/address/default';
-  //   const postDefaultAddr = async () => {
-  //     await axios.post(defaultAddrUri, defaultAddr).then(res => console.log(res))
-  //   }
-  //   postDefaultAddr()
-  // }
   const SubmitAddr = () => {
     const uri = 'https://alconn.co/api/address';
     const postAddr = async () => {
-      await axios.post(uri, addrValues).then(history.push("/my-addr"));
+      await axios.post(uri, addrValues).then(history.push("/mycopang/my-addr"));
     }
     postAddr()
   }

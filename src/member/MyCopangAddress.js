@@ -46,12 +46,12 @@ const MyCopangAddress = ({ history, match, location }, props) => {
                     <div className="MyCopangAddr-phone">{item.receiverPhone}</div>
                     <div className="MyCopangAddr-preRequest">{item.preRequest}</div>
                     <Button onClick={()=>onDelete(item.addressId)}>삭제</Button>
-                    <Button onClick={()=> history.push({pathname:"/address-update-page", state : {addrValues:item}})}>수정</Button>
+                    <Button onClick={()=> history.push({pathname:"/mycopang/address-update-page", state : {addrValues:item}})}>수정</Button>
                 </MyCopangAddrBoxItem>
             ))
             }
             <div className="MyCopangAddr-add-wrap" style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button variant="contained" color="primary" onClick={() => history.push('/address-add-page')}>
+                <Button variant="contained" color="primary" onClick={() => history.push('/mycopang/address-add-page')}>
                     추가하기
                 </Button>
             </div>

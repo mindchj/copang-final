@@ -1,0 +1,22 @@
+.ship-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(131, 188, 225);
+    font-size: 1.25rem;
+    color:white;
+}
+
+.tracking-detail-header{
+    display: flex;
+    justify-content: space-around
+}
+
+.tracking-detail {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 5px;
+    margin-bottom : 1%;
+    display: flex;
+    justify-content: space-around
+}
