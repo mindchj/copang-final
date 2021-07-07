@@ -163,7 +163,8 @@ function ProductInfo({ location }) {
                 </div>
             </div>
         </div>
-      <BottomSection totalPrice={totalPrice} convert={convert} clientId={location.state.clientId} cartId={location.state.cartId} from={location.state.from} addr={addr[idx]}/>
+      <BottomSection totalPrice={totalPrice} convert={convert} clientId={location.state.clientId} 
+                      cartId={location.state.cartId} from={location.state.from} addr={addr[idx]} payment={payment}/>
     </div>
   );
 }

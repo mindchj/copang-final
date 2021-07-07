@@ -9,24 +9,19 @@ const OrderComplete = () => {
     return (
         <div style={{width:'1000px',margin:'0 auto', padding:'20px'}}>
             <h2><b> 결제 완료창</b></h2><br/>
-            <Table  hover>
-                <thead>
-                    <tr>
-                        <td>
-                            td
-                        </td>
-                        <td style={{width:'100px'}}><h4><b>사진</b></h4></td>
-                        <td style={{width:'300px'}}><h4><b>상품</b></h4></td>
-                        <td style={{width:'100px'}}><h4><b>가격</b></h4></td>
-                        <td style={{width:'100px'}}><h4><b>수량</b></h4></td>
-                        <td style={{width:'100px'}}><h4><b>합계</b></h4></td>
-                        <td style={{width:'290px'}}><Button style={{float:'right'}} color="primary">전체 비우기　<i className='fas fa-trash'/></Button></td>
-                    </tr>
-                </thead>
+            <table className="table table-bordered" style={{width:'800px', margin:'0 auto'}}>
                 <tbody>
-                    tbody
+                    <tr>
+                        <td style={{width:'200px'}}><h4>받는사람</h4></td><td style={{width:'700px'}}>1</td>
+                    </tr>
+                    <tr>
+                        <td><h4>받는 주소</h4></td><td>1</td>
+                    </tr>
+                    <tr>
+                        <td><h4>주문 요청사항</h4></td><td>1</td>
+                    </tr>
                 </tbody>
-            </Table>
+            </table>
             <hr/>
             <Button style={{alignItems:'center',float:'right'}} size="lg" color="primary">주문하기</Button>
             <h2 style={{display:'inline',float:'right',marginRight:'30px'}}>

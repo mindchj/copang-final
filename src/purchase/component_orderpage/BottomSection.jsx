@@ -1,13 +1,77 @@
 import React, { useEffect } from "react";
-//import {totalPrice} from "./ProductInfo";
 import axios from 'axios';
 import { useState } from "react";
 
 function BottomSection(props) {
- 
+  
+  const [orderId, setOrderId] = useState();
+  const [callbackRes, setCallbackRes] = useState();
+  const [pgRequest, setPgRequest] = useState({
+    pg: 'kakaopay',                           // PG사
+    pay_method: 'card',                           // 결제수단
+    merchant_uid: `mid_${new Date().getTime()}`,   // 주문번호
+    amount: 200,                                 // 결제금액
+    name: '아임포트 결제 데이터 분석',                  // 주문명
+    // buyer_name: '홍길동',                           // 구매자 이름
+    buyer_tel: '01012341234',                     // 구매자 전화번호
+    // buyer_email: 'example@example',               // 구매자 이메일
+    // buyer_addr: '신사동 661-16',                    // 구매자 주소
+    // buyer_postcode: '06018',
+    // pg: "kakaopay",
+    // merchant_uid : 1,
+    // amount : 2,
+    // buyer_tel: "010",
+  });
+
   const numberFormat = (num) => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   }
+
+  // orderReady 신호 보낸 후 orderId 받아옴
+  const orderReady = async () => {
+    const orderData = {
+      clientId : props.clientId,
+      cartId : props.cartId,
+      addressId : props.addr.addressId,
+      totalAmount : 0, //임시값
+      totalPrice : props.totalPrice, // 임시값
+      orderItems : props.convert(), //상품들의 배열
+    }
+    const result = await axios.post("https://alconn.co/api/orders/ready",orderData);
+    console.log("ready 리턴값:");
+    console.log(result.data.data.orderId);
+  }
+
+  useEffect( () => {
+    if(orderId == null)
+    {
+      console.log("orderId == null 입니다");
+      return;
+    } 
+    else
+    {
+      const {IMP} = window; // html cdn에서 받아옴
+      IMP.init('imp48486822');
+      IMP.request_pay(pgRequest, callback); //여기서 신호를 보냄
+    }
+  },[orderId])
+
+  const callback = (res) => {
+    console.log("res출력");
+    console.log(res);
+    setCallbackRes(res);
+    const {
+      imp_uid,
+      success,
+      merchant_uid,
+      error_msg
+    } = res;
+
+    if(success) {
+
+    }
+  }
+
 
   const placeOrder = () => {
     const orderData = {
@@ -15,11 +79,12 @@ function BottomSection(props) {
       cartId : props.cartId,
       addressId : props.addr.addressId,
       totalAmount : 0, //임시값
-      totalPrice : 0, // 임시값
+      totalPrice : props.totalPrice, // 임시값
       orderItems : props.convert(),
     }
     console.log("orderData:");
     console.log(orderData);
+
     const axiosPlaceOrder = async () => {
       const result = await axios.post("https://alconn.co/api/orders",orderData);
       console.log("order result:");
