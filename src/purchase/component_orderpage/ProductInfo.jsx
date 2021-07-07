@@ -6,7 +6,7 @@ import BottomSection from "./BottomSection";
 import img from "./profile.png";
 import axios from "axios";
 
-function ProductInfo({ location }) {
+function ProductInfo({ location, history}) {
   const [product, setProduct] = useState([]);
   const [totalPrice, setTotalPrice] = useState();
   const [addr, setAddr] = useState("");
@@ -46,7 +46,6 @@ function ProductInfo({ location }) {
     //곧 해당 주문은 장바구니 페이지에서 주문하기 버튼을 통해 들어온 것
     //arrayOfPrice 는 단순히 단가 * 수량 = 총 단가 를 계산하기 위한 변수다
     if (location.state.from === "cart") {
-      console.log("fromCart진입");
       const data = location.state.list;
       setProduct(data);
       const arrayOfPrice = data.map( (entry) => {
@@ -57,17 +56,13 @@ function ProductInfo({ location }) {
     //반대로 location.state 값이 "product"면 해당 주문은 상품 상세 페이지에서 바로구매 기능을 통해 들어온것이며
     //location.state의 어디서 읽어와야 할지 추후 수정
     else if(location.state.from === "product") {
-      console.log("not fromCart진입");
-      console.log(location.state);
       const getDataDirect = async () => {
         const anotherData = [location.state];
-        console.log(anotherData);
         setProduct(anotherData);
 
         const arrayOfPrice = anotherData.map((entry) => {
           return entry.price * entry.amount;
         });
-        //console.log(arrayOfPrice);
         setTotalPrice(arrayOfPrice.reduce(reducer, 0));
       };
       getDataDirect();
@@ -86,7 +81,6 @@ function ProductInfo({ location }) {
     }
     setIdx(idx);
     setAddr(address);
-    console.log(address);
   }
 
   const getPayment = (e) => {
@@ -159,12 +153,12 @@ function ProductInfo({ location }) {
                 </div>
                 <div className="form-check-inline">
                     <label className="form-check-label">카카오페이</label>
-                        <input type="radio" className="form-check-input" name="payment" value="kakao" checked onChange={getPayment}/>
+                        <input type="radio" className="form-check-input" name="payment" value="kakaopay" checked onChange={getPayment}/>
                 </div>
             </div>
         </div>
-      <BottomSection totalPrice={totalPrice} convert={convert} clientId={location.state.clientId} 
-                      cartId={location.state.cartId} from={location.state.from} addr={addr[idx]} payment={payment}/>
+      {totalPrice && <BottomSection totalPrice={totalPrice} convert={convert} clientId={location.state.clientId} history={history}
+                      cartId={location.state.cartId} from={location.state.from} addr={addr[idx]} payment={payment}/>}
     </div>
   );
 }
