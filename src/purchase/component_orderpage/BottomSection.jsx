@@ -4,24 +4,7 @@ import axios from 'axios';
 import { useState } from "react";
 
 function BottomSection(props) {
-  // function cancelOrder(event) {
-
-  // }
-
-  // useEffect(() => {
-  //   console.log(props.totalPrice);
-  // }, [props.totalPrice]);
-const [addId, setAddId] = useState();
-
-useEffect( ()=>{
-  const axiosAddress = async () => {
-    const res = await axios.get("https://alconn.co/api/address");
-    console.log(res.data.data[0].addressId);
-    setAddId(res.data.data[0].addressId);
-  }
-  axiosAddress()
-},[])
-
+ 
   const numberFormat = (num) => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   }

@@ -149,17 +149,17 @@ function ProductInfo({ location }) {
       <div className = "row payment align-items-center">
             <div className = "col">
                 <h5>Payment Option</h5>
-                <div class="form-check-inline">
-                    <label class="form-check-label">신용카드</label>
-                        <input type="radio" class="form-check-input" name="payment" value="credit" onChange={getPayment}/>
+                <div className="form-check-inline">
+                    <label className="form-check-label">신용카드</label>
+                        <input type="radio" className="form-check-input" name="payment" value="credit" onChange={getPayment}/>
                 </div>
-                <div class="form-check-inline">
-                    <label class="form-check-label">계좌이체</label>
-                        <input type="radio" class="form-check-input" name="payment" value="transfer" onChange={getPayment}/>
+                <div className="form-check-inline">
+                    <label className="form-check-label">모바일</label>
+                        <input type="radio" className="form-check-input" name="payment" value="mobile" onChange={getPayment}/>
                 </div>
-                <div class="form-check-inline">
-                    <label class="form-check-label">카카오페이</label>
-                        <input type="radio" class="form-check-input" name="payment" value="kakao" onChange={getPayment}/>
+                <div className="form-check-inline">
+                    <label className="form-check-label">카카오페이</label>
+                        <input type="radio" className="form-check-input" name="payment" value="kakao" checked onChange={getPayment}/>
                 </div>
             </div>
         </div>
