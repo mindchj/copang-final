@@ -33,9 +33,7 @@ const OptionList = (props) => {
         </div>
       </div>
 
-
       {props.singleOptionValue.map((option, idx) => {
-
         return (
           <div key={idx} className="row optionList">
             <div className="col-1 align-self-center">

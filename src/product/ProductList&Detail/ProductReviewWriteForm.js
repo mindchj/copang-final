@@ -10,11 +10,20 @@ import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
 
 //리뷰작성하기클릭->주문목록(orderId보내기)->리뷰작성폼(현재 페이지/orderId받기)
 const ProductReviewWriteForm = (props) => {
-    let orderItemId=props.location.state.orderId;
+    let orderItemId = props.location.state.orderInfo.orderItems[0].orderItemId;
+    let itemId = props.location.state.orderInfo.orderItems[0].itemId;
+    let itemDetailId = props.location.state.orderInfo.orderItems[0].itemDetailId;
+    let mainImg = props.location.state.orderInfo.orderItems[0].mainImg;
+    let clientName = props.location.state.orderInfo.client.username;
+    let itemName = props.location.state.orderInfo.orderItems[0].itemName;
+    let optionValue = props.location.state.orderInfo.orderItems[0].optionValue;
+    let optionName = props.location.state.orderInfo.orderItems[0].optionName;
+    console.log(props.location.state);
     console.log(props)
     // 별점함수
     const [value, setValue] = React.useState(2);
@@ -63,14 +72,14 @@ const ProductReviewWriteForm = (props) => {
     const handleReviewChange = (e) => {
         const { name, value } = e.target;
         setReview({ ...review, [name]: value })
-    }  
-    
+    }
+
 
     // console.log(itemId)
     const reviewData = {
-        // "itemId":Number(itemId),
-        // "itemDetailId" : itemDetailId,
-        "orderItemId" : orderItemId,
+        "itemId": Number(itemId),
+        "itemDetailId": itemDetailId,
+        "orderItemId": orderItemId,
         "title": review.title,
         "content": review.content,
         "image": imgUrl,
@@ -96,12 +105,12 @@ const ProductReviewWriteForm = (props) => {
 
     return (
         <div>
-            <div style={{ height: '1200px' }}>
+            <div style={{ height: '1400px' }}>
                 <div className="review-header-wrap"><span style={{ fontSize: '28pt', fontWeight: 'bolder' }}>리뷰관리</span><span style={{ fontSize: '12pt', color: '#346Aff', cursor: 'pointer' }}>리뷰 운영원칙</span></div>
                 <div className="review-header-section">
                     <div className="review-header-section-content">
                         <div style={{ float: 'left', width: '100px', height: '100px' }}><AccountCircleIcon style={{ width: '100%', height: '100%' }}></AccountCircleIcon></div>
-                        <div style={{ float: 'left', margin: '3%', fontSize: '15pt' }}>{localStorage.getItem("userId")}</div>
+                        <div style={{ float: 'left', margin: '3%', fontSize: '15pt' }}>{clientName}</div>
                         <div style={{ float: 'left', width: '1px', height: '74px', border: '1px solid #ddd', marginTop: '2%' }}></div>
                         <div style={{ float: 'left', margin: '3%' }}><span><strong>도움</strong></span><br /><span>0명</span></div>
                         <div style={{ float: 'left', margin: '3%' }}><span><strong>랭킹</strong></span><br /><span>-등</span></div>
@@ -129,35 +138,40 @@ const ProductReviewWriteForm = (props) => {
                         <div style={{ fontSize: '11pt' }}>이 상품의 품질에 대해서 얼마나 만족하시나요?</div>
                     </div>
                     <div className="service-review-wrap">
-                        <span style={{ margin: '3%' }}>
+                        <div style={{ float: 'left', border: '1px solid black', width: '100px', height: '100px', margin: '3%' }}><img alt="" src={mainImg} style={{ width: '100%', height: '100%' }} />
+                        </div>
+                        <span style={{ float: 'left', marginTop: '3%' }}>{itemName}, {optionName}, {optionValue}<br /><br />
                             <Box component="fieldset" mb={3} borderColor="transparent">
                                 <Typography component="legend"></Typography>
                                 <Rating
                                     name="simple-controlled"
                                     value={value}
                                     onChange={(event, newValue) => {
-                                        
                                         setValue(newValue);
-                                    
-                                    }}
-                                />
+                                    }} />
                             </Box>
                         </span>
                     </div>
                     <div className="review-content">
-                        <div style={{float:'left', margin:'3%'}}><span>상세리뷰</span></div>
-                        <span style={{marginRight:'3%'}}><textarea style={{float:'right', marginTop: '3%',marginBottom:'3%', width: '500px', height: '100px' }} name="title" onChange={handleReviewChange} value={review.title}></textarea></span>
+                        <div style={{ float: 'left', margin: '3%' }}><span>상세리뷰</span></div>
+                        <span style={{ marginRight: '3%' }}>
+                            {/* <textarea style={{ float: 'right', marginTop: '3%', marginBottom: '3%', width: '500px', height: '100px' }} name="title" onChange={handleReviewChange} value={review.title}></textarea> */}
+                            <TextareaAutosize style={{ float: 'right', marginTop: '3%', marginBottom: '3%', minWidth: '500px',minHeight: '100px' }} name="title" onChange={handleReviewChange} value={review.title}></TextareaAutosize>
+                            </span>
                     </div>
                     <div className="review-image-wrap">
-                        <div style={{ float: 'left', margin:'3%' }}><span>사진첨부</span></div>
-                        <span><button style={{float:'right'}} onClick={imgUpload}>사진등록</button><input type="file" onChange={onChange} style={{ float:'right',width:'200px'}}></input></span>
+                        <div style={{ float: 'left', margin: '3%' }}><span>사진첨부</span></div>
+                        <div style={{ float: 'left', width: '100px', height: '100px', border: '1px solid black', marginTop: '3%', marginLeft: '7%' }}><img alt="" src={imgUrl} style={{width:'100%',height:'100%'}}/></div>
+                        <div><input type="file" onChange={onChange} style={{ float: 'left', marginTop: '3%', width: '210px', marginLeft: '70px' }}></input></div>
+                        <div><button style={{ float: 'left', marginTop: '3%' }} onClick={imgUpload}>사진등록</button></div>
                     </div>
-                    <div style={{ borderTop: '1px solid #ddd',borderBottom:'1px solid #ddd',height:'150px' }}>
+                    <div style={{ borderTop: '1px solid #ddd', borderBottom: '1px solid #ddd', height: '150px' }}>
                         <div style={{ float: 'left', margin: '3%' }}><span>한줄요약</span></div>
-                        <span ><textarea style={{float:'right', marginTop: '3%',marginBottom:'3%', width: '500px', height: '50px' }} name="content" onChange={handleReviewChange} value={review.content}></textarea></span>
+                        <span ><textarea style={{ float: 'right', marginTop: '3%', marginBottom: '3%', width: '500px', height: '50px' }} name="content" onChange={handleReviewChange} value={review.content}></textarea></span>
+                                    
                     </div>
+                    <div style={{textAlign:'center',marginBottom:'5%'}}><button style={{marginTop:'5%',color:'white', backgroundColor:'#346aff',border:'none',width:'100px',height:'30px'}} type="submit" onClick={writeReview}>등록하기</button></div>
                 </div>
-                <button type="submit" onClick={writeReview}>등록하기</button>
             </div>
 
         </div>

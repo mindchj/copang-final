@@ -13,9 +13,10 @@
     cursor: pointer;
     border: 0;
 }
-.modal > section {
+.modal > section.review {
     width: 90%;
     max-width: 1000px;
+    height: 770px;
     margin:0 auto;
     border-radius: .3rem;
     background-color: #fff;

@@ -1,21 +1,65 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const CategoryForm = () => {
   const [parentCategory, setParentCategory] = useState([]);
   const [childCategory, setChildCategory] = useState([]);
+  const [refresh, setRefresh] = useState(0);
 
-  const testData = {
-    Clothes: ["shirt", "blouse", "pants"],
-    Beverage: ["coke", "beer", "water"],
+  /////////////////////////////////////대분류 변수////////////////////////////////////////
+  const [largeCategory, setLargeCategory] = useState([]);
+  const [selectedLC, setSelectedLC] = useState([]);
+
+  /////////////////////////////////////중분류 변수////////////////////////////////////////
+  const [mediumCategory, setMediumCategory] = useState([]);
+  const [selectedMC, setSelectedMC] = useState([]);
+
+  /////////////////////////////////////소분류 변수////////////////////////////////////////
+  const [smallCategory, setSmallCategory] = useState([]);
+  const [selectedSC, setSelectedSC] = useState([]);
+
+  // const testData = {
+  //   Clothes: ["shirt", "blouse", "pants"],
+  //   Beverage: ["coke", "beer", "water"],
+  // };
+
+  // const settingValues = () => {
+  //   setParentCategory(Object.keys(testData));
+  //   setChildCategory(Object.values(testData));
+  // };
+
+  const largeCategorySelect = (e) => {
+    setMediumCategory(JSON.parse(e.target.value).cildCategory);
+    setRefresh((prev) => prev + 1);
+    setSmallCategory("");
   };
 
-  const settingValues = () => {
-    setParentCategory(Object.keys(testData));
-    setChildCategory(Object.values(testData));
+  const mediumCategorySelect = (e) => {
+    setSmallCategory(JSON.parse(e.target.value).cildCategory);
+    setRefresh((prev) => prev + 1);
+    console.log(JSON.parse(e.target.value).categoryId);
+  };
+
+  const smallCategorySelect = (e) => {
+    setRefresh((prev) => prev + 1);
+    console.log(JSON.parse(e.target.value).categoryId);
   };
 
   useEffect(() => {
-    settingValues();
+    const readAllCategory = async () => {
+      const result = await axios.get("https://alconn.co/api/category/list");
+      console.log(result);
+
+      setLargeCategory(result.data.data.cildCategory);
+      // setMediumCategory(result.data.data.cildCategory[0].cildCategory);
+      // setSmallCategory(
+      //   result.data.data.cildCategory[0].cildCategory[0].cildCategory
+      // );
+      console.log(largeCategory);
+    };
+
+    readAllCategory();
+    //settingValues();
   }, []);
 
   return (
@@ -25,33 +69,72 @@ const CategoryForm = () => {
           <h2>카테고리</h2>
         </div>
         <div className="row">
-          <div className="col-3">
-            <label htmlFor="parentCategoryForm">대분류</label>
-            <select className="custom-select" id="parentCategoryForm" value={"default"}>
-              <option value="default" disabled>
-                Main Category
-              </option>
-              {parentCategory.map((entry, index) => {
+          <div className="col-2">
+            <select
+              className="custom-select"
+              id="largeCategoryForm"
+              name="largeCategory"
+              onChange={(e) => largeCategorySelect(e)}
+            >
+              <option selected>카테고리 선택</option>
+              {largeCategory.map((entry, idx) => {
                 return (
-                  <option key={index} value={entry}>
-                    {entry}
+                  <option
+                    key={entry.categoryId}
+                    value={JSON.stringify(entry)}
+                    name="largeCategory"
+                  >
+                    {entry.categoryName}
                   </option>
                 );
               })}
             </select>
           </div>
-          <div className="col-3">
-            <label htmlFor="subCategoryForm">중분류</label>
-            <select className="custom-select" id="subCategoryForm" value={"default"}>
-              <option value="default" disabled>
-                Sub-Category
-              </option>
-              {childCategory.map((entry) => {
-                return entry.map((data, idx) => {
-                  return <option key={idx} value={data}>{data}</option>;
-                });
-              })}
-            </select>
+          <div className="col-2" id="mediumCategorySection">
+            {mediumCategory.length !== 0 ? (
+              <select
+                className="custom-select"
+                id="mediumCategoryForm"
+                name="mediumCategory"
+                onChange={(e) => mediumCategorySelect(e)}
+              >
+                <option selected>카테고리 선택</option>
+                {mediumCategory.map((entry, idx) => {
+                  return (
+                    <option
+                      key={entry.categoryId}
+                      value={JSON.stringify(entry)}
+                      name="mediumCategory"
+                    >
+                      {entry.categoryName}
+                    </option>
+                  );
+                })}
+              </select>
+            ) : null}
+          </div>
+          <div className="col-2">
+            {smallCategory.length !== 0 ? (
+              <select
+                className="custom-select"
+                id="smallCategoryForm"
+                name="smallCategory"
+                onChange={(e) => smallCategorySelect(e)}
+              >
+                <option selected>카테고리 선택</option>
+                {smallCategory.map((entry, idx) => {
+                  return (
+                    <option
+                      key={entry.categoryId}
+                      value={JSON.stringify(entry)}
+                      name="smallCategory"
+                    >
+                      {entry.categoryName}
+                    </option>
+                  );
+                })}
+              </select>
+            ) : null}
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@
 }
 
 .optionListCategory div {
-  border: 1px solid #ccc;
+  border: 0px solid #ccc;
   padding-top: 5px;
   padding-bottom: 5px;
 }
@@ -29,4 +29,8 @@
 
 .optionList {
   background-color: white;
+}
+
+.optionList div {
+  border: 0px solid black;
 }

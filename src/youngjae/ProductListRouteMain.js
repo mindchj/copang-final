@@ -20,7 +20,7 @@ const ProductListRouteMain = () =>{
             <Route path="/member/4/product/selectOne/:itemId/ProductQuestionBottom" component={ProductQuestionBottom}/>
             <Route path="/member/4/orderpage" component={OrderPageApp} />
             <Route path="/member/4/ProductReviewBottom/review/write/:itemId" component={ProductReviewWriteForm}/>
-            <Route path="/member/4/order" component={order}/>
+            <Route path="/mycopang" component={order}/>
             
         </div>
     )
