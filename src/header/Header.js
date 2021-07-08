@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -20,6 +20,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector } from "react-redux";
+import axios from 'axios';
 const useStyles = makeStyles((theme) => ({
     linkBasic: {
         color: 'inherit',
@@ -98,9 +99,25 @@ function Header() {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+    const [search, setSearch] = useState("");
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    const handleEnter = (e) => {
+        if(e.key === 'Enter')
+        {
+            const input = search.replaceAll(" ","+")
+            setSearch("");
+            console.log(input);
+            const axiosSearch = async () => {
+                const result = await axios.post("https://alconn.co/검색API",input);
+                console.log("search 결과 출력:")
+                console.log(result);
+            }
+            //axiosSearch();
+        }
+    }
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -202,6 +219,9 @@ function Header() {
                                 input: classes.inputInput,
                             }}
                             inputProps={{ 'aria-label': 'search' }}
+                            onChange={(e)=>setSearch(e.target.value)}
+                            onKeyPress={handleEnter}
+                            value={search}
                         />
                     </div>
                     <div className={classes.grow} />

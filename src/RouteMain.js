@@ -22,6 +22,7 @@ import AddForm from "./youngjae/ProductAddTest";
 import Test22 from "./hyunjin/Test22";
 import Test from "./hyunjin/Test";
 import MainPage from './product/ProductList&Detail/MainPage';
+import Drawer from './hyunjin/Drawer';
 
 //import SearchBox from "./header/SearchBox/SearchBox";
 
@@ -45,6 +46,7 @@ const RouteMain = () => {
             <Route path="/member/6" component={AddForm} />
             <Route path="/member/7" component={Test22} />
             <Route path="/member/8" component={Test} />
+            <Route path="/member/9" component={Drawer}/>
 
             <Route path="/login" component={Auth(LoginPage, false)} />
             <Route path="/register" component={Auth(RegisterPage, false)} />
