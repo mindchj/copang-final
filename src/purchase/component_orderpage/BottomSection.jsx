@@ -87,7 +87,7 @@ function BottomSection(props) {
         }
       }
       //받아온 result를 완료창에 띄워줌
-      props.history.push("/member/10",result.data.data);
+      props.history.push("/order/complete",result.data.data);
     }
     else
     {

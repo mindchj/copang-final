@@ -96,13 +96,13 @@ const OrderComplete = ({location : state, history}) => {
         );
       })}
       <div className="col-10 row bottom">
-        <div className="col-10">
+        <div className="col-9">
           <h3 style={{ fontWeight: "bold" }} className="text-right">
           총 주문액 :{" "}
           </h3>
         </div>
-        <div className="col-2">
-          <h3 className="text"><b>{state.state && numberFormat(state.state.totalPrice)}원</b></h3>
+        <div className="col-3">
+          <h3 className="text-right"><b>{state.state && numberFormat(state.state.totalPrice)}원</b></h3>
         </div>
       </div>
       <div className="row button">
@@ -115,8 +115,6 @@ const OrderComplete = ({location : state, history}) => {
           </button>
         </div>
       </div>
-      {/* {totalPrice && <BottomSection totalPrice={totalPrice} convert={convert} clientId={location.state.clientId} 
-                      cartId={location.state.cartId} from={location.state.from} addr={addr[idx]} payment={payment}/>} */}
     </div>
     );
 };

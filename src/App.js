@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import promiseMiddleware from 'redux-promise';
 import ReduxThunk from 'redux-thunk';
+
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore);
 //App.js 수정 다시함 또다시함
 const App = () => {
@@ -22,7 +23,8 @@ const App = () => {
             <Router>
                 <RouteMain />
             </Router>
-        </Provider>)
+        </Provider>
+        )
 }
 
 export default App;
