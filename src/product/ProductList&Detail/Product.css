@@ -434,7 +434,6 @@ div.service-review-question{
 div.service-review-wrap{
     height: 150px;
     border-bottom: 1px solid #ddd;
-
 }
 
 div.product-review-wrap{
@@ -463,4 +462,9 @@ div.review-image-wrap{
 table tbody.question-tbody td{
     height: 100px;
     line-height: 0px;
+}
+
+ul.MainImage li{
+    
+    float: left;
 }

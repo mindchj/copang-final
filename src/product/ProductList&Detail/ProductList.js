@@ -15,7 +15,7 @@ const ProductList = (history) =>{
         }
         res();
     },[])
-
+    console.log(ProductList)
     return (
         <div className="productlist">
             <ul className="searchproduct">
