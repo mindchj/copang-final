@@ -42,13 +42,8 @@ const RouteMain = () => {
             <Route exact path="/" component={Auth(CategoryForm, null)} />
             <Route path="/member/1" component={Cart} />
             <Route path="/member/2" component={AddNewProductApp} />
-<<<<<<< HEAD
-            <Route path="/member/3" component={Container}/>
-            <Route path="/product" component={ProductListRouteMain} />
-=======
             <Route path="/member/3" component={MainPage}/>
             <Route path="/member/4" component={ProductListRouteMain} />
->>>>>>> 140e7b3c77bae274383a2742de74b951f34fb1c4
             <Route path="/member/5" component={MyCopang} />
             <Route path="/member/6" component={AddForm} />
             <Route path="/member/7" component={Test22} />
