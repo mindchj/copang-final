@@ -465,6 +465,9 @@ table tbody.question-tbody td{
 }
 
 ul.MainImage li{
-    
+    margin: 3px;
     float: left;
+    cursor: pointer;
+    border: 1px solid #777;
+    padding: 0%;
 }

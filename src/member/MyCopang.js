@@ -15,17 +15,7 @@ import MyCopangReview from './MyCopangReview';
 import ProductReviewWriteForm from '../product/ProductList&Detail/ProductReviewWriteForm';
 import MyCopangOrderDetail from './MyCopangOrderDetail';
 import MyCopangShip from './MyCopangShip';
-
-// Navigation
-// const MyCopangNavi = () => {
-//     return (
-//         <nav>
-//             <Link exact="true" to="/order">주문목록</Link>
-//             <Link exact="true" to="/cancel-return">취소 반품</Link>
-//             <Link exact="true" to="/wish">찜 리스트</Link>
-//         </nav>
-//     )
-// }
+import ProductReviewUpdateForm from './ProductReviewUpdateForm';
 
 export const Order = ({ history }) => {
     const [orderList, setOrderList] = useState([]);
@@ -156,10 +146,10 @@ const MainTab = () => {
     }
     return (
         <div className="main-tab">
-            <NavLink exact to='/mycopang' style={{ textDecoration: 'none' }} activeStyle={activeStyle} className="tab-box-label" >전체</NavLink>
-            <NavLink exact to='/mycopang' style={{ textDecoration: 'none' }} activeStyle={activeStyle} className="tab-box-label">배송상품</NavLink>
-            <NavLink to='/mycopang/trip' style={{ textDecoration: 'none' }} activeStyle={activeStyle} className="tab-box-label">여행상품</NavLink>
-            <NavLink to='/mycopang/ticket' style={{ textDecoration: 'none' }} activeStyle={activeStyle} className="tab-box-label">티켓상품</NavLink>
+            <NavLink exact to='/mycopang' activeStyle={activeStyle} className="tab-box-label" >전체</NavLink>
+            <NavLink exact to='/mycopang' activeStyle={activeStyle} className="tab-box-label">배송상품</NavLink>
+            <NavLink to='/mycopang/trip'  activeStyle={activeStyle} className="tab-box-label">여행상품</NavLink>
+            <NavLink to='/mycopang/ticket'  activeStyle={activeStyle} className="tab-box-label">티켓상품</NavLink>
         </div>
     )
 }
@@ -193,8 +183,8 @@ const MyCopangTemplate = () => {
                         <div className="mc-shopping">
                             <ul>
                                 <li className="title-mid">My쇼핑</li>
-                                <li><Link exact="true" to="/mycopang" style={{ textDecoration: 'none' }}>주문목록</Link></li>
-                                <li><Link exact="true" to="/mycopang/cancel-return" style={{ textDecoration: 'none' }}>취소/반품/교환/환불내역</Link></li>
+                                <li><Link exact="true" to="/mycopang" >주문목록</Link></li>
+                                <li><Link exact="true" to="/mycopang/cancel-return" >취소/반품/교환/환불내역</Link></li>
                                 <li>정기배송관리</li>
                                 <li>영수증 조회/출력</li>
                             </ul>
@@ -211,7 +201,7 @@ const MyCopangTemplate = () => {
                                 <li className="title-mid">My 활동</li>
                                 <li>문의하기</li>
                                 <li>문의내역 확인</li>
-                                <li><Link exact="true" to="/review-page">리뷰 관리</Link></li>
+                                <li><Link exact="true" to="/mycopang/review-page" >리뷰 관리</Link></li>
                                 <li>찜 리스트</li>
                             </ul>
                         </div>
@@ -219,8 +209,8 @@ const MyCopangTemplate = () => {
                             <ul>
                                 <li className="title-mid">My정보</li>
                                 <li>개인정보확인/수정</li>
-                                <li><Link exact="true" to="co-pay">결제수단/쿠페이 관리</Link></li>
-                                <li><Link exact="true" to="/mycopang/my-addr">배송지 관리</Link></li>
+                                <li><Link exact="true" to="/mycopang/co-pay" >결제수단/쿠페이 관리</Link></li>
+                                <li><Link exact="true" to="/mycopang/my-addr" >배송지 관리</Link></li>
                             </ul>
                         </div>
                     </div>
@@ -263,7 +253,8 @@ const MyCopangTemplate = () => {
                                 <Route exact path="/mycopang/address-add-page" component={MyCopangAddressAddForm} />
                                 <Route exact path="/mycopang/address-update-page" component={AddressUpdateForm} />
                                 <Route exact path="/mycopang/review" component={ProductReviewWriteForm} />
-                                <Route exact path="/review-page" component={MyCopangReview} />
+                                <Route exact path="/mycopang/review-page" component={MyCopangReview} />
+                                <Route exact path="/mycopang/review-page/update" component={ProductReviewUpdateForm} />
                                 <Route exact path="/ship-tracking" component={MyCopangShip} />
                                 <Route path="/mycopang/detail" component={MyCopangOrderDetail} />
                             </Switch>
