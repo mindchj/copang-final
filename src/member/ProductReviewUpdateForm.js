@@ -47,6 +47,14 @@ const ProductReviewUpdateForm = (props) => {
     const onChange = (e) => {
         setImg(e.target.files[0]);
     }
+
+    useEffect( () => {
+        if(img == null)
+        {
+            return;
+        }
+        imgUpload();
+    },[img])
     //리뷰 작성시 올리는 이미지 mainImg
     const [imgUrl, setimgUrl] = useState(mainImg)
     const imgUpload = async () => {
@@ -84,6 +92,10 @@ const ProductReviewUpdateForm = (props) => {
     }
     // console.log(reviewData)
     // console.log("title(상세리뷰)" + reviewData.title)
+    useEffect( () => {
+        console.log("reviewData 변경");
+        console.log(reviewData)
+    },[reviewData])
 
     const updateReview = () => {
         const axiosUpdateReview = async () => {
@@ -153,7 +165,6 @@ const ProductReviewUpdateForm = (props) => {
                         <div style={{ float: 'left', margin: '3%' }}><span>사진첨부</span></div>
                         <div style={{ float: 'left', width: '100px', height: '100px', border: '1px solid black', marginTop: '3%', marginLeft: '7%' }}><img alt="" src={imgUrl} style={{ width: '100%', height: '100%' }} /></div>
                         <div><input type="file" onChange={onChange} style={{ float: 'left', marginTop: '3%', width: '210px', marginLeft: '70px' }}></input></div>
-                        <div><button style={{ float: 'left', marginTop: '3%' }} onClick={imgUpload}>사진등록</button></div>
                     </div>
                     <div style={{ borderTop: '1px solid #ddd', borderBottom: '1px solid #ddd', height: '150px' }}>
                         <div style={{ float: 'left', margin: '3%' }}><span>한줄요약</span></div>
