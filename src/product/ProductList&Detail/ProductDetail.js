@@ -122,7 +122,7 @@ const ProductDetail = ({ match, history }) => {
                                         itemDetailId:ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[optIdx].itemDetailId,
                                         from : 'product'
                                     };
-                                    history.push("/member/4/orderpage", data);
+                                    history.push("/order/do", data);
                                 }
                             }>바로구매</button>
                         </div>
@@ -137,7 +137,7 @@ const ProductDetail = ({ match, history }) => {
                                     <li row={row} key={idx}
                                         onClick={
                                             () => {
-                                                history.push("/member/4/product/selectOne/" + row.itemId+"/ProductDescBottom");
+                                                history.push("/product/selectOne/" + row.itemId+"/ProductDescBottom");
                                             }
                                         }>
                                         <dl>
@@ -166,17 +166,17 @@ const ProductDetail = ({ match, history }) => {
                     <ul className="productMenuBarUl">
                         <li className="ProductDescBottom" onClick={
                             () => {
-                                history.push("/member/4/product/selectOne/" + itemId + "/ProductDescBottom");
+                                history.push("/product/selectOne/" + itemId + "/ProductDescBottom");
                             }
                         }>상품상세</li>
                         <li className="ProductReviewBottom" onClick={
                             () => {
-                                history.push("/member/4/product/selectOne/" + itemId + "/ProductReviewBottom");
+                                history.push("/product/selectOne/" + itemId + "/ProductReviewBottom");
                             }
                         }>상품리뷰</li>
                         <li className="ProductQuestionBottom" onClick={
                             () => {
-                                history.push("/member/4/product/selectOne/"+itemId+"/ProductQuestionBottom");
+                                history.push("/product/selectOne/"+itemId+"/ProductQuestionBottom");
                             }
                         }>상품문의</li>
                     </ul>

@@ -11,6 +11,8 @@ import AddNewCategoryForm from "./AddNewCategoryForm";
 
 const AddNewProductApp = () => {
   //=============== Image and setImg function ==============//
+  
+
   const [refresh, setRefresh] = useState(0);
   const [mainImg, setMainImg] = useState(null);
   const [mainImgSrc, setMainImgSrc] = useState("");
@@ -32,6 +34,8 @@ const AddNewProductApp = () => {
     console.log(res.data.data.publicPath);
     setIdx(idx);
     setRefresh((prev) => prev + 1);
+    console.log("이미지 업로드 직후 옵션인포 확인");
+    console.log(optionInfo);
   };
 
   const [subImg, setSubImg] = useState(null);
@@ -109,6 +113,11 @@ const AddNewProductApp = () => {
     });
   };
 
+  useEffect( () => {
+    console.log("옵션인포 변경됨");
+    console.log(optionInfo);
+  },[optionInfo])
+
   //=============== THE MAIN DATA TO SEND TO THE SERVER ==============//
   // const DetailList = {
   //   price: product2.price,
@@ -162,9 +171,13 @@ const AddNewProductApp = () => {
     // const valueSplit = product2.optionValue.split(",");
     // setSingleOptionValue(Object.keys(valueSplit).map((key) => valueSplit[key]));
     // console.log(optionList);
+    console.log("productData 확인");
+    console.log(productData);
+    console.log("옵션인포 확인");
+    console.log(optionInfo)
     setProductData({
       ...productData,
-      itemDetailFormList: [...productData.itemDetailFormList, optionInfo],
+      itemDetailFormList: [...productData.itemDetailFormList, {...optionInfo}],
     });
     document.getElementById("optionName").value = "";
     document.getElementById("optionValue").value = "";

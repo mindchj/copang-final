@@ -9,7 +9,7 @@ import CategoryForm from './header/SearchBox/CategoryForm';
 import Cart from "./purchase/Cart";
 import AddNewProductApp from "./product/AddNewProduct/AddNewProductApp";
 import Container from './product/AddNewProduct/productRedux';
-import ProductListRouteMain from './youngjae/ProductListRouteMain';
+import ProductListRouteMain from './product/ProductList&Detail/ProductListRouteMain';
 import MyCopang from "./member/MyCopang";
 import LoginPage from "./TopBar/Component/LoginPage";
 import RegisterPage from "./TopBar/Component/RegisterPage";
@@ -42,7 +42,7 @@ const RouteMain = () => {
             <Route path="/member/1" component={Cart} />
             <Route path="/member/2" component={AddNewProductApp} />
             <Route path="/member/3" component={Container}/>
-            <Route path="/member/4" component={ProductListRouteMain} />
+            <Route path="/product" component={ProductListRouteMain} />
             <Route path="/member/5" component={MyCopang} />
             <Route path="/member/6" component={AddForm} />
             <Route path="/member/7" component={Test22} />

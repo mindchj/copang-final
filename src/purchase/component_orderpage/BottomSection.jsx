@@ -35,8 +35,6 @@ function BottomSection(props) {
     )
   },[])
 
-
-
   // orderReady 신호 보낸 후 orderId 받아옴
   const orderReady = async () => {
     const orderData = {
@@ -47,6 +45,7 @@ function BottomSection(props) {
       totalPrice : props.totalPrice, // 임시값
       orderItems : props.convert(), //상품들의 배열
     }
+    
     const result = await axios.post("https://alconn.co/api/orders/ready",orderData);
     setOrderId(result.data.data.orderId);
   }
@@ -96,8 +95,34 @@ function BottomSection(props) {
     }
   }
 
+  const onChangePayment = (e) => {
+    setPgRequest(
+      {
+        ...pgRequest,
+        pg : e.target.value,
+      }
+    )
+  }
+
   return (
     <div>
+      <div className = "row payment align-items-center">
+            <div className = "col">
+                <h5>Payment Option</h5>
+                <div className="form-check-inline">
+                    <label className="form-check-label">페이코</label>
+                        <input id="payco" type="radio" className="form-check-input" name="payment" value="payco" onChange={onChangePayment}  />
+                </div>
+                <div className="form-check-inline">
+                    <label className="form-check-label">다날</label>
+                        <input id="danal" type="radio" className="form-check-input" name="payment" value="danal" onChange={onChangePayment}  />
+                </div>
+                <div className="form-check-inline">
+                    <label className="form-check-label">카카오페이</label>
+                        <input id="kakaopay" type="radio" className="form-check-input" name="payment" value="kakaopay" onChange={onChangePayment} />
+                </div>
+            </div>
+        </div>
       <div className="row bottom">
         <div className="col-9">
           <h5 style={{ fontWeight: "bold" }} className="text-right">
@@ -121,5 +146,28 @@ function BottomSection(props) {
     </div>
   );
 }
+
+
+const pg_status = {
+  kcp:"NHN KCP",
+  kcp_billing:"NHN KCP 정기결제",
+  uplus:"LGU+",
+  nice:"나이스페이",
+  jtnet:"JTNet",
+  kakaopay:"카카오페이",
+  danal:"다날휴대폰소액결제",
+  danal_tpay:"다날일반결제",
+  mobilians:"모빌리언스 휴대폰소액결제",
+  settle:"세틀뱅크",
+  syrup:"시럽페이",
+  payco:"페이코",
+  paypal:"페이팔",
+  eximbay:"엑심베이",
+  naverco:"주문형-네이버페이",
+  naverpay:"결제형-네이버페이",
+  smilepay:"스마일페이",
+}
+
+
 
 export default BottomSection;

@@ -9,86 +9,105 @@ const OrderComplete = ({location : state, history}) => {
     }
     
     return (
-        <div>
+        <div className="offset-md-2">
             {/* 받아온 값 : {JSON.stringify(state)} */}
-            <div className = "row top align-items-center">
+            <div className = "col-10 row top align-items-center">
                 <div className = "col-6" >
-                    <h1>주문/결제 완료</h1>
+                    <h1><b>주문/결제 완료</b></h1>
                 </div>
             </div>
                 <div className = "row member">
                     <div className = "col-2">
-                        <h3>Customer</h3><br></br>
+                        <h4><b>　주문 정보</b></h4><br></br>
                         <img src = {img} alt = "profile-pic"></img>
                     </div>
-                    <div className = "col memberInfo my-auto" style={{float:'left'}}>
-                        <h5>주문 번호 : {state.state && state.state.orderId}</h5>
-                        <h5>주문자명 : {state.state && state.state.client.realName}</h5>
-                        <h5>주소 : {state.state && state.state.address.address}</h5>
-                        <h5>요청 사항 : {state.state && state.state.address.preRequest}</h5>
+                    <div className = "col-2 memberInfo my-auto" style={{float:'left'}}>
+                        <h5>　</h5> 
+                        <h5><b>주문 번호</b></h5>
+                        <h5><b>주문자명</b></h5>
+                        <h5><b>연락처</b></h5>
                     </div>
-                    <div className = "col memberInfo my-auto" style={{float:'left'}}>
-                        <h5>주문 일시 : {state.state && state.state.orderDate}</h5>
-                        <h5>받는 사람 : {state.state && state.state.address.receiverName}</h5>
-                        <h5>연락처 : {state.state && state.state.client.phone}</h5>
-                        <h5>상세 주소 : {state.state && state.state.address.detail}</h5>
+                    <div className = "col-2 memberInfo my-auto" style={{float:'left'}}>
+                        <h5>　</h5> 
+                        <h5>{state.state && state.state.orderId}</h5>
+                        <h5>{state.state && state.state.client.realName}</h5>
+                        <h5>{state.state && state.state.client.phone}</h5>
                     </div>
+                    <div className = "col-2 memberInfo my-auto" style={{float:'left'}}>
+                        <h5>　</h5> 
+                        <h5><b>주문 날짜</b></h5>
+                        <h5><b>받는사람</b></h5>
+                        <h5>　</h5> 
+                    </div>
+                    <div className = "col-2 memberInfo my-auto" style={{float:'left'}}>
+                        <h5>　</h5> 
+                        <h5>{state.state && state.state.orderDate.substr(0,10)}</h5>
+                        <h5>{state.state && state.state.address.receiverName}</h5>
+                        <h5>　</h5>
+                    </div>
+                    <div className="col-2"></div><div className="col-1"></div><div className="col-1"></div>
+                    <div className="col-2 memberInfo my-auto" style={{float:'left'}}>
+                        <h5><b>주소</b></h5>
+                        <h5><b>요청사항</b></h5>
+                    </div>
+                    <div className="col-6 memberInfo my-auto" style={{float:'left'}}>
+                        <h5>{state.state && state.state.address.address+" "+state.state.address.detail}</h5>
+                        <h5>{state.state && state.state.address.preRequest}</h5>
+                    </div>
+               
         </div>
-        <div className = "row category">
+        <div className = "col-10 row category">
             <div className = "col-6">
-                <h5>Product Details</h5>
+                <h4><b>상품 상세</b></h4>
             </div>
-            <div className = "col">
-                <h5 className = "text-right">Price</h5>
+            <div className = "col-2">
+                <h4 className = "text-right"><b>가격</b></h4>
             </div>
-            <div className = "col">
-                <h5 className = "text-right">Quantity</h5>
+            <div className = "col-2">
+                <h4 className = "text-right"><b>수량</b></h4>
             </div>
-            <div className = "col">
-                <h5 className = "text-right">Subtotal</h5>
+            <div className = "col-2">
+                <h4 className = "text-right"><b>소계</b></h4>
             </div>
         </div>
 
      
       {state.state && state.state.orderItems.map((entry, idx) => {
         return (
-          <div key={idx} className="row product">
+          <div key={idx} className="col-10 row product">
             <div className="col-2 productImage">
               <img src={entry.mainImg} alt="product img"></img>
             </div>
-            <div className="col-4" >
+            <div className="col-4 mx-auto my-auto" >
               <h5 className="productName" style = {{color: "dodgerblue", fontWeight: "bold"}}>
-                {entry.itemName}
+                {entry.itemName+" "+entry.optionName+" "+entry.optionValue}
               </h5>
-              <h6>Item No: {entry.itemId}</h6>
-              <h6>{entry.optionName}</h6>
-              <h6>{entry.optionValue}</h6>
             </div>
             <div className="col-2 my-auto">
-              <h6 className="text-right">{numberFormat(entry.price)}원</h6>
+              <h5 className="text-right">{numberFormat(entry.price)}원</h5>
             </div>
             <div className="col-2 my-auto">
-              <h6 className="text-right">{entry.amount}개</h6>
+              <h5 className="text-right">{entry.amount}개</h5>
             </div>
             <div className="col-2 my-auto">
-              <h6 className="text-right">{numberFormat(entry.price * entry.amount)}원</h6>
+              <h5 className="text-right">{numberFormat(entry.price * entry.amount)}원</h5>
             </div>
           </div>
         );
       })}
-      <div className="row bottom">
-        <div className="col-9">
-          <h5 style={{ fontWeight: "bold" }} className="text-right">
-            Total Payment:{" "}
-          </h5>
+      <div className="col-10 row bottom">
+        <div className="col-10">
+          <h3 style={{ fontWeight: "bold" }} className="text-right">
+          총 주문액 :{" "}
+          </h3>
         </div>
-        <div className="col-3">
-          <h3 className="text-right">{state.state && numberFormat(state.state.totalPrice)}원</h3>
+        <div className="col-2">
+          <h3 className="text"><b>{state.state && numberFormat(state.state.totalPrice)}원</b></h3>
         </div>
       </div>
-      <div className="row button justify-content-end">
-        <div className="col-12 button">
-          <button type="button" onClick={()=>history.push("/")} className="btn btn-primary btn-lg btnOrder">
+      <div className="row button">
+        <div className="col-7 button">
+          <button type="button" onClick={()=>history.push("/")} className="btn btn-success btn-lg btnOrder">
             홈으로 이동
           </button>
           <button type="button" onClick={()=>history.push("/mycopang")} className="btn btn-primary btn-lg btnCancel">

@@ -140,23 +140,23 @@ function ProductInfo({ location, history}) {
           </div>
         );
       })}
-      <div className = "row payment align-items-center">
+      {/* <div className = "row payment align-items-center">
             <div className = "col">
                 <h5>Payment Option</h5>
                 <div className="form-check-inline">
-                    <label className="form-check-label">신용카드</label>
-                        <input type="radio" className="form-check-input" name="payment" value="credit" onChange={getPayment}/>
+                    <label className="form-check-label">페이코</label>
+                        <input type="radio" className="form-check-input" name="payment" value="payco" onChange={getPayment}/>
                 </div>
                 <div className="form-check-inline">
-                    <label className="form-check-label">모바일</label>
-                        <input type="radio" className="form-check-input" name="payment" value="mobile" onChange={getPayment}/>
+                    <label className="form-check-label">다날</label>
+                        <input type="radio" className="form-check-input" name="payment" value="danal" onChange={getPayment}/>
                 </div>
                 <div className="form-check-inline">
                     <label className="form-check-label">카카오페이</label>
                         <input type="radio" className="form-check-input" name="payment" value="kakaopay" checked onChange={getPayment}/>
                 </div>
             </div>
-        </div>
+        </div> */}
       {totalPrice && <BottomSection totalPrice={totalPrice} convert={convert} clientId={location.state.clientId} history={history}
                       cartId={location.state.cartId} from={location.state.from} addr={addr[idx]} payment={payment}/>}
     </div>
