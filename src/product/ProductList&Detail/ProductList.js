@@ -10,7 +10,7 @@ const ProductList = (history) =>{
 
     useEffect( ()=>{
         const res = async() =>{
-            const result= await axios.get("https://alconn.co/api/item/list");
+            const result= await axios.get("https://alconn.co/api/item/list/0");
             setProductList(result.data.data)
         }
         res();
@@ -20,7 +20,7 @@ const ProductList = (history) =>{
         <div className="productlist">
             <ul className="searchproduct">
                 {   
-                    ProductList&&ProductList.map((row,idx)=>
+                    ProductList.list&&ProductList.list.map((row,idx)=>
                     <ProductListRowItem row={row} key={idx} no={idx+1}
                         history={history} />
                 )}

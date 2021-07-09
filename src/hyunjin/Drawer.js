@@ -4,11 +4,12 @@ import { Menu, MenuItem, Typography } from "@material-ui/core";
 
 import NestedMenuItem from "material-ui-nested-menu-item";
 
-export const Drawer = () => {
-  const menuPosition = { top:100, left:100 };
-  const handleItemClick = () => {
-    //setMenuPosition(null);
-  };
+export const Drawer = ({position}) => {
+  const [menuPosition, setMenuPosition] = useState({
+    top: 100,
+    left: 50,
+  })
+  const [open, setOpen] = useState(true);
 
   const [list,setList] = useState();
   useEffect( () => {
@@ -21,28 +22,23 @@ export const Drawer = () => {
     axiosList();
   },[])
 
-  //cild 배열을 받아서 map으로 돌림
-  const categoryList1 = (cild) => {
-    return (
-        <div>
-            { 
-                cild.cildCategory && cild.cildCategory.map( (row, idx) => 
-                    {
-                        return (<div key={idx}>{row.categoryName}{categoryList1(row)}</div>);
-                    }
-                )
-            }
-        </div>
-    )
+  const handleClick = (event: React.MouseEvent) => {
+    setOpen(null);
+  }
+
+  const menuClick = (e) => {
+    console.log("좌표값");
+    console.log(e.target.getBoundingClientRect().top);
+    console.log(e.target.getBoundingClientRect().left);
   }
 
   const categoryList = (cild, num) => {
     if(num>=3)
         return;
     
-    if(cild.cildCategory.length>0)
+    if(cild.cildCategory.length>0 && num<2)
       return (
-          <NestedMenuItem label={cild.categoryName} parentMenuOpen={true}>
+          <NestedMenuItem onClick={handleClick} label={cild.categoryName} parentMenuOpen={open}>
               
               {
                   cild.cildCategory && cild.cildCategory.map( (row, idx) =>
@@ -54,7 +50,7 @@ export const Drawer = () => {
       )
     else 
       return (
-        <MenuItem>
+        <MenuItem onClick={handleClick}>
          {cild.categoryName}
 
         </MenuItem>
@@ -62,10 +58,10 @@ export const Drawer = () => {
   }
 
   return (
-    <div>
+    <div onClick={menuClick}>
         <Menu
-        open={true}
-        onClose={() => {}}
+        open={open}
+        onClose={()=>setOpen(null)}
         anchorReference="anchorPosition"
         anchorPosition={menuPosition}
       >
