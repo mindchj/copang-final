@@ -1,5 +1,5 @@
 import {autoLoginWithAccessToken, getCookie, auth} from './_actions/user_actions';
-import React, { Suspense } from 'react';
+import React, {lazy, Suspense } from 'react';
 import TopBar from "./TopBar/TopBar";
 import Header from "./header/Header.js";
 import { Switch, Route } from "react-router-dom";
@@ -32,7 +32,7 @@ const RouteMain = () => {
     <div>
       {/* 자동로그인 */}
       { autoLoginWithAccessToken()}
-      <Suspense fallback={(<div>Loading...</div>)}>
+      {/* <Suspense fallback={(<div>Loading...</div>)}> */}
         <div style={{minWidth:'940px', maxWidth: '1280px', margin: 'auto'}}>
           <TopBar />
           <Header />
@@ -58,7 +58,7 @@ const RouteMain = () => {
             <Route path="/order/do" component={Auth(OrderPageApp)} />
           </Switch>
         </div>
-      </Suspense>
+      {/* </Suspense> */}
 
     </div>
   );

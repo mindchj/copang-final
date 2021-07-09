@@ -64,7 +64,7 @@ export const MyCopangPay = () => {
             <div className="copay-benefit">
                 <div className="copay-item">
                     <div style={{fontSize:"1.25em"}}>쿠페이 적립혜택</div>
-                    <div><img src="favicon.ico" alt="logo"></img></div>
+                    <div></div>
                 </div>
                 <div className="copay-item">
                     <div style={{fontSize:"1.25em"}}>적립 예정</div>

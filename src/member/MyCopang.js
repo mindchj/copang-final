@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Link, NavLink, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
-// import DaumPostcode from "react-daum-postcode";
+import { makeStyles } from '@material-ui/core/styles';
+import AddShoppingCart from '@material-ui/icons/AddShoppingCartRounded';
 
 import './css/MyCopang.css';
 import './css/OrderList.css';
@@ -44,6 +45,15 @@ export const Order = ({ history }) => {
         axiosAddOneCart();
         alert("장바구니에 담겼습니다.")
     }
+    const useStyles = makeStyles({
+        cartBtn : {
+            background : 'linear-gradient(315deg, #f7b42c 0%, #fc575e 74%)',
+            color : '#fff',
+            border : 'hidden',
+            borderRadius : '5%',
+        }
+    });
+    const classes = useStyles();
 
     return (
         <div className="mc-main-content">
@@ -70,8 +80,10 @@ export const Order = ({ history }) => {
                                         <div className="price-ea-container">
                                             <div>{product.price} 원</div>
                                         </div>
+                                        <div>{product.optionName} : {product.optionValue}</div>
                                         <div>{product.amount} 개</div>
-                                        <button className="btn-basket" onClick={()=>onSendCart(product)}>장바구니 담기</button>
+                                        
+                                        <button className={classes.cartBtn} onClick={()=>onSendCart(product)}><AddShoppingCart/>장바구니</button>
                                     </div>
                                     <br></br>
                                 </div>
@@ -229,13 +241,13 @@ const MyCopangTemplate = () => {
                                 <span>0</span>
                             </div>
                             <div className="mc-main-header-item">
-                                <div className="test">
+                                <div className="copay-money">
                                     <div>쿠페이머니</div>
                                     <div>0</div>
                                     <div>원</div>
                                 </div>
-                                <div className="test">
-                                    <div>쿠페이머니</div>
+                                <div className="copay-money">
+                                    <div>쿠팡캐시</div>
                                     <div>0</div>
                                     <div>원</div>
                                 </div>
