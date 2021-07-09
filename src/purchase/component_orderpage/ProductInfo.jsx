@@ -91,24 +91,22 @@ function ProductInfo({ location, history}) {
     <div>
       <TopSection totalPrice={totalPrice} />
       <div className = "row member">
-            <div className = "col-2">
-                <h3>Customer</h3><br></br>
+            <div className = "col-3">
+                <h3>주문자 정보</h3><br></br>
                 <img src = {img} alt = "profile-pic"></img>
             </div>
             { addr &&
-              <div className = "col memberInfo my-auto">
-                  <h5>주소 : {addr[idx].address}</h5>
-                  <h5>상세 주소 : {addr[idx].detail}</h5>
-                  <h5>요청 사항 : {addr[idx].preRequest}</h5>
+              <div className = "col-7 memberInfo my-auto">
+                  <h5>배송지 선택</h5>
+                  <select className="form-control" onChange={(e)=>setIdx(e.target.selectedIndex)}>
+                    {addr && addr.map( (row,idx) => 
+                      <option key={idx}>{row.address} {row.detail}</option>
+                    )}
+                  </select><br/>
+                  <h5>요청 사항</h5>
+                  <input value={addr[idx].preRequest} type="textarea" className="form-control" style={{width:'520px',height:'100px',textAlign:'start'}}/>
               </div>
             } 
-            <div>
-              <select onChange={(e)=>setIdx(e.target.selectedIndex)}>
-                {addr && addr.map( (row,idx) => 
-                  <option key={idx}>{row.address} {row.detail}</option>
-                )}
-              </select>
-            </div>
         </div>
       <ProductCategory />
 

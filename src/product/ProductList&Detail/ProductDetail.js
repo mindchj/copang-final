@@ -21,7 +21,6 @@ const ProductDetail = ({ match, history }) => {
         }
         res();
     }, [itemId])
-    console.log(ProductOne)
     
     const [ProductList, setProductList] = useState([]);
     useEffect(() => {
@@ -45,7 +44,6 @@ const ProductDetail = ({ match, history }) => {
 
     const [optIdx, setOptIdx] = useState(0);
     const onChangeOptIdx = (e) => {
-        console.log(e);
         setOptIdx(e.target.selectedIndex);
     }
 
@@ -115,10 +113,6 @@ const ProductDetail = ({ match, history }) => {
                                 }}>장바구니 담기</button>
                             <button className="perchase" onClick={
                                 () => {
-                                    console.log("aaaaa");
-                                    console.log(ProductOne.itemDetailFormList);
-                                    console.log(optIdx);
-                                    console.log(ProductOne.itemDetailFormList[optIdx]);
                                     const data = {
                                         itemName: ProductOne.itemName,
                                         price: ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[optIdx].price,

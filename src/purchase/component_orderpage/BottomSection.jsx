@@ -111,15 +111,15 @@ function BottomSection(props) {
                 <h5>Payment Option</h5>
                 <div className="form-check-inline">
                     <label className="form-check-label">페이코</label>
-                        <input id="payco" type="radio" className="form-check-input" name="payment" value="payco" onChange={onChangePayment}  />
+                        <input checked={pgRequest.pg === "payco" ? true : false} id="payco" type="radio" className="form-check-input" name="payment" value="payco" onChange={onChangePayment}  />
                 </div>
                 <div className="form-check-inline">
                     <label className="form-check-label">다날</label>
-                        <input id="danal" type="radio" className="form-check-input" name="payment" value="danal" onChange={onChangePayment}  />
+                        <input checked={pgRequest.pg === "danal" ? true : false} id="danal" type="radio" className="form-check-input" name="payment" value="danal" onChange={onChangePayment}  />
                 </div>
                 <div className="form-check-inline">
                     <label className="form-check-label">카카오페이</label>
-                        <input id="kakaopay" type="radio" className="form-check-input" name="payment" value="kakaopay" onChange={onChangePayment} />
+                        <input checked={pgRequest.pg === "kakaopay" ? true : false} id="kakaopay" type="radio" className="form-check-input" name="payment" value="kakaopay" onChange={onChangePayment} />
                 </div>
             </div>
         </div>

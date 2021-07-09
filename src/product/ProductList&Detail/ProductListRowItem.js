@@ -4,7 +4,6 @@ import StarIcon from '@material-ui/icons/Star';
 import './Product.css';
 
 const ProductListRowItem = (props) => {
-    console.log(Math.round(props.row.averageRating))
     const numberFormat = (num) => {
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     }

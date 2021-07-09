@@ -6,7 +6,6 @@ import "./Product.css";
 import ProductListRowItem from "./ProductListRowItem";
 
 const ProductList = (props) => {
-  
   const convertDate = () => {
     const dt = new Date();
     let year = dt.getFullYear() + "-";
@@ -24,63 +23,59 @@ const ProductList = (props) => {
   const [date, setDate] = useState(convertDate());
   const [dateOpt, setDateOpt] = useState("이전");
   const [dateCheck, setDateCheck] = useState(false);
-
-  useEffect(() => {
-    console.log("변화체크");
-    console.log(price + "_" + priceOpt + "_" + priceCheck + "_" + date + "_" + dateOpt + "_" + dateCheck);
-  }, [price, priceOpt, date, dateOpt]);
+  const [keyword, setKeyword] = useState("");
 
   const clickOptionSearch = () => {
     const data = {
-      price,
-      priceOpt,
-      priceCheck,
-      date,
-      dateOpt,
-      dateCheck,
+      price, priceOpt, priceCheck,
+      date, dateOpt, dateCheck,
+      keyword,
     };
-    console.log("data출력");
-    console.log(data);
     props.history.push("/product/search/option", data);
   };
 
+  const enterPress = (e) => {
+    if(e.key == 'Enter')
+      clickOptionSearch();
+  }
+
   useEffect(() => {
-    console.log("ProductList 실행");
     if (props.match.path === "/product") {
       const res = async () => {
         const result = await axios.get("https://alconn.co/api/item/search");
         setProductList(result.data.data.list);
       };
       res();
-    } else if (props.match.path == "/product/search/option") {
-      console.log("data 출력");
-      console.log(props.location.state);
+    } else if (props.match.path === "/product/search/option") {
       const data = props.location.state;
-      let query = "?";
-      if(data.priceCheck == false && data.dateCheck == false)
-        return; 
-      if (data.priceCheck == true) {
-        if (data.priceOpt == "이상") 
-            query += "priceOver=";
-        else // "이하"
-            query += "priceUnder=";
-        query += data.price;
-      }
 
-      if(data.dateCheck == true) {
-        query += "&";
-        if(data.dateOpt == "이전")
-            query += "endDate=";
-        else //이후
-            query += "startDate=";
-        query += data.date;
+      // history에서 받아온 data로 string query 추가
+      let params = {};
+      if(data.keyword !=="")
+        params.keyword = data.keyword;
+      if(data.priceCheck === true)
+      {
+        if(data.priceOpt === "이상")
+          params.priceOver = data.price;
+        else
+          params.priceUnder = data.price;
       }
-      console.log("쿼리 출력");
-      console.log(query);
+      if(data.dateCheck === true)
+      {
+        if(data.dateOpt === "이전")
+          params.endDate = data.date;
+        else
+          params.startDate = data.date;
+      }
 
       const res = async () => {
-        const result = await axios.get("https://alconn.co/api/item/search"+query);
-        console.log(result);
+        const result = await axios
+        .request({
+          url:"https://alconn.co/api/item/search",
+          method:"get",
+          params,
+        })
+        setProductList(result.data.data.list);
       };
       res();
     } else {
@@ -90,21 +85,16 @@ const ProductList = (props) => {
             props.match.params.categoryId
         );
         setProductList(result.data.data);
-        console.log(result.data);
       };
       res();
     }
-  }, []);
-
-const test = () => {
-    alert("hi");
-}
+  }, [props.location.state]);
 
   return (
     <div className="productlist">
       <button
         type="button"
-        class="btn btn-primary"
+        className="btn btn-primary"
         data-toggle="collapse"
         data-target="#search-collapse"
       >
@@ -115,12 +105,13 @@ const test = () => {
           <div className="col-3">
             <input
               value={priceCheck}
-              onChange={(e)=>setPriceCheck(e.target.checked)}
+              onChange={(e) => setPriceCheck(e.target.checked)}
               type="checkbox"
             />{" "}
             가격
             <br />
             <input
+              onKeyPress={enterPress}
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               type="text"
@@ -140,9 +131,7 @@ const test = () => {
               <option>이하</option>
             </select>
           </div>
-
           <br />
-
           <div className="col-3">
             <input
               checked={dateCheck}
@@ -171,6 +160,14 @@ const test = () => {
               <option>이후</option>
             </select>
           </div>
+          
+        </div>
+        <br/>
+        <div className="row col-10">
+          <div className="col-3">
+            검색할 상품명
+            <input onKeyPress={enterPress} value={keyword} onChange={(e)=>setKeyword(e.target.value)} type="text" className="form-control"/>
+          </div>
           <div className="col-2">
             <button
               onClick={clickOptionSearch}
@@ -182,6 +179,7 @@ const test = () => {
             </button>
           </div>
         </div>
+
       </div>
       <br />
       <br />

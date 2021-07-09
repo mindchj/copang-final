@@ -14,16 +14,16 @@ function TopSection(props){
     return (
         <div className = "row top align-items-center">
             <div className = "col-6" >
-                <h1>Review your order</h1>
+                <h1><b>주문 확인</b></h1>
             </div>
-            <div className = "col ">
+            {/* <div className = "col ">
                 <h4>Total Price : {props.totalPrice && numberFormat(props.totalPrice)}원 </h4>
             </div>
             <div className = "col">
                 <button type = "button" 
                     className = "btn btn-primary btn-lg btnOrder">
                     Place Order</button>
-            </div>
+            </div> */}
         </div>
     )
 }
