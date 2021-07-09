@@ -114,6 +114,7 @@ function Header(props) {
                 priceCheck : false,
                 dateCheck : false,
             }
+            localStorage.setItem("keyword",search);
             history.push("/product/search/option",data);
         }
     }
