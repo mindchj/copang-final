@@ -17,7 +17,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector } from "react-redux";
 import axios from 'axios';
@@ -93,9 +93,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Header() {
+function Header(props) {
     const user = useSelector(state => state.user)
-    console.log(user.userData);
+    //console.log(user.userData);
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -104,26 +104,17 @@ function Header() {
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+    const history = useHistory();
+
     const handleEnter = (e) => {
         if(e.key === 'Enter')
         {
-            const input = search.replaceAll(" ","+")
-            setSearch("");
-            console.log(input);
-            const axiosSearch = async () => {
-                const result = await axios
-                .request({
-                    url:"https://alconn.co/api/item/search",
-                    method: 'get',
-                    params: {
-                        keyword : input,
-                    }
-                })
-                //.get("https://alconn.co/api/item/search",input);
-                console.log("search 결과 출력:")
-                console.log(result);
+            const data = {
+                keyword : search,
+                priceCheck : false,
+                dateCheck : false,
             }
-            axiosSearch();
+            history.push("/product/search/option",data);
         }
     }
 

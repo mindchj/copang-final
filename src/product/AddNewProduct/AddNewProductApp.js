@@ -16,6 +16,21 @@ const AddNewProductApp = () => {
   const [mainImg, setMainImg] = useState(null);
   const [mainImgSrc, setMainImgSrc] = useState("");
 
+  const itemCommentChange = async (file) => {
+    const objectURL = URL.createObjectURL(file);
+    const formData = new FormData();
+    formData.append("image", file);
+    const res = await axios.post("https://alconn.co/upload", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    setProductData({
+      ...productData,
+      itemComment : res.data.data.publicPath,
+    })
+  }
+
   const mainImageChange = async (file, idx) => {
     productData.itemDetailFormList[idx].mainImgShow = URL.createObjectURL(file);
     //setMainImg(file);
@@ -153,7 +168,10 @@ const AddNewProductApp = () => {
     shipmentInfoForm: {},
   });
 
-  useEffect(() => {}, [productData]);
+  useEffect(() => {
+    console.log("ProductData 값 업데이트")
+    console.log(productData);
+  }, [productData]);
 
   const addProduct = () => {
     const axiosAddProduct = async () => {
@@ -685,6 +703,8 @@ const AddNewProductApp = () => {
           </div>
           <div className="row">
             <div className="col-8">
+              <input type="file" onChange={(e)=>itemCommentChange(e.target.files[0])}/>
+              { productData.itemComment && <img src={productData.itemComment}/> }
               <textarea
                 className="form-control"
                 style={{ height: "500px" }}
