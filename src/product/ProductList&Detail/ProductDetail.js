@@ -26,7 +26,7 @@ const ProductDetail = ({ match, history }) => {
     const [ProductList, setProductList] = useState([]);
     useEffect(() => {
         const res = async () => {
-            const result = await axios.get("https://alconn.co/api/item/list");
+            const result = await axios.get("https://alconn.co/api/item/list/0");
             setProductList(result.data.data)
         }
         res();
@@ -132,7 +132,7 @@ const ProductDetail = ({ match, history }) => {
                     <h2>다른상품</h2>
                     <ul className="otherProduct-ul">
                         {
-                            ProductList && ProductList.map((row, idx) => {
+                            ProductList.list && ProductList.list.map((row, idx) => {
                                 return (
                                     <li row={row} key={idx}
                                         onClick={
