@@ -14,10 +14,10 @@ const ProductQuestionBottom = (props) => {
     //     setRefresh(prev => prev + 1)
     // }
 
-    const onClickFixQuestion = (idx, row) => {
-        Question[idx].check = !Question[idx].check
-        setRefresh(prev => prev + 1)
-    }
+    // const onClickFixQuestion = (idx, row) => {
+    //     Question[idx].check = !Question[idx].check
+    //     setRefresh(prev => prev + 1)
+    // }
 
 
     useEffect(() => { }, [refresh])
@@ -42,9 +42,7 @@ const ProductQuestionBottom = (props) => {
         setReplyContent({ replyContent, [name]: value })
     }
 
-    const [optionValue, setOptionValue] = useState({
-        optionValue: ""
-    })
+    const [optionValue, setOptionValue] = useState("")
 
     const handleChange2 = (e) => {
         setOptionValue(ProductOne.itemDetailFormList[e.target.selectedIndex].optionValue);
@@ -64,24 +62,26 @@ const ProductQuestionBottom = (props) => {
 
     let itemId = props.match.params.itemId;
     const [Question, setQuestion] = useState([]);
-    useEffect(() => {
-        const res = async () => {
+
+        const Questionres = async () => {
             const result = await axios.get("https://alconn.co/api/inquiry/" + itemId + "/item");
             for (let i = 0; i < result.data.data.length; i++) {
                 result.data.data[i].check = false;
             }
             setQuestion(result.data.data)
         }
-        res();
-    }, [])
+        Questionres();
+
     const [ProductOne, setProductOne] = useState([]);
     useEffect(() => {
-        const res = async () => {
+        const ProductOneres = async () => {
             const result = await axios.get("https://alconn.co/api/item/list/itemid=" + itemId);
             setProductOne(result.data.data)
         }
-        res();
+        ProductOneres();
     }, [itemId])
+
+
     const [modalOpen, setModelOpen] = useState(false);
 
     const openModal = () => {
@@ -100,16 +100,19 @@ const ProductQuestionBottom = (props) => {
                 "itemId": itemId,
                 "content": content.content,
                 "itemDetailId": ProductOne.itemDetailFormList && ProductOne.itemDetailFormList[0].itemDetailId,
-                "optionValue": optionValue.optionValue,
+                "optionValue": optionValue,
                 "optionName": ProductOne.itemDetailFormList && ProductOne.itemDetailFormList[0].optionName,
-                "itemName": ProductOne.itemName
+                "itemName": ProductOne.itemName,
+                "sellerName": ProductOne.itemDetailFormList && ProductOne.itemDetailFormList[0].sellerName
             }
             await axios.post("https://alconn.co/api/inquiry", questionData);
+            console.log(questionData);
         }
-        axiosAddQuestion();
+        axiosAddQuestion().then(()=>Questionres());
         alert("문의등록이 되었습니다.")
+        setModelOpen(false);
+        
     }
-
     //답변등록 API
     // const addReply = (idx) => {
     //     const axiosAddReply = async () => {
@@ -172,7 +175,7 @@ const ProductQuestionBottom = (props) => {
                                 <tr style={{ border:'1px solid #777777'}}>
                                     <th style={{ border:'1px solid #777777'}}>판매자</th>
                                     <td style={{textAlign:'left'}}>
-                                        <div>판매자.</div>
+                                        <div>{ProductOne.itemDetailFormList && ProductOne.itemDetailFormList[0].sellerName}</div>
                                     </td>
                                 </tr>
                                 <tr style={{ border:'1px solid #777777'}}>
@@ -211,11 +214,12 @@ const ProductQuestionBottom = (props) => {
                             {
                                 Question.length !== 0 ?
                                     Question && Question.map((row, idx) => {
+                                        
                                         return (
                                             <div>
                                                 <div className="product-question-body2" row={row} key={idx}>
                                                     <strong><span style={{ backgroundColor: '#777777', color: 'white' }}>질문</span>&nbsp;<AccountCircleIcon></AccountCircleIcon>&nbsp;{row.clientName}</strong><span className="product-question-writeday">{row.registerDate}</span><br />
-                                                    <div style={{ fontSize: '10pt', color: '#777' }}>{row.itemName},{row.optionName},{row.optionValue}</div><br/>
+                                                    <div style={{ fontSize: '10pt', color: '#777' }}>{row.itemName},{row.optionName},{row.optionValue}</div><button onClick={()=>console.log(row)}>console</button><br/>
                                                     <div style={{height:'40px'}}>{row.content}</div>
                                                     {/* <div><button onClick={() => onClickReply(idx, row)} style={{ border: 'none', backgroundColor: 'white', color: '#346AFF' }} >답글달기</button>&nbsp;&nbsp;<button onClick={() => onClickFixQuestion(idx, row)} style={{ border: 'none', backgroundColor: 'white', color: 'green' }}>수정</button></div> */}
                                                     {/* {
