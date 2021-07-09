@@ -313,6 +313,10 @@ div.product-review-body{
     color: orange;
 }
 
+.emptyStar{
+    color:#aaa
+}
+
 div.product-review-content{
     
     width: 100%;
@@ -471,4 +475,8 @@ ul.MainImage li{
     cursor: pointer;
     border: 1px solid #777;
     padding: 0%;
+}
+
+span.ReviewCount{
+    color: #aaa;
 }
