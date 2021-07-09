@@ -11,7 +11,7 @@ const ProductList = (props,{history}) =>{
     let categoryId=props.match.params.categoryId;
 
     useEffect(() => {
-        if(props.match.params===null){
+        if(props.match.path==="/product"){
             const res = async() =>{
                 const result= await axios.get("https://alconn.co/api/item/list/0");
                 setProductList(result.data.data)
