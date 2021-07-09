@@ -8,7 +8,7 @@ const Test = () => {
     const [data,setData] = useState();
 
     const getProductList = async () => {
-        const result = await axios.get("https://alconn.co/api/item/list");
+        const result = await axios.get("https://alconn.co/api/item/list/0");
         setRes(result.data.data);
     }
     const getProductId = async () => {

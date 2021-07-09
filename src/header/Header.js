@@ -111,11 +111,19 @@ function Header() {
             setSearch("");
             console.log(input);
             const axiosSearch = async () => {
-                const result = await axios.post("https://alconn.co/검색API",input);
+                const result = await axios
+                .request({
+                    url:"https://alconn.co/api/item/search",
+                    method: 'get',
+                    params: {
+                        keyword : input,
+                    }
+                })
+                //.get("https://alconn.co/api/item/search",input);
                 console.log("search 결과 출력:")
                 console.log(result);
             }
-            //axiosSearch();
+            axiosSearch();
         }
     }
 
@@ -224,9 +232,8 @@ function Header() {
                             value={search}
                         />
                     </div>
-                    <div className={classes.grow} />
+                    <div className={classes.grow} />                    
                     <div className={classes.sectionDesktop}>
-
                         <IconButton aria-label="show 17 new notifications" color="inherit">
                             <Badge badgeContent={1} color="secondary">
                                 <NotificationsIcon />

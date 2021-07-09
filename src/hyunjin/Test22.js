@@ -39,13 +39,11 @@ const Test22 = () => {
         console.log(itemList);
     },[refresh])
     
-    
+    const [priceCheck, setPriceCheck] = useState("false");
+
     return (
         <div>
-            <select>
-                <option>1</option>
-            </select>
-            {JSON.stringify(itemList)}
+            
             <br/><input type="file" name="test" onChange={(e)=>setTest(URL.createObjectURL(e.target.files[0]))}/><br/>
             {test && <img src={test}/>}<br/>
             idx : <input name="idx" onChange={(e)=>setIdx(e.target.value)}/><br/>
