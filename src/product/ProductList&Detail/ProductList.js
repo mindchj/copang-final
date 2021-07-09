@@ -5,6 +5,7 @@ import "./Product.css";
 import ProductListRowItem from "./ProductListRowItem";
 
 const ProductList = (props) => {
+  
   const convertDate = () => {
     const dt = new Date();
     let year = dt.getFullYear() + "-";
@@ -55,6 +56,8 @@ const ProductList = (props) => {
       console.log(props.location.state);
       const data = props.location.state;
       let query = "?";
+      if(data.priceCheck == false && data.dateCheck == false)
+        return; 
       if (data.priceCheck == true) {
         if (data.priceOpt == "이상") 
             query += "priceOver=";
