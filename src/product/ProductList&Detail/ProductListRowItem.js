@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import './Product.css';
 
 const ProductListRowItem = (props) => {
-
+    
     const numberFormat = (num) => {
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     }

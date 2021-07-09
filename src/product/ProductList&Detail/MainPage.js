@@ -4,29 +4,13 @@ import './Product.css';
 
 const MainPage = ({history}) => {
 
-    // const [CategoryProductList, setCategoryProductList] = useState([]);
-    // useEffect(() => {
-    //     const res = async () => {
-    //         const result = await axios.get("https://alconn.co/api/category/list");
-    //         setCategoryProductList(result.data.data)
-    //         console.log(result.data)
-    //     }
-    //     res();
-    // }, [])
-    // console.log(CategoryProductList)
-
     let DRESS_CATEGORY_ID=15
-
-    // const [CategoryProduct, setCategoryProduct] = useState([]);
-    // useEffect(() => {
-    //     const res = async () => {
-    //         const result = await axios.get("https://alconn.co/api/item/list/categoryid=" +15);
-    //         setCategoryProduct(result.data.data)
-    //         console.log(result.data)
-    //     }
-    //     res();
-    // }, [])
-    // console.log(CategoryProduct)
+    let COSMETICS_CATEGORY_ID=60
+    let WATCH_CATEGORY_ID=3088
+    let MILK_CATEGORY_ID=1054
+    let SHOES_CATEGORY_ID=2025
+    let JEWELRY_CATEGORY_ID=0
+    let COOKWARE_CATEGORY_ID=1060
 
     return (
         <div style={{ width: '100%', height: '100%' }}>
@@ -62,16 +46,15 @@ const MainPage = ({history}) => {
             </div><br/><br/><br/>
             <strong style={{ fontSize: '20pt' }}>오늘의 발견</strong>&nbsp;&nbsp;<span style={{ fontSize: '15pt', color: '#777' }}> | COPANG이 엄선한 가장 HOT한 상품!</span><br/><br/>
             <ul className="MainImage" style={{ float: 'left' }}>
-                <li><img style={{ width: '400px', height: '508px' }} alt="" src="https://static.alconn.co/image/984ade40-745d-4138-9997-c7fda3493f2e" /></li>
+                <li onClick={()=>{history.push("/product/category/"+SHOES_CATEGORY_ID)}}><img style={{ width: '400px', height: '508px' }} alt="" src="https://static.alconn.co/image/984ade40-745d-4138-9997-c7fda3493f2e" /></li>
                 <li onClick={()=>{history.push("/product/category/"+DRESS_CATEGORY_ID)}}><img style={{ width: '600px', height: '250px' }} alt="" src="https://static.alconn.co/image/00130026-b9fe-45a9-a5eb-732f016c246d" /></li>
-                <li><img style={{ width: '250px', height: '250px' }} alt="" src="https://static.alconn.co/image/b43e2172-05d0-4bfe-a38c-6360325973de" /></li>
-                <li><img style={{ width: '250px', height: '250px' }} alt="" src="https://static.alconn.co/image/03ae243d-dff0-43c7-8f98-b2489e7c6a40" /></li>
-                <li><img style={{ width: '600px', height: '250px' }} alt="" src="https://static.alconn.co/image/d40b17f5-8dd5-4b56-b3f4-842f31338492" /></li>
-                <li><img style={{ width: '628px', height: '500px' }} alt="" src="https://static.alconn.co/image/26d8e6ef-fc45-41f8-9a81-4e3365604a97" /></li>
-                <li><img style={{ width: '628px', height: '500px' }} alt="" src="https://static.alconn.co/image/d24bcb83-01fc-445a-8139-4a0159b9ad6d" /></li>
+                <li onClick={()=>{history.push("/product/category/"+COSMETICS_CATEGORY_ID)}}><img style={{ width: '250px', height: '250px' }} alt="" src="https://static.alconn.co/image/b43e2172-05d0-4bfe-a38c-6360325973de" /></li>
+                <li onClick={()=>{history.push("/product/category/"+WATCH_CATEGORY_ID)}}><img style={{ width: '250px', height: '250px' }} alt="" src="https://static.alconn.co/image/03ae243d-dff0-43c7-8f98-b2489e7c6a40" /></li>
+                <li onClick={()=>{history.push("/product/category/"+JEWELRY_CATEGORY_ID)}}><img style={{ width: '600px', height: '250px' }} alt="" src="https://static.alconn.co/image/d40b17f5-8dd5-4b56-b3f4-842f31338492" /></li>
+                <li onClick={()=>{history.push("/product/category/"+COOKWARE_CATEGORY_ID)}}><img style={{ width: '628px', height: '500px' }} alt="" src="https://static.alconn.co/image/9c90e1a7-2197-4e85-b98c-f690dec8f6a4"/></li>
+                <li onClick={()=>{history.push("/product/category/"+MILK_CATEGORY_ID)}}><img style={{ width: '628px', height: '500px' }} alt="" src="https://static.alconn.co/image/d24bcb83-01fc-445a-8139-4a0159b9ad6d" /></li>
             </ul>
         </div>
     )
 }
-
 export default MainPage;
