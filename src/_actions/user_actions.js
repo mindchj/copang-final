@@ -71,7 +71,7 @@ export function auth() {
             
             return ({
                 type: AUTH_USER,
-                message: err.response.data.message
+                message: err.response,
             });
         });
 
