@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import './Product.css';
+import StarIcon from '@material-ui/icons/Star';
+import './Product.css';
 
 const MainPage = ({ history }) => {
 
@@ -105,24 +107,23 @@ const MainPage = ({ history }) => {
                     <li onClick={() => { history.push("/product/category/" + MILK_CATEGORY_ID) }}><img style={{ width: '628px', height: '500px' }} alt="" src="https://static.alconn.co/image/d24bcb83-01fc-445a-8139-4a0159b9ad6d" /></li>
                 </ul>
             </div>
-            
+
             <div>
-                <strong style={{ fontSize: '20pt' }}>오늘의 쇼핑제안</strong><br /><br/>
-                <div>
-                    {
-                        Furniture && Furniture.map((row, idx) => {
-                            if(idx>=5)
+                <strong style={{ fontSize: '20pt' }}>오늘의 쇼핑제안</strong><br /><br />
+                {
+                    Furniture && Furniture.map((row, idx) => {
+                        if (idx >= 5)
                             return;
-                            else
+                        else
                             return (
-                                <ul row={row} key={idx}>
-                                    <li row={row} key={idx}
+                                <ul className="searchproduct" style={{ listStyle: 'none', margin: '0', padding: '0', float: 'left' }}>
+                                    <li row={row} key={idx} style={{ marginRight: '25px', width: '230px', display: 'inline-block', cursor: 'pointer' }}
                                         onClick={
                                             () => {
                                                 history.push("/product/selectOne/" + row.itemId + "/ProductDescBottom");
                                             }
                                         }>
-                                        <dl>
+                                        <dl style={{ marginTop: '0', marginBottom: '1rem;' }}>
                                             <dt>
                                                 <img alt={row.mainImg} src={row.mainImg} style={{ width: '230px', height: '230px' }} />
                                             </dt>
@@ -135,69 +136,41 @@ const MainPage = ({ history }) => {
                                                         <em className="sale">
                                                             <strong className="price-value">{numberFormat(row.price)}</strong>원
                                                         </em>
+                                                        {
+                                                            Math.round(row.averageRating) === 1 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><span className="ReviewCount">({row.countReviews})</span></div>
+                                                                : Math.round(row.averageRating) === 2 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><span className="ReviewCount">({row.countReviews})</span></div>
+                                                                    : Math.round(row.averageRating) === 3 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><span className="ReviewCount">({row.countReviews})</span></div>
+                                                                        : Math.round(row.averageRating) === 4 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar" /><span className="ReviewCount">({row.countReviews})</span></div>
+                                                                            : Math.round(row.averageRating) === 5 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><span className="ReviewCount">({row.countReviews})</span></div> : <div></div>
+                                                        }
                                                     </div>
                                                 </div>
                                             </dd>
                                         </dl>
                                     </li>
                                 </ul>
+
                             )
-                        })
-                    }
-                </div>
+                    })
+                }
             </div>
-            <br/>
-            <div><br/>
-                <strong style={{ fontSize: '20pt' }}>지금 이 상품이 필요하신가요?</strong><br /><br/>
-                <div>
-                    {
-                        Audio && Audio.map((row, idx) => {
-                            return (
-                                <ul row={row} key={idx}>
-                                    <li row={row} key={idx}
-                                        onClick={
-                                            () => {
-                                                history.push("/product/selectOne/" + row.itemId + "/ProductDescBottom");
-                                            }
-                                        }>
-                                        <dl>
-                                            <dt>
-                                                <img alt={row.mainImg} src={row.mainImg} style={{ width: '230px', height: '230px' }} />
-                                            </dt>
-                                            <dd className="desc">
-                                                <div>
-                                                    <div className="namedesc">
-                                                        <div className="name" style={{ width: '230px' }}>{row.itemName}</div>
-                                                    </div>
-                                                    <div className="price-area">
-                                                        <em className="sale">
-                                                            <strong className="price-value">{numberFormat(row.price)}</strong>원
-                                                        </em>
-                                                    </div>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </li>
-                                </ul>
-                            )
-                        })
-                    }
-                </div>
-            </div><br/>
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
             <div>
-                <strong style={{ fontSize: '20pt' }}>요즘 뜨는 도서</strong><br /><br/>
-                <div>
-                    {
-                        Book && Book.map((row, idx) => {
+                <strong style={{ fontSize: '20pt' }}>지금 이 상품이 필요하신가요?</strong><br /><br />
+                {
+                    Audio && Audio.map((row, idx) => {
+                        if (idx >= 5)
+                            return;
+                        else
                             return (
-                                <ul row={row} key={idx}>
-                                    <li row={row} key={idx}
+                                <ul className="searchproduct" style={{ listStyle: 'none', margin: '0', padding: '0', float: 'left' }}>
+                                    <li row={row} key={idx} style={{ marginRight: '25px', width: '230px', display: 'inline-block', cursor: 'pointer' }}
                                         onClick={
                                             () => {
                                                 history.push("/product/selectOne/" + row.itemId + "/ProductDescBottom");
                                             }
                                         }>
-                                        <dl>
+                                        <dl style={{ marginTop: '0', marginBottom: '1rem;' }}>
                                             <dt>
                                                 <img alt={row.mainImg} src={row.mainImg} style={{ width: '230px', height: '230px' }} />
                                             </dt>
@@ -210,16 +183,70 @@ const MainPage = ({ history }) => {
                                                         <em className="sale">
                                                             <strong className="price-value">{numberFormat(row.price)}</strong>원
                                                         </em>
+                                                        {
+                                                            Math.round(row.averageRating) === 1 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><span className="ReviewCount">({row.countReviews})</span></div>
+                                                                : Math.round(row.averageRating) === 2 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><span className="ReviewCount">({row.countReviews})</span></div>
+                                                                    : Math.round(row.averageRating) === 3 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><span className="ReviewCount">({row.countReviews})</span></div>
+                                                                        : Math.round(row.averageRating) === 4 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar" /><span className="ReviewCount">({row.countReviews})</span></div>
+                                                                            : Math.round(row.averageRating) === 5 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><span className="ReviewCount">({row.countReviews})</span></div> : <div></div>
+                                                        }
                                                     </div>
                                                 </div>
                                             </dd>
                                         </dl>
                                     </li>
                                 </ul>
+
                             )
-                        })
-                    }
-                </div>
+                    })
+                }
+            </div>
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            <div>
+                <strong style={{ fontSize: '20pt' }}>요즘 뜨는 도서</strong><br /><br />
+                {
+                    Book && Book.map((row, idx) => {
+                        if (idx >= 5)
+                            return;
+                        else
+                            return (
+                                <ul className="searchproduct" style={{ listStyle: 'none', margin: '0', padding: '0', float: 'left' }}>
+                                    <li row={row} key={idx} style={{ marginRight: '25px', width: '230px', display: 'inline-block', cursor: 'pointer' }}
+                                        onClick={
+                                            () => {
+                                                history.push("/product/selectOne/" + row.itemId + "/ProductDescBottom");
+                                            }
+                                        }>
+                                        <dl style={{ marginTop: '0', marginBottom: '1rem;' }}>
+                                            <dt>
+                                                <img alt={row.mainImg} src={row.mainImg} style={{ width: '230px', height: '230px' }} />
+                                            </dt>
+                                            <dd className="desc">
+                                                <div>
+                                                    <div className="namedesc">
+                                                        <div className="name" style={{ width: '230px' }}>{row.itemName}</div>
+                                                    </div>
+                                                    <div className="price-area">
+                                                        <em className="sale">
+                                                            <strong className="price-value">{numberFormat(row.price)}</strong>원
+                                                        </em>
+                                                        {
+                                                            Math.round(row.averageRating) === 1 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><span className="ReviewCount">({row.countReviews})</span></div>
+                                                                : Math.round(row.averageRating) === 2 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><span className="ReviewCount">({row.countReviews})</span></div>
+                                                                    : Math.round(row.averageRating) === 3 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><span className="ReviewCount">({row.countReviews})</span></div>
+                                                                        : Math.round(row.averageRating) === 4 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar" /><span className="ReviewCount">({row.countReviews})</span></div>
+                                                                            : Math.round(row.averageRating) === 5 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><span className="ReviewCount">({row.countReviews})</span></div> : <div></div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+
+                            )
+                    })
+                }
             </div>
         </div>
     )

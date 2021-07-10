@@ -6,6 +6,7 @@ import "./Product.css";
 import ProductListRowItem from "./ProductListRowItem";
 
 const ProductList = (props) => {
+
   const convertDate = () => {
     const dt = new Date();
     let year = dt.getFullYear() + "-";
@@ -140,16 +141,8 @@ const ProductList = (props) => {
             />{" "}
             등록일
             <br />
-            <input
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              type="date"
-              className="form-control"
-              id="date-input"
-            />
-          </div>
-          <div className="col-2">
             <br />
+
             <select
               value={dateOpt}
               onChange={(e) => setDateOpt(e.target.value)}

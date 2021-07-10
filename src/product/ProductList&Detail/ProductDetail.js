@@ -9,6 +9,8 @@ const numberFormat = (num) => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
 
+
+
 const ProductDetail = ({ match, history }) => {
     //history로 보낸 itemId를 match.params로 받음 
     let itemId = match.params.itemId;
@@ -23,14 +25,20 @@ const ProductDetail = ({ match, history }) => {
     }, [itemId])
     
     const [ProductList, setProductList] = useState([]);
+
     useEffect(() => {
         const res = async () => {
             const result = await axios.get("https://alconn.co/api/item/list/0");
+            console.log(result.data.data.list)
+            result.data.data.list.sort(()=>Math.random()-0.5)
+            console.log(result.data.data.list)
             setProductList(result.data.data)
+        
         }
         res();
     }, [])
 
+    
 
     const [su, setSu] = useState(1);
     const upSu = () => {
@@ -51,31 +59,31 @@ const ProductDetail = ({ match, history }) => {
         <div className="total-wrap">
             <div className="totaldesc">
                 <div className="header">
-                    <div className="dsecImage" style={{ width: '410px', height: '410px' }}><img className="productImage"  alt={ProductOne.mainImg} src={ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[0].mainImg} /></div>
+                    <div className="dsecImage" style={{ width: '410px', height: '410px' }}><img className="productImage" alt={ProductOne.mainImg} src={ProductOne.itemDetailFormList && ProductOne.itemDetailFormList[0].mainImg} /></div>
                     <div className="productdesc" >
                         <div className="productName" style={{ width: '479px', borderBottom: '1px sloid gray' }}><h2>{ProductOne.itemName}</h2>{ProductOne.description}</div>
                         <div className="productStar">
-                        {
-                                Math.round(ProductOne.averageRating) === 1 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar"/><StarIcon className="emptyStar"/><StarIcon className="emptyStar"/><StarIcon className="emptyStar"/><span className="ReviewCount">({ProductOne.countReviews})</span></div>
-                                    : Math.round(ProductOne.averageRating) === 2 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar"/><StarIcon className="emptyStar"/><StarIcon className="emptyStar"/><span className="ReviewCount">({ProductOne.countReviews})</span></div>
-                                        : Math.round(ProductOne.averageRating) === 3 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar"/><StarIcon className="emptyStar"/><span className="ReviewCount">({ProductOne.countReviews})</span></div>
-                                            : Math.round(ProductOne.averageRating) === 4 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar"/><span className="ReviewCount">({ProductOne.countReviews})</span></div>
+                            {
+                                Math.round(ProductOne.averageRating) === 1 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><span className="ReviewCount">({ProductOne.countReviews})</span></div>
+                                    : Math.round(ProductOne.averageRating) === 2 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><span className="ReviewCount">({ProductOne.countReviews})</span></div>
+                                        : Math.round(ProductOne.averageRating) === 3 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar" /><StarIcon className="emptyStar" /><span className="ReviewCount">({ProductOne.countReviews})</span></div>
+                                            : Math.round(ProductOne.averageRating) === 4 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="emptyStar" /><span className="ReviewCount">({ProductOne.countReviews})</span></div>
                                                 : Math.round(ProductOne.averageRating) === 5 ? <div><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><StarIcon className="smstar"></StarIcon><span className="ReviewCount">({ProductOne.countReviews})</span></div> : <div></div>
                             }
                         </div>
-                        <div className="productPrice"><div style={{ marginTop: '10px' }}><strong style={{ fontSize: '16pt', color: '#AE0000' }}>{ProductOne.itemDetailFormList&&numberFormat(ProductOne.itemDetailFormList[0].price)}</strong>원</div></div>
+                        <div className="productPrice"><div style={{ marginTop: '10px' }}><strong style={{ fontSize: '16pt', color: '#AE0000' }}>{ProductOne.itemDetailFormList && numberFormat(ProductOne.itemDetailFormList[0].price)}</strong>원</div></div>
                         <div className="productSizeColor">
                             <div className="productSize">
-                                {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[optIdx].optionName} : &nbsp;
-                                <select onChange={(e)=>onChangeOptIdx(e)}>
-                                    {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList.map((row,idx) => {
-                                        return(
+                                {ProductOne.itemDetailFormList && ProductOne.itemDetailFormList[optIdx].optionName} : &nbsp;
+                                <select onChange={(e) => onChangeOptIdx(e)}>
+                                    {ProductOne.itemDetailFormList && ProductOne.itemDetailFormList.map((row, idx) => {
+                                        return (
                                             <option row={row} key={idx}>{ProductOne.itemDetailFormList[idx].optionValue}</option>
                                         )
                                     })}
                                 </select>
                             </div>
-                            <div>잔고수량 : {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[optIdx].stockQuantity}</div>
+                            <div>잔고수량 : {ProductOne.itemDetailFormList && ProductOne.itemDetailFormList[optIdx].stockQuantity}</div>
                         </div>
                         <div className="productSeller">
                             <div className="seller">판매자 : {ProductOne.sellerSID}</div>
@@ -93,36 +101,36 @@ const ProductDetail = ({ match, history }) => {
                                     </div>
                                 </div>
                             </div>
-                            <button className="cart" onClick={()=>{
+                            <button className="cart" onClick={() => {
                                 const sendData = {
                                     itemDetailId: ProductOne.itemDetailFormList[optIdx].itemDetailId,
                                     itemId,
-                                    amount:su
+                                    amount: su
                                 }
                                 const axiosAddOneCart = async () => {
-                                    const token =localStorage.getItem("accessToken");
-                                    await axios.post("https://alconn.co/api/cart/item",sendData,{
-                                        headers:{
-                                            Authorization:`Bearer ${token}`
+                                    const token = localStorage.getItem("accessToken");
+                                    await axios.post("https://alconn.co/api/cart/item", sendData, {
+                                        headers: {
+                                            Authorization: `Bearer ${token}`
                                         }
                                     });
                                 }
                                 axiosAddOneCart();
                                 console.log(sendData)
                                 alert("장바구니에 담겼습니다.")
-                                }}>장바구니 담기</button>
+                            }}>장바구니 담기</button>
                             <button className="perchase" onClick={
                                 () => {
                                     const data = {
                                         itemName: ProductOne.itemName,
-                                        price: ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[optIdx].price,
+                                        price: ProductOne.itemDetailFormList && ProductOne.itemDetailFormList[optIdx].price,
                                         amount: su,
-                                        mainImg: ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[optIdx].mainImg,
-                                        itemNo : itemId,
-                                        optionValue:ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[optIdx].optionValue,
-                                        optionName:ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[optIdx].optionName,
-                                        itemDetailId:ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList[optIdx].itemDetailId,
-                                        from : 'product'
+                                        mainImg: ProductOne.itemDetailFormList && ProductOne.itemDetailFormList[optIdx].mainImg,
+                                        itemNo: itemId,
+                                        optionValue: ProductOne.itemDetailFormList && ProductOne.itemDetailFormList[optIdx].optionValue,
+                                        optionName: ProductOne.itemDetailFormList && ProductOne.itemDetailFormList[optIdx].optionName,
+                                        itemDetailId: ProductOne.itemDetailFormList && ProductOne.itemDetailFormList[optIdx].itemDetailId,
+                                        from: 'product'
                                     };
                                     history.push("/order/do", data);
                                 }
@@ -135,31 +143,34 @@ const ProductDetail = ({ match, history }) => {
                     <ul className="otherProduct-ul">
                         {
                             ProductList.list && ProductList.list.map((row, idx) => {
-                                return (
-                                    <li row={row} key={idx}
-                                        onClick={
-                                            () => {
-                                                history.push("/product/selectOne/" + row.itemId+"/ProductDescBottom");
-                                            }
-                                        }>
-                                        <dl>
-                                            <dt>
-                                                <img alt={row.mainImg} src={row.mainImg} style={{ width: '230px', height: '230px' }} />
-                                            </dt>
-                                            <dd className="desc">
-                                                <div>
-                                                    <div className="namedesc">
-                                                        <div className="name">{row.itemName}</div>
+                                if (idx >= 8)
+                                    return;
+                                else
+                                    return (
+                                        <li row={row} key={idx}
+                                            onClick={
+                                                () => {
+                                                    history.push("/product/selectOne/" + row.itemId + "/ProductDescBottom");
+                                                }
+                                            }>
+                                            <dl>
+                                                <dt>
+                                                    <img alt={row.mainImg} src={row.mainImg} style={{ width: '230px', height: '230px' }} />
+                                                </dt>
+                                                <dd className="desc">
+                                                    <div>
+                                                        <div className="namedesc">
+                                                            <div className="name">{row.itemName}</div>
+                                                        </div>
+                                                        <div className="price-area">
+                                                            <em className="sale">
+                                                                <strong className="price-value">{numberFormat(row.price)}</strong>원
+                                                            </em>
+                                                        </div>
                                                     </div>
-                                                    <div className="price-area">
-                                                        <em className="sale">
-                                                            <strong className="price-value">{numberFormat(row.price)}</strong>원
-                                                        </em>
-                                                    </div>
-                                                </div>
-                                            </dd>
-                                        </dl>
-                                    </li>)
+                                                </dd>
+                                            </dl>
+                                        </li>)
                             })
                         }
                     </ul>
@@ -178,7 +189,7 @@ const ProductDetail = ({ match, history }) => {
                         }>상품리뷰</li>
                         <li className="ProductQuestionBottom" onClick={
                             () => {
-                                history.push("/product/selectOne/"+itemId+"/ProductQuestionBottom");
+                                history.push("/product/selectOne/" + itemId + "/ProductQuestionBottom");
                             }
                         }>상품문의</li>
                     </ul>
