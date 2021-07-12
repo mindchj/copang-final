@@ -59,8 +59,7 @@ const ProductReviewBottom = (props) => {
             </span>
             <button
               className="write-review"
-              onClick={() => props.history.push("/mycopang")}
-            >
+              onClick={() => {props.history.push("/mycopang")}}>
               상품리뷰 작성
             </button>
             <button className="review-rules" onClick={openModal}>

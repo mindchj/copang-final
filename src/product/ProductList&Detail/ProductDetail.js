@@ -25,13 +25,25 @@ const ProductDetail = ({ match, history }) => {
     res();
   }, [itemId]);
 
+
   const [ProductList, setProductList] = useState([]);
 
   useEffect(() => {
     const res = async () => {
-      const result = await axios.get("https://alconn.co/api/item/list/0");
-      result.data.data.list.sort(() => Math.random() - 0.5);
+      const result = await axios.get("https://alconn.co/api/item/list/categoryid="+1080);
       setProductList(result.data.data);
+      console.log(result.data.data)
+    };
+    res();
+  }, []);
+
+  const [otherRecommandProduct, setOtherRecommandProduct] = useState([]);
+
+  useEffect(() => {
+    const res = async () => {
+      const result = await axios.get("https://alconn.co/api/item/list/categoryid="+4069);
+      setOtherRecommandProduct(result.data.data);
+      console.log(result.data.data)
     };
     res();
   }, []);
@@ -269,11 +281,54 @@ const ProductDetail = ({ match, history }) => {
           </div>
         </div>
         <div className="otherProduct">
-          <h2>다른상품</h2>
+          <h2>이 상품은 어떠신가요?</h2>
           <ul className="otherProduct-ul">
-            {ProductList.list &&
-              ProductList.list.map((row, idx) => {
+            {ProductList &&
+              ProductList.map((row, idx) => {
                 if (idx >= 10) return;
+                else
+                  return (
+                    <li row={row} key={idx}
+                      onClick={
+                        () => {
+                          history.push("/product/selectOne/" + row.itemId);
+                        }
+                      }>
+                      <dl>
+                        <dt>
+                          <img
+                            alt={row.mainImg}
+                            src={row.mainImg}
+                            style={{ width: "230px", height: "230px" }}
+                          />
+                        </dt>
+                        <dd className="desc">
+                          <div>
+                            <div className="namedesc">
+                              <div className="name">{row.itemName}</div>
+                            </div>
+                            <div className="price-area">
+                              <em className="sale">
+                                <strong className="price-value">
+                                  {numberFormat(row.price)}
+                                </strong>
+                                원
+                              </em>
+                            </div>
+                          </div>
+                        </dd>
+                      </dl>
+                    </li>
+                  );
+              })}
+          </ul>
+        </div>
+        <div className="otherProduct">
+          <h2>이달의 HOT한 상품</h2>
+          <ul className="otherProduct-ul">
+            {otherRecommandProduct &&
+              otherRecommandProduct.map((row, idx) => {
+                if (idx >= 5) return;
                 else
                   return (
                     <li row={row} key={idx}
@@ -318,13 +373,13 @@ const ProductDetail = ({ match, history }) => {
               <li className="ProductReviewBottom">상품리뷰</li>
               <li className="ProductQuestionBottom">상품문의</li>
             </ul>
-            <div>
+            <div className="111">
               <ProductDescBottom itemId={itemId} />
             </div>
-            <div>
-              <ProductReviewBottom itemId={itemId} />
+            <div className="222">
+              <ProductReviewBottom itemId={itemId} history={history} />
             </div>
-            <div>
+            <div className="333">
               <ProductQuestionBottom itemId={itemId} />
             </div>
           </div>
