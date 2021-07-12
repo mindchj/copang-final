@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -56,7 +56,11 @@ export default function RegisterPage(props) {
     const [Mobile, setMobile] = useState("");
     const [RealName, setRealName] = useState("");
     const [Description, setDescription] = useState("");
-
+    const [formErrorMessage, setFormErrorMessage] = useState('');
+    // idCheckHandler = (e) => {
+    //     // setFormErrorMessage();
+    // }
+    
     const registerHandler = () => {
 
         setTimeout(() => {
@@ -71,11 +75,15 @@ export default function RegisterPage(props) {
 
             dispatch(registerUser(dataToSubmit)).then(response => {
                 if (response.payload.message) {
+                    alert('response.payload.message');
                     props.history.push("/login");
                 } else {
                     alert("가입 실패")
                 }
-            })
+            }).catch(err => {
+                console.log(err);
+                alert(err);
+            });
 
         }, 500);
 
@@ -126,7 +134,9 @@ export default function RegisterPage(props) {
                                 label="아이디"
                                 name="username"
                                 autoComplete="username"
-                                onChange={(e) => { setUsername(e.currentTarget.value) }}
+                                onChange={(e) => { 
+                                    setUsername(e.currentTarget.value) 
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -167,7 +177,15 @@ export default function RegisterPage(props) {
                             />
                         </Grid>
 
-
+                        <div>
+                            {formErrorMessage && (
+                                <label >
+                                    <p style={{ color: '#ff0000bf', fontSize: '0.7rem' }}>
+                                        {formErrorMessage}
+                                    </p>
+                                </label>
+                            )}
+                        </div>
                         <Grid item xs={12}>
                             <FormControlLabel
                                 control={<Checkbox value="allowExtraEmails" color="primary" />}

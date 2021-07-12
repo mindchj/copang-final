@@ -42,7 +42,6 @@ const ProductList = (props) => {
   const enterPress = (e) => {
     if(e.key == 'Enter')
       clickOptionSearch();
-    
   }
 
   useEffect(() => {
@@ -80,6 +79,7 @@ const ProductList = (props) => {
         else
           params.startDate = data.date;
       }
+
       if(data.sortCheck == true)
       {
         if(data.sortOpt === "인기순")
@@ -115,7 +115,6 @@ const ProductList = (props) => {
       };
       res();
     } else {
-      
       const res = async () => {
         const result = await axios.get(
           "https://alconn.co/api/item/list/categoryid=" +
@@ -130,6 +129,7 @@ const ProductList = (props) => {
   }, [props.location.state]);
 
   return (
+
     <div>
       <div style={{float:"left",width:'300px',height:'100px'}}>
         <div style={{ marginTop: "10px" }}>

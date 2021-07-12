@@ -172,6 +172,8 @@ useEffect(() => {
     console.log(productData);
   }, [productData]);
 
+  useEffect(() => {}, [productData]);
+
   const addProduct = () => {
     const axiosAddProduct = async () => {
       await axios.post("https://alconn.co/api/item/add", productData);

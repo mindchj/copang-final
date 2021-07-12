@@ -43,6 +43,7 @@ const App = () => {
                         <LinearProgress />
 
                     </div>
+
                 )}>
                     <LazyRoute />
                 </Suspense>

@@ -7,7 +7,8 @@ import { withRouter } from 'react-router';
 
 
 
-export const Drawer = ({ position, history}) => {
+export const Drawer = ({ position, history }) => {
+  const [refresh, setRefresh] = useState(0);
   const [menuPosition, setMenuPosition] = useState({
     top: 100,
     left: 50,
@@ -31,7 +32,8 @@ export const Drawer = ({ position, history}) => {
     console.log(categoryId);
     // const result = await axios.get("https://alconn.co/api/item/list/categoryid="+categoryId);
     console.log(history);
-    history.push("/product/category/"+categoryId);
+    setRefresh(prev => (prev + 1));
+    history.push("/product/category/" + categoryId, refresh);
   }
 
   const menuClick = (e) => {
@@ -47,10 +49,11 @@ export const Drawer = ({ position, history}) => {
 
     if (cild.cildCategory.length > 0 && num < 2)
       return (
-        <NestedMenuItem 
+        <NestedMenuItem
           label={cild.categoryName}
           parentMenuOpen={open}
-          onClick={()=>{handleClick(cild.categoryId)}}
+          onClick={() => { handleClick(cild.categoryId) }}
+
         >
 
           {
@@ -63,7 +66,7 @@ export const Drawer = ({ position, history}) => {
       )
     else
       return (
-        <MenuItem onClick={()=>{handleClick(cild.categoryId)}}
+        <MenuItem onClick={() => { handleClick(cild.categoryId) }}
         // onMouseLeave={()=>setOpen} 
         >
           {cild.categoryName}
@@ -74,19 +77,20 @@ export const Drawer = ({ position, history}) => {
 
   return (
     <div onMouseEnter={menuClick}
-    >      
-        <NestedMenuItem
-          parentMenuOpen={true}
-        // onMouseEnter={()=>{setOpen(true)}}
-        >
+    >
+      <NestedMenuItem
+        parentMenuOpen={true}
+      // onMouseEnter={()=>{setOpen(true)}}
+      >
 
-          {
-            list && list.map((row, idx) =>
-              categoryList(row, 0)
-            )
-          }
-        </NestedMenuItem>
-      
+        {
+          list && list.map((row, idx) =>
+            categoryList(row, 0)
+          )
+        }
+      </NestedMenuItem>
+
+
       {/* </Menu> */}
     </div>
   );
