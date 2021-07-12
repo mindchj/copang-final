@@ -3,20 +3,13 @@ import { useEffect, useState } from "react";
 
 const RefundPage = (props) => {
 
-    const [addressId, setAddressId] = useState(props.location.state.addr.addressId);
     const [reason, setReason] = useState("");
-
-    useEffect( () => {
-        console.log(props)
-        console.log(reason)
-
-    },[reason])
 
     const doRefund = () => {
         const axiosRefund = async () => {
             const data = {
                 returnReason : reason,
-                addressId : addressId,
+                addressId : props.location.state.addr.addressId,
                 amount : props.location.state.amount,
             }
             const result = await axios.post("https://alconn.co/api/orders/return/"+props.location.state.orderItemId, data);
