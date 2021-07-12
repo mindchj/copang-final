@@ -23,6 +23,7 @@ import ProductReviewWriteForm from "../product/ProductList&Detail/ProductReviewW
 import MyCopangOrderDetail from "./MyCopangOrderDetail";
 import MyCopangShip from "./MyCopangShip";
 import ProductReviewUpdateForm from "./ProductReviewUpdateForm";
+import RefundPage from './RefundPage';
 
 export const Order = ({ history }) => {
   const [orderList, setOrderList] = useState([]);
@@ -62,6 +63,15 @@ export const Order = ({ history }) => {
     },
   });
   const classes = useStyles();
+
+  const refund = (order, product) => {
+    console.log(order);
+    const addr = order.address;
+    const orderItemId = product.orderItemId;
+    const amount = product.amount;
+    const itemName = product.itemName;
+    history.push("/mycopang/refundPage",{addr, amount, orderItemId, itemName})
+  }
 
   return (
     <div className="mc-main-content">
@@ -116,7 +126,7 @@ export const Order = ({ history }) => {
                   >
                     배송 조회
                   </button>
-                  <button className="content-btn btn-2">교환, 반품 신청</button>
+                  <button onClick={()=>refund(order, product)} className="content-btn btn-2">환불 신청</button>
                   <button
                     className="content-btn btn-3"
                     onClick={() =>
@@ -183,12 +193,32 @@ const CancelTab = () => {
 const CancelContent = () => {
   return (
     <div className="cancel-content">
-      <div> 취소 하신 내역이 없습니다.</div>
+
+      <div className="row">
+        <div className="col-3">
+          <h3>주문 취소<br/>/환불 내역</h3>
+        </div>
+        <div className="col-7">
+          <h5>상품명</h5>
+          <input type="text" className="form-control"/>
+          
+          <h5>수량</h5>
+          <input type="text" className="form-control"/>
+          
+          <h5>환불 금액</h5>
+          <input type="text" className="form-control"/>
+          
+          <h5>환불 사유</h5>
+          <input type="text" className="form-control"/>
+        </div>
+      </div>
+
+      {/* <div> 취소 하신 내역이 없습니다.</div>
       <div>
         {" "}
         하단 상품목록에 없는 상품은 1:1문의 또는 고객센터(0000-0000)로
         문의주세요.{" "}
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -396,6 +426,10 @@ const MyCopangTemplate = () => {
                 <Route
                   path="/mycopang/detail"
                   component={MyCopangOrderDetail}
+                />
+                <Route
+                  path="/mycopang/refundPage"
+                  component={RefundPage}
                 />
               </Switch>
             </div>

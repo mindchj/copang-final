@@ -6,7 +6,12 @@ const Menu = () => {
       {/* <Link to="/member/1">장바구니</Link>&nbsp;&nbsp; */}
       {/* <Link to="/member/2">판매자 상품등록</Link>&nbsp;&nbsp; */}
       {/* <Link to="/member/3">MainPage(작업중)</Link>&nbsp;&nbsp; */}
-      <Link to="/product">상품 리스트</Link>&nbsp;&nbsp;
+      <Link to="/product">상품 리스트</Link>&nbsp;/&nbsp;
+      <Link to="/product/header/hot">HOT! 인기 상품</Link>&nbsp;/&nbsp;
+      <Link to="/product/header/free">무료 배송 상품</Link>&nbsp;/&nbsp;
+      <Link to="/product/header/review">리뷰 많은 상품</Link>&nbsp;/&nbsp;
+      <Link to="/product/header/new">최신 등록 상품</Link>&nbsp;/&nbsp;
+      <Link to="/product/header/display">오늘의 기획전</Link>&nbsp;&nbsp;
       {/* <Link to="/member/5">마이 페이지</Link> */}
       <br />
       {/* <Link to="/member/6">(Test)상품 추가폼</Link>&nbsp;&nbsp; */}
