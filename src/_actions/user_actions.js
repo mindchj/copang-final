@@ -27,7 +27,7 @@ export function getCookie(cookieName) {
 export function autoLoginWithAccessToken() {
     if(getCookie("accessToken")!==""){
         axios.defaults.headers.common['Authorization'] = `Bearer ${getCookie("accessToken")}`;
-        const res = axios.get('https://alconn.co/api/user')
+        const res = axios.get(`${USER_SERVER}/user`)
             .then(response => response.data);
         ;
     }
@@ -71,7 +71,7 @@ export function auth() {
             
             return ({
                 type: AUTH_USER,
-                message: err.response,
+                message: err.response
             });
         });
 

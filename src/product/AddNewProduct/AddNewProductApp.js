@@ -167,8 +167,7 @@ const AddNewProductApp = () => {
     itemDetailFormList: [],
     shipmentInfoForm: {},
   });
-
-  useEffect(() => {
+useEffect(() => {
     console.log("ProductData 값 업데이트")
     console.log(productData);
   }, [productData]);
