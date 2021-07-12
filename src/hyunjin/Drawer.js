@@ -1,18 +1,17 @@
-import axios from 'axios';
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Menu, MenuItem, Typography } from "@material-ui/core";
-import MenuIcon from '@material-ui/icons/Menu';
+import MenuIcon from "@material-ui/icons/Menu";
 import NestedMenuItem from "material-ui-nested-menu-item";
-import { withRouter } from 'react-router';
-
-
+import { withRouter } from "react-router";
+import { borderRadius } from "@material-ui/system";
 
 export const Drawer = ({ position, history }) => {
   const [refresh, setRefresh] = useState(0);
   const [menuPosition, setMenuPosition] = useState({
     top: 100,
     left: 50,
-  })
+  });
   const [open, setOpen] = useState(true);
 
   const [list, setList] = useState();
@@ -22,9 +21,9 @@ export const Drawer = ({ position, history }) => {
       console.log("카테고리 출력");
       console.log(result);
       setList(result.data.data.cildCategory);
-    }
+    };
     axiosList();
-  }, [])
+  }, []);
 
   // const handleClick = async (event: React.MouseEvent) => {
   const handleClick = async (categoryId) => {
@@ -32,64 +31,56 @@ export const Drawer = ({ position, history }) => {
     console.log(categoryId);
     // const result = await axios.get("https://alconn.co/api/item/list/categoryid="+categoryId);
     console.log(history);
-    setRefresh(prev => (prev + 1));
+    setRefresh((prev) => prev + 1);
     history.push("/product/category/" + categoryId, refresh);
-  }
+  };
 
   const menuClick = (e) => {
     console.log("좌표값");
     setOpen(true);
     console.log(e.target.getBoundingClientRect().top);
     console.log(e.target.getBoundingClientRect().left);
-  }
+  };
 
   const categoryList = (cild, num) => {
-    if (num >= 3)
-      return;
+    if (num >= 3) return;
 
     if (cild.cildCategory.length > 0 && num < 2)
       return (
         <NestedMenuItem
           label={cild.categoryName}
           parentMenuOpen={open}
-          onClick={() => { handleClick(cild.categoryId) }}
-
+          onClick={() => {
+            handleClick(cild.categoryId);
+          }}
         >
-
-          {
-            cild.cildCategory && cild.cildCategory.map((row, idx) =>
-              categoryList(row, num + 1)
-            )
-          }
-
+          {cild.cildCategory &&
+            cild.cildCategory.map((row, idx) => categoryList(row, num + 1))}
         </NestedMenuItem>
-      )
+      );
     else
       return (
-        <MenuItem onClick={() => { handleClick(cild.categoryId) }}
-        // onMouseLeave={()=>setOpen} 
+        <MenuItem
+          onClick={() => {
+            handleClick(cild.categoryId);
+          }}
+          // onMouseLeave={()=>setOpen}
         >
           {cild.categoryName}
-
         </MenuItem>
-      )
-  }
+      );
+  };
 
   return (
-    <div onMouseEnter={menuClick}
-    >
+    <div onMouseEnter={menuClick}>
       <NestedMenuItem
         parentMenuOpen={true}
-      // onMouseEnter={()=>{setOpen(true)}}
+        // onMouseEnter={()=>{setOpen(true)}}
+        className="9999999"
+        style={{ backgroundColor: "red", borderRadius: "25%" }}
       >
-
-        {
-          list && list.map((row, idx) =>
-            categoryList(row, 0)
-          )
-        }
+        {list && list.map((row, idx) => categoryList(row, 0))}
       </NestedMenuItem>
-
 
       {/* </Menu> */}
     </div>

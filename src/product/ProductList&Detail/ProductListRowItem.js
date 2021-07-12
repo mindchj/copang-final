@@ -10,7 +10,7 @@ const ProductListRowItem = (props) => {
 
     let itemId = props.row.itemId
     return (
-        <li
+        <li className="RowItemList"
             onClick={
                 () => {
                     props.history.push("/product/selectOne/" + itemId);

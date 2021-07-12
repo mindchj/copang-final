@@ -6,7 +6,6 @@ import "./Product.css";
 import ProductListRowItem from "./ProductListRowItem";
 
 const ProductList = (props) => {
-
   const convertDate = () => {
     const dt = new Date();
     let year = dt.getFullYear() + "-";
@@ -30,9 +29,14 @@ const ProductList = (props) => {
 
   const clickOptionSearch = () => {
     const data = {
-      price, priceOpt, priceCheck,
-      date, dateOpt, dateCheck,
-      sortOpt, sortCheck,
+      price,
+      priceOpt,
+      priceCheck,
+      date,
+      dateOpt,
+      dateCheck,
+      sortOpt,
+      sortCheck,
       keyword,
     };
     console.log(data);
@@ -40,9 +44,8 @@ const ProductList = (props) => {
   };
 
   const enterPress = (e) => {
-    if(e.key == 'Enter')
-      clickOptionSearch();
-  }
+    if (e.key == "Enter") clickOptionSearch();
+  };
 
   useEffect(() => {
     if (props.match.path === "/product") {
@@ -61,23 +64,29 @@ const ProductList = (props) => {
 
       // history에서 받아온 data로 string query 추가
       let params = {};
-      if(keyword !==null)
-      {
-        params.keyword = keyword.replaceAll(" ","+");
+      if (keyword !== null) {
+        params.keyword = keyword.replaceAll(" ", "+");
       }
-      if(data.priceCheck === true)
-      {
-        if(data.priceOpt === "이상")
-          params.priceOver = data.price;
-        else
-          params.priceUnder = data.price;
+      if (data.priceCheck === true) {
+        if (data.priceOpt === "이상") params.priceOver = data.price;
+        else params.priceUnder = data.price;
       }
-      if(data.dateCheck === true)
-      {
-        if(data.dateOpt === "이전")
-          params.endDate = data.date;
-        else
-          params.startDate = data.date;
+      if (data.dateCheck === true) {
+        if (data.dateOpt === "이전") params.endDate = data.date;
+        else params.startDate = data.date;
+      }
+      if (data.sortCheck == true) {
+        if (data.sortOpt === "인기순") params.sorted = "ranking";
+        else if (data.sortOpt === "별점순") params.sorted = "rating";
+        else if (data.sortOpt === "판매순") params.sorted = "sales";
+        else if (data.sortOpt === "가격△") params.sorted = "price";
+        else if (data.sortOpt === "가격▽") params.sorted = "priceAsc";
+        else if (data.sortOpt === "리뷰순") params.sorted = "review";
+        else if (data.sortOpt === "등록일△") params.sorted = "date";
+        else if (data.sortOpt === "등록일▽") params.sorted = "dateAsc";
+      }
+      if (categoryId !== null) {
+        params.categoryId = categoryId;
       }
 
       if(data.sortCheck == true)
@@ -105,12 +114,11 @@ const ProductList = (props) => {
       }
 
       const res = async () => {
-        const result = await axios
-        .request({
-          url:"https://alconn.co/api/item/search",
-          method:"get",
+        const result = await axios.request({
+          url: "https://alconn.co/api/item/search",
+          method: "get",
           params,
-        })
+        });
         setProductList(result.data.data.list);
       };
       res();
@@ -120,7 +128,7 @@ const ProductList = (props) => {
           "https://alconn.co/api/item/list/categoryid=" +
             props.match.params.categoryId
         );
-        localStorage.setItem("categoryId",props.match.params.categoryId)
+        localStorage.setItem("categoryId", props.match.params.categoryId);
         localStorage.removeItem("keyword");
         setProductList(result.data.data);
       };
@@ -129,97 +137,113 @@ const ProductList = (props) => {
   }, [props.location.state]);
 
   return (
-
     <div>
-      <div style={{float:"left",width:'300px',height:'100px'}}>
-        <div style={{ marginTop: "10px" }}>
-              <input
-                value={priceCheck}
-                onChange={(e) => setPriceCheck(e.target.checked)}
-                type="checkbox"
-              />{" "}
-              가격
-              <br />
-              <input
-                onKeyPress={enterPress}
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                type="text"
-                className="form-control"
-                id="price-input"
-                style={{width:'100px',float:'left'}}
-              />
-              <select
-                value={priceOpt}
-                onChange={(e) => setPriceOpt(e.target.value)}
-                className="form-control"
-                id="price-option"
-                style={{width:'80px', display:'inline-block', marginLeft:'10px'}}
-              >
-                <option>이상</option>
-                <option>이하</option>
-              </select>
-              <br />
-              <br />
-              <input
-                checked={dateCheck}
-                onChange={(e) => setDateCheck(e.target.checked)}
-                type="checkbox"
-              />{" "}
-              등록일
-              <br />
-              <input type="date" value={convertDate()} className="form-control" style={{width:'170px',float:'left'}}/>
-
-              <select
-                value={dateOpt}
-                onChange={(e) => setDateOpt(e.target.value)}
-                className="form-control"
-                id="date-option"
-                style={{width:'80px',display:'inline-block',marginLeft:'10px'}}
-              >
-                <option>이전</option>
-                <option>이후</option>
-              </select>
-              <br />
-              <br />
-              <input
-                checked={sortCheck}
-                onChange={(e) => setSortCheck(e.target.checked)}
-                type="checkbox"
-              />{" "}
-              정렬 기준
-              <br />
-              <select
-                onChange={(e) => setSortOpt(e.target.value)}
-                className="form-control"
-                id="sort-option"
-                style={{width:'150px'}}
-              >
-                <option selected>인기순</option>
-                <option>별점순</option>
-                <option>판매순</option>
-                <option>리뷰순</option>
-                <option>가격△</option>
-                <option>가격▽</option>
-                <option>등록일△</option>
-                <option>등록일▽</option>
-              </select>
-              <br/>
-              <button
-                onClick={clickOptionSearch}
-                style={{ marginTop: "24px" }}
-                className="btn btn-primary"
-                id="btn-option"
-              >
-                조건 검색
-              </button>
-          
-        
-
+      {/* <div style={{ float: "left", width: "300px", height: "100px" }}> */}
+      {/* <div style={{ marginTop: "10px" }}> */}
+      <div>
+        <div>
+          <input
+            value={priceCheck}
+            onChange={(e) => setPriceCheck(e.target.checked)}
+            type="checkbox"
+          />{" "}
+          가격
+          <br />
+          <input
+            onKeyPress={enterPress}
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            type="text"
+            className="form-control"
+            id="price-input"
+            // style={{ width: "100px", float: "left" }}
+          />
+          <select
+            value={priceOpt}
+            onChange={(e) => setPriceOpt(e.target.value)}
+            className="form-control"
+            id="price-option"
+            style={
+              {
+                // width: "80px",
+                // display: "inline-block",
+                // marginLeft: "10px",
+              }
+            }
+          >
+            <option>이상</option>
+            <option>이하</option>
+          </select>
+          <br />
+          <br />
+          <input
+            checked={dateCheck}
+            onChange={(e) => setDateCheck(e.target.checked)}
+            type="checkbox"
+          />{" "}
+          등록일
+          <br />
+          <input
+            type="date"
+            value={convertDate()}
+            className="form-control"
+            // style={{ width: "170px", float: "left" }}
+          />
+          <select
+            value={dateOpt}
+            onChange={(e) => setDateOpt(e.target.value)}
+            className="form-control"
+            id="date-option"
+            style={
+              {
+                // width: "80px",
+                // display: "inline-block",
+                // marginLeft: "10px",
+              }
+            }
+          >
+            <option>이전</option>
+            <option>이후</option>
+          </select>
+          <br />
+          <br />
+          <input
+            checked={sortCheck}
+            onChange={(e) => setSortCheck(e.target.checked)}
+            type="checkbox"
+          />{" "}
+          정렬 기준
+          <br />
+          <select
+            onChange={(e) => setSortOpt(e.target.value)}
+            className="form-control"
+            id="sort-option"
+            // style={{ width: "150px" }}
+          >
+            <option selected>인기순</option>
+            <option>별점순</option>
+            <option>판매순</option>
+            <option>리뷰순</option>
+            <option>가격△</option>
+            <option>가격▽</option>
+            <option>등록일△</option>
+            <option>등록일▽</option>
+          </select>
+          <br />
+          <button
+            onClick={clickOptionSearch}
+            // style={{ marginTop: "24px" }}
+            className="btn btn-primary"
+            id="btn-option"
+          >
+            조건 검색
+          </button>
         </div>
       </div>
-      <div style={{display:"inline-block",width:'980px'}} className="productlist">
-        
+      <div
+        // style={{ display: "inline-block", width: "980px" }}
+        className="productlist"
+      >
         <br />
         <br />
         <ul className="searchproduct">

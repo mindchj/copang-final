@@ -1,82 +1,84 @@
 * {
-    margin:0px;
-    padding:0px;
-    box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
 }
 
 a {
-    text-decoration: none;
-    color:black
+  text-decoration: none;
+  color: black;
 }
 
-a:hover  {
-    text-decoration: none;
-    font-size: 1.15rem;
+a:hover {
+  text-decoration: none;
+  font-size: 1.15rem;
 }
 
 ul {
-    list-style: none;
+  list-style: none;
 }
 
 .title-mid {
-    font-weight: bold;
-    font:1.25em;
+  font-weight: bold;
+  font: 1.25em;
 }
 /* Layout */
-.mc {
+/* .mc {
     display:flex;
     justify-content: center;
     margin:0 10vh 0 10vh;
     min-width: 30vh;
-}
+} */
 
 /* left sidebar */
 .mc-side {
-    display:flex;
+  /* display:flex;
     flex-grow: 1;
     flex-direction: column;
     /* max-width: 200px;
     min-width: 180px; */
-    min-width: 20vh;
-    max-width: 25vh;
+  /* min-width: 20vh; */
+  /* max-width: 25vh; */
+  width: 20%;
 }
 
 /* logo */
 .mc-logo {
-    height:100px;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    background: rgb(66, 132, 243);
-    color:white;
-    font-size: 2rem;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(66, 132, 243);
+  color: white;
+  font-size: 2rem;
 }
 /* right  */
 .mc-main {
-    display:flex;
-    flex-direction: column;
-    flex-grow:4;
-    min-width: 500px;
-    max-width: 90vh;
+  /* display: flex;
+  flex-direction: column;
+  flex-grow: 4;
+  min-width: 500px;
+  max-width: 90vh; */
+  width: 80%;
 }
 
-.mc-main-header{
-    display:flex;
-    flex-direction: row;
-    height: 100px;
-    background-color: rgb(131, 188, 225);
-    color:white;
+.mc-main-header {
+  display: flex;
+  flex-direction: row;
+  height: 100px;
+  background-color: rgb(131, 188, 225);
+  color: white;
 }
 
-.mc-main-header-item { 
-    padding:15px;
-    width: 100%;
+.mc-main-header-item {
+  padding: 15px;
+  width: 100%;
 }
 
 .copay-money {
-    display:flex;
+  display: flex;
 }
 
 .content-btn {
-    color:black
+  color: black;
 }

@@ -1,0 +1,36 @@
+.layout {
+  min-width: 940px;
+  max-width: 1280px;
+  margin: auto;
+}
+
+.mainbanner {
+  width: 100%;
+  /* height: 100%; */
+  /* //   marginLeft: "10%"; */
+  /* //   marginTop: "5%"; */
+  text-align: center;
+  /* background-color: #ff494e; */
+  border-radius: 0px;
+}
+
+.MainTodayDiscoverykue {
+  width: 100%;
+  height: auto;
+  min-height: 1108px;
+}
+
+.MainTodaykue {
+  clear: both;
+  min-height: 430px;
+}
+
+.MainDoYouNeedkue {
+  clear: both;
+  min-height: 430px;
+}
+
+.MainHotBookkue {
+  clear: both;
+  min-height: 430px;
+}
