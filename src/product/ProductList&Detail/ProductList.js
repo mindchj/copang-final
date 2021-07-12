@@ -63,7 +63,9 @@ const ProductList = (props) => {
       // history에서 받아온 data로 string query 추가
       let params = {};
       if(keyword !==null)
+      {
         params.keyword = keyword.replaceAll(" ","+");
+      }
       if(data.priceCheck === true)
       {
         if(data.priceOpt === "이상")
@@ -120,7 +122,7 @@ const ProductList = (props) => {
             props.match.params.categoryId
         );
         localStorage.setItem("categoryId",props.match.params.categoryId)
-        localStorage.setItem("keyword","");
+        localStorage.removeItem("keyword");
         setProductList(result.data.data);
       };
       res();
@@ -166,7 +168,7 @@ const ProductList = (props) => {
               />{" "}
               등록일
               <br />
-              <input type="date" className="form-control" style={{width:'170px',float:'left'}}/>
+              <input type="date" value={convertDate()} className="form-control" style={{width:'170px',float:'left'}}/>
 
               <select
                 value={dateOpt}
@@ -196,9 +198,9 @@ const ProductList = (props) => {
                 <option selected>인기순</option>
                 <option>별점순</option>
                 <option>판매순</option>
+                <option>리뷰순</option>
                 <option>가격△</option>
                 <option>가격▽</option>
-                <option>리뷰순</option>
                 <option>등록일△</option>
                 <option>등록일▽</option>
               </select>

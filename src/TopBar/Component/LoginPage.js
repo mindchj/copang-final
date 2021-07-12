@@ -64,6 +64,10 @@ function LoginPage(props) {
     const dispatch = useDispatch();
     const classes = useStyles();
     const [formErrorMessage, setFormErrorMessage] = useState('');
+    const onSubmitHandler2 = (e) => {
+        if(e.key == 'Enter')
+            onSubmitHandler(e);
+    }
     const onSubmitHandler = (e) => {
         console.log("SubmitHandler 시작");
         setTimeout((e) => {
@@ -131,6 +135,7 @@ function LoginPage(props) {
                         id="password"
                         autoComplete="current-password"
                         onChange={onPasswordHanlder}
+                        onKeyPress={onSubmitHandler2}
                     />
                     <div>
                         {formErrorMessage && (

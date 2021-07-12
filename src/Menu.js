@@ -11,7 +11,6 @@ const Menu = () => {
             <Link to="/member/6">(Test)상품 추가폼</Link>&nbsp;&nbsp;
             <Link to="/member/7">(Test)임시 코드 테스트</Link>&nbsp;&nbsp;
             <Link to="/member/8">(Test)서버 API 테스트</Link>&nbsp;&nbsp;
-            <Link to="/member/9">(Test)카테고리 Drawer</Link>
             <hr/>
         </div>
     )

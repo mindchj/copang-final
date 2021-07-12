@@ -108,7 +108,7 @@ function Header(props) {
     const history = useHistory();
 
     const handleEnter = (e) => {
-        if(e.key === 'Enter')
+        if(e.key === 'Enter' && search !== "")
         {
             const data = {
                 keyword : search,
@@ -116,7 +116,7 @@ function Header(props) {
                 dateCheck : false,
             }
             localStorage.setItem("keyword",search);
-            localStorage.setItem("categoryId","");
+            localStorage.removeItem("categoryId");
             history.push("/product/search/option",data);
         }
     }
