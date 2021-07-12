@@ -115,6 +115,7 @@ function Header(props) {
                 dateCheck : false,
             }
             localStorage.setItem("keyword",search);
+            localStorage.setItem("categoryId","");
             history.push("/product/search/option",data);
         }
     }

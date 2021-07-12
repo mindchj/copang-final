@@ -1,73 +1,94 @@
-import { MailRounded, Restaurant } from "@material-ui/icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import axios from "axios";
+import "./Test22.css";
 
 const Test22 = () => {
-    const [imgList, setImglist] = useState([]);
-    const [itemList, setItemList] = useState([]);
-    const [item, setItem] = useState({});
-    const [idx, setIdx] = useState();
-    const [test,setTest] = useState();
-    const [refresh, setRefresh] = useState(0);
 
-    const inputChange = (e) => {
-        setItem({
-            ...item,
-            [e.target.name] : e.target.value,
-        })
+    const tempRes = {
+        "message" : "카테고리상품리스트",
+        "data" : [ {
+          "itemId" : 6,
+          "itemName" : "반팔티",
+          "itemDetailId" : 7,
+          "categoryId" : 3,
+          "price" : 2000,
+          "mainImg" : "메인사진",
+          "sellerId" : null,
+          "shipmentInfoForm" : {
+            "id" : 5,
+            "shippingPlace" : null,
+            "logisticCompany" : "CJGLS",
+            "shippingChargeType" : "FREE",
+            "freeShipOverPrice" : 2600,
+            "releaseDate" : 351,
+            "shippingPrice" : 10000
+          }
+        }, {
+          "itemId" : 9,
+          "itemName" : "반팔티",
+          "itemDetailId" : 10,
+          "categoryId" : 2,
+          "price" : 300000,
+          "mainImg" : "메인사진",
+          "sellerId" : null,
+          "shipmentInfoForm" : {
+            "id" : 8,
+            "shippingPlace" : null,
+            "logisticCompany" : "CJGLS",
+            "shippingChargeType" : "FREE",
+            "freeShipOverPrice" : 2600,
+            "releaseDate" : 351,
+            "shippingPrice" : 10000
+          }
+        }, {
+          "itemId" : 12,
+          "itemName" : "검은티",
+          "itemDetailId" : 13,
+          "categoryId" : 4,
+          "price" : 10000,
+          "mainImg" : "메인사진",
+          "sellerId" : null,
+          "shipmentInfoForm" : {
+            "id" : 11,
+            "shippingPlace" : null,
+            "logisticCompany" : "CJGLS",
+            "shippingChargeType" : "FREE",
+            "freeShipOverPrice" : 2600,
+            "releaseDate" : 351,
+            "shippingPrice" : 10000
+          }
+        } ],
+        "code" : 200
+      }
+    const [res, setRes] = useState();
+    const getProductCategory = async (categoryId) => {
+        //const result = await axios.get("https://alconn.co/api/item/list/categoryid="+categoryId);
+        setRes(tempRes.data);
     }
-    const addItem = () => {
-        setItemList([
-            ...itemList,
-            {
-                ...item,
-            }
-        ])
-    }
-    const deleteItem = (idx) => {
-        setItemList(
-            itemList.filter( (row,rowidx) => rowidx != idx )
-        )
-    }
-    const addItemImg = (file, idx) => {
-        
-        itemList[idx].img = URL.createObjectURL(file);
 
-        setRefresh(prev => prev+1);
+    const test = (e) => {
+      console.log(e.target);
+      const item = document.getElementById("test22");
+      item.style.display = "block";
     }
-
-    useEffect( () => {
-        console.log(itemList);
-    },[refresh])
-    
-    const [priceCheck, setPriceCheck] = useState("false");
 
     return (
         <div>
-            
-            <br/><input type="file" name="test" onChange={(e)=>setTest(URL.createObjectURL(e.target.files[0]))}/><br/>
-            {test && <img src={test}/>}<br/>
-            idx : <input name="idx" onChange={(e)=>setIdx(e.target.value)}/><br/>
-            name : <input name="name" onChange={inputChange}/><br/>
-            desc : <input name="desc" onChange={inputChange}/><br/>
-            <button onClick={addItem}>옵션 추가</button>
-            <button onClick={()=>deleteItem(idx)}>옵션 제거</button>
-            <br/>
-            <table className="table table-bordered">
-                <tbody>
-                    <tr><td>idx</td><td>name</td><td>desc</td><td>img</td><td>imgInput</td></tr>
-                { itemList && itemList.map( (row,idx) => 
-                    <tr>
-                        <td>{idx}</td>
-                        <td>{row.name}</td>
-                        <td>{row.desc}</td>
-                        <td>{row.img && <img src={row.img}/>}</td>
-                        <td>
-                            <input type="file" name="img" onChange={(e)=>addItemImg(e.target.files[0], idx)}/>
-                        </td>
-                    </tr>
-                )}
-                </tbody>
-            </table>
+            <div onClick={(e)=>test(e)} class="sidenav">
+              <a href="#about">About</a>
+              <a href="#services">Services</a>
+              <a href="#clients">Clients</a>
+              <a href="#contact">Contact</a>
+              <button class="dropdown-btn">Dropdown 
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div id="test22" class="dropdown-container">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+              </div>
+              <a href="#contact">Search</a>
+            </div>
         </div>
     )
 }
