@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import AddShoppingCart from "@material-ui/icons/AddShoppingCartRounded";
 import { makeStyles } from "@material-ui/core/styles";
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 import axios from "axios";
 
@@ -56,9 +58,9 @@ const MyCopangOrderDetail = (props) => {
     alert("장바구니에 담겼습니다.");
   };
   return (
-    <div>
+    <div style={{marginLeft:'1.5%'}}>
       <h2>주문 상세</h2>
-      <div className="container">
+      <div className="container" >
         <div className="box-header">
           {/* <div className="header-date">{order.orderId}</div> */}
           <div>
@@ -67,7 +69,6 @@ const MyCopangOrderDetail = (props) => {
             </span>
             <span> 주문번호 {orderDetail && orderDetail.orderId}</span>
           </div>
-
           <div className="header-detail"></div>
         </div>
         {/* <div >{order.orderStatus}</div> */}
@@ -108,7 +109,7 @@ const MyCopangOrderDetail = (props) => {
                   >
                     배송 조회
                   </button>
-                  <button className="content-btn btn-2">교환, 반품 신청</button>
+                  
                   <button
                     className="content-btn btn-3"
                     onClick={() =>
@@ -128,15 +129,22 @@ const MyCopangOrderDetail = (props) => {
       <hr />
       <div>
         <h3>받는사람 정보</h3>
-        <div>받는 사람 : {orderDetail && orderDetail.address.receiverName}</div>
-        <div>연락처 : {orderDetail && orderDetail.address.receiverPhone}</div>
-        <div>
-          받는 사람 주소 :{" "}
-          {orderDetail &&
-            orderDetail.address.address + " " + orderDetail.address.detail}
+        <Grid container spacing={1} style={{padding:'10px'}}>
+          <Grid item xs={2} style={{flexBasis:'10%'}}>
+            <div className={classes.paper}>받는 사람</div>
+            <div className={classes.paper}>연락처</div>
+            <div className={classes.paper}>주소</div>
+            <div className={classes.paper}>요청사항</div>
+          </Grid>
+          <Grid item xs={2}>
+            <div className={classes.paper}>{orderDetail && orderDetail.address.receiverName}</div>
+            <div className={classes.paper}>{orderDetail && orderDetail.address.receiverPhone}</div>
+            <div className={classes.paper}>{orderDetail &&
+            orderDetail.address.address + " " + orderDetail.address.detail}</div>
+            <div className={classes.paper}>{orderDetail && orderDetail.address.preRequest}</div>
+          </Grid>
+        </Grid>
         </div>
-        <div>요청 사항 : {orderDetail && orderDetail.address.preRequest}</div>
-      </div>
     </div>
   );
 };

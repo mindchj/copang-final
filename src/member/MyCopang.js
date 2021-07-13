@@ -363,9 +363,9 @@ const MyCopangTemplate = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link exact="true" to="/mycopang/cancel-return">
-                      취소/반품/교환/환불내역
-                    </Link>
+                    {/* <Link exact="true" to="/mycopang/cancel-return">
+                    </Link> */}
+                    취소/반품/교환/환불내역
                   </li>
                   <li>정기배송관리</li>
                   <li>영수증 조회/출력</li>
