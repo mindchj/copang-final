@@ -31,6 +31,8 @@ const ProductList = (props) => {
   const [sortCheck, setSortCheck] = useState(false);
   const [keyword, setKeyword] = useState("");
 
+  const [header, setHeader] = useState();
+
   const clickOptionSearch = () => {
     const data = {
       price,
@@ -52,6 +54,13 @@ const ProductList = (props) => {
   };
 
   useEffect(() => {
+    const path = props.match.path;
+    if(path.indexOf("/product/header") == -1)
+    {
+      console.log("false!!");
+      setHeader("");
+    }
+
     if (props.match.path === "/product") {
       const res = async () => {
         const result = await axios.get("https://alconn.co/api/item/search");
@@ -103,6 +112,7 @@ const ProductList = (props) => {
         else if (data.sortOpt === "등록일△") params.sorted = "date";
         else if (data.sortOpt === "등록일▽") params.sorted = "dateAsc";
       }
+
       if (categoryId !== null) {
         params.categoryId = categoryId;
       }
@@ -116,7 +126,15 @@ const ProductList = (props) => {
         setProductList(result.data.data.list);
       };
       res();
-    } else if (props.match.path == "/product/header/hot") {
+    } else if (props.match.path === "/product/header/all") {
+      const res = async () => {
+        const result = await axios.get("https://alconn.co/api/item/search");
+        setProductList(result.data.data.list);
+      };
+      res();
+      setHeader("all");
+    }
+    else if (props.match.path == "/product/header/hot") {
       const res = async () => {
         const result = await axios.request({
           url: "https://alconn.co/api/item/search",
@@ -126,6 +144,7 @@ const ProductList = (props) => {
         setProductList(result.data.data.list);
       };
       res();
+      setHeader("hot");
     } else if (props.match.path == "/product/header/free") {
       const res = async () => {
         const result = await axios.request({
@@ -136,6 +155,7 @@ const ProductList = (props) => {
         setProductList(result.data.data.list);
       };
       res();
+      setHeader("free");
     } else if (props.match.path == "/product/header/review") {
       const res = async () => {
         const result = await axios.request({
@@ -146,6 +166,7 @@ const ProductList = (props) => {
         setProductList(result.data.data.list);
       };
       res();
+      setHeader("review");
     } else if (props.match.path == "/product/header/new") {
       const res = async () => {
         const result = await axios.request({
@@ -156,9 +177,7 @@ const ProductList = (props) => {
         setProductList(result.data.data.list);
       };
       res();
-    } else if(props.match.path == "/product/header/display")
-    {
-      
+      setHeader("new");
     } else if(props.match.path == "/product/keyword/:brand")
     {
       const res = async () => {
@@ -187,6 +206,7 @@ const ProductList = (props) => {
 
   return (
     <div style={{ display: "flex" }}>
+      {header}
       {/* <div style={{ float: "left", width: "300px", height: "100px" }}> */}
       {/* <div style={{ marginTop: "10px" }}> */}
       <div style={{ width: "15%" }}>

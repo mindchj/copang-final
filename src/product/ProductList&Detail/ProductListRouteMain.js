@@ -14,7 +14,7 @@ const ProductListRouteMain = () => {
       
       <Route path="/product/header/hot" component={ProductList} />
       <Route path="/product/header/free" component={ProductList} />
-      <Route path="/product/header/display" component={ProductList} />
+      <Route path="/product/header/all" component={ProductList} />
       <Route path="/product/header/review" component={ProductList} />
       <Route path="/product/header/new" component={ProductList} />
       <Route path="/product/keyword/:brand" component={ProductList}/>
