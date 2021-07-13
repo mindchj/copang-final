@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import AddShoppingCart from "@material-ui/icons/AddShoppingCartRounded";
+import { makeStyles } from "@material-ui/core/styles";
+
 import axios from "axios";
 
 const MyCopangOrderDetail = (props) => {
@@ -7,6 +10,27 @@ const MyCopangOrderDetail = (props) => {
   const uri = "https://alconn.co/api/orders/" + orderId;
 
   const [orderDetail, setOrderDetail] = useState();
+
+  const useStyles = makeStyles((theme) => ({
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
+    root: {
+      width: "100%",
+      "& > * + *": {
+        marginTop: theme.spacing(2),
+      },
+    },
+    cartBtn: {
+      background: "linear-gradient(315deg, #f7b42c 0%, #fc575e 74%)",
+      color: "#fff",
+      border: "hidden",
+      borderRadius: "5%",
+    },
+  }));
+
+  const classes = useStyles();
 
   const getOrderDetail = async () => {
     const data = await axios.get(uri);
@@ -37,8 +61,13 @@ const MyCopangOrderDetail = (props) => {
       <div className="container">
         <div className="box-header">
           {/* <div className="header-date">{order.orderId}</div> */}
-          <div>{orderDetail && orderDetail.orderDate.substring(0, 10)}</div>
-          <div>{orderDetail && orderDetail.orderId}</div>
+          <div>
+            <span style={{ fontWeight: "bold" }}>
+              {orderDetail && orderDetail.orderDate.substring(0, 10)} 주문
+            </span>
+            <span> 주문번호 {orderDetail && orderDetail.orderId}</span>
+          </div>
+
           <div className="header-detail"></div>
         </div>
         {/* <div >{order.orderStatus}</div> */}
@@ -53,17 +82,19 @@ const MyCopangOrderDetail = (props) => {
                 />
               </div>
               <div className="title-price-divide">
-                <div>아이템 이름 : {product.itemName}</div>
+                <div>{product.itemName}</div>
                 <div className="price-ea-basket-container">
                   <div className="price-ea-container">
                     <div>{product.price} 원</div>
                   </div>
                   <div>{product.amount} 개</div>
                   <button
-                    className="btn-basket"
+                    // className="btn-basket"
+                    className={classes.cartBtn}
                     onClick={() => onSendCart(product)}
                   >
-                    장바구니 담기
+                    <AddShoppingCart />
+                    장바구니
                   </button>
                 </div>
                 <br></br>
@@ -73,6 +104,7 @@ const MyCopangOrderDetail = (props) => {
                   <button
                     className="content-btn btn-1"
                     onClick={() => props.history.push("/ship-tracking")}
+                    style={{ borderColor: "dodgerblue" }}
                   >
                     배송 조회
                   </button>
@@ -93,15 +125,18 @@ const MyCopangOrderDetail = (props) => {
             </div>
           ))}
       </div>
-
-      <div>받는 사람 : {orderDetail && orderDetail.address.receiverName}</div>
-      <div>연락처 : {orderDetail && orderDetail.address.receiverPhone}</div>
+      <hr />
       <div>
-        받는 사람 주소 :{" "}
-        {orderDetail &&
-          orderDetail.address.address + " " + orderDetail.address.detail}
+        <h3>받는사람 정보</h3>
+        <div>받는 사람 : {orderDetail && orderDetail.address.receiverName}</div>
+        <div>연락처 : {orderDetail && orderDetail.address.receiverPhone}</div>
+        <div>
+          받는 사람 주소 :{" "}
+          {orderDetail &&
+            orderDetail.address.address + " " + orderDetail.address.detail}
+        </div>
+        <div>요청 사항 : {orderDetail && orderDetail.address.preRequest}</div>
       </div>
-      <div>요청 사항 : {orderDetail && orderDetail.address.preRequest}</div>
     </div>
   );
 };

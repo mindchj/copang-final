@@ -22,14 +22,15 @@ const MyCopangReview = ({ history }) => {
   const getReviewList = async () => {
     const { data } = await axios.get(uri);
     setReviewList(data);
-    // console.log(data);
+    console.log(data);
   };
   useEffect(() => {
     getReviewList();
   }, []);
   const useStyles = makeStyles((theme) => ({
     root: {
-      maxWidth: 345,
+      // maxWidth: 345,
+      width: "30%",
       margin: "1% 1%",
     },
     media: {
@@ -76,13 +77,13 @@ const MyCopangReview = ({ history }) => {
     setExpanded(!expanded);
   };
   return (
-    <div className="review-header">
+    <div className="review-header" style={{ marginLeft: "5px" }}>
       <h2>리뷰관리</h2>
       <React.Fragment>
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
-              {localStorage.getItem("userId").substring(0, 3)}
+              {reviewList.data && reviewList.data[0].writerName.substring(0, 3)}
             </Avatar>
           }
           action={
@@ -90,14 +91,14 @@ const MyCopangReview = ({ history }) => {
               <MoreVertIcon />
             </IconButton>
           }
-          title={localStorage.getItem("userId")}
+          title={reviewList.data && reviewList.data[0].writerName}
           subheader="내가 바로 리뷰어.."
         />
         <div style={{ display: "flex", flexWrap: "wrap", width: "100%" }}>
           {reviewList.data &&
             reviewList.data.map((review, idx) => (
               <Card className={classes.root}>
-                <CardActionArea>
+                <CardActionArea style={{ minHeight: "340px" }}>
                   <CardMedia
                     component="img"
                     alt="Contemplative Reptile"

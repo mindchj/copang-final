@@ -78,7 +78,7 @@ const MyCopangAddress = ({ history, match, location }, props) => {
   });
   const classes = useStyles();
   return (
-    <div className="MyCopangAddr-box">
+    <div className="MyCopangAddr-box" style={{ marginLeft: "2px" }}>
       <Card className={classes.root} variant="outlined">
         {addrList.map((addr) => (
           <Box>

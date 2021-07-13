@@ -1,96 +1,114 @@
-.container {
-    /* width: 800px; */
-    width:80%;
-    border-radius: 12px;
-    box-shadow: rgb(0 0 0 / 10%) 0px 2px 4px 0px, rgb(0 0 0 / 16%) 0px 0px 1px 0px;
-    background-color: white;
-    margin-bottom: 20px;
-    padding: 24px 24px 16px;
+.container1 {
+  /*  width: 800px;  */
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 2px 4px 0px, rgb(0 0 0 / 16%) 0px 0px 1px 0px;
+  background-color: white;
+  margin-bottom: 20px;
+  padding: 24px 24px 16px;
+  margin-left: 10px;
 }
 .box-header {
-    height: 28px;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
+  height: 28px;
+  /* display: flex; */
+  /* -webkit-box-pack: justify; */
+  /* justify-content: space-between; */
 }
-
 
 /* 안에 내용  */
 .product-container {
-    display:flex;
-    flex-direction: row;
-    /* width: 50vh; */
-    justify-content: space-between;
+  display: flex;
+  /* flex-direction: row; */
+  /* width: 50vh; */
+  justify-content: space-around;
+  padding: 20px;
+  /* text-align: center; */
+  /* border: 1px solid; */
+  border-radius: 12px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 2px 4px 0px, rgb(0 0 0 / 16%) 0px 0px 1px 0px;
+  background-color: white;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 .product-image {
-    width: 100px;
-    margin-right: 5px;
-    display: flex;
-    align-items: center;
+  width: 100px;
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
 }
-.title-price-divide{
-    display:flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    margin-right:10px;
-    flex-grow:2;
-    min-width: 60%;
-
+.title-price-divide {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-right: 10px;
+  /* flex-grow: 0.5; */
+  min-width: 40%;
 }
 .price-ea-basket-container {
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .price-ea-container {
-    display:flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
-
-* { 
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
 
 .btn-container {
-    /* width: 200px; */
-    width: 30%;
-    height: 100%;
-    text-align: center;
-    border-left: 2px solid rgb(238, 238, 238);
+  /* width: 200px; */
+  width: 30%;
+  height: 100%;
+  text-align: center;
+  border-left: 2px solid rgb(238, 238, 238);
 }
 
-.btn-container-flex{
-    display: flex;
-    flex-flow: column wrap;
-    height: 100%;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
+.btn-container-flex {
+  display: flex;
+  flex-flow: column wrap;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
 }
 
 /* 배송조회, 교환반품 신청, 리뷰 작성하기 */
 .content-btn {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    text-decoration: none;
-    height: 2.25rem;
-    width: 100%;
-    min-width: 80px;
-    border-radius: 4px;
-    color: blue;
-    background-color: white;
-    border: 1px solid rgb(36, 22, 121);
-    font-size: 0.875rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  /* cursor: pointer; */
+  text-decoration: none;
+  height: 2.25rem;
+  min-width: 80px;
+  /* border-radius: 4px; */
+  color: blue;
+  /* background-color: white; */
+  /* border: 1px solid rgb(36, 22, 121); */
+  font-size: 0.875rem;
+  border-radius: 12px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 2px 4px 0px, rgb(0 0 0 / 16%) 0px 0px 1px 0px;
+  background-color: white;
+  border-color: rgb(0 0 0 / 16%);
+  min-height: 2.25rem;
+  font-size: 0.875rem;
+  /* width: 160px; */
+  width: 100%;
+  margin: 4px 0px;
 }
 
-.content-btn {
-    min-height: 2.25rem;
-    font-size: 0.875rem;
-    /* width: 160px; */
-    width: 100%;
-    margin: 4px 0px;
+.mypageleftlayout {
+  box-shadow: rgb(0 0 0 / 38%) 0px 2px 4px 0px, rgb(0 0 0 / 16%) 0px 0px 1px 0px;
+}
+
+.mypageleftlayout li {
+  padding-left: 10px;
+}
+
+.mc-main-content {
+  min-height: 800px;
 }

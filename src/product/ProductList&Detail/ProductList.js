@@ -31,7 +31,6 @@ const ProductList = (props) => {
   const [sortCheck, setSortCheck] = useState(false);
   const [keyword, setKeyword] = useState("");
 
-
   const clickOptionSearch = () => {
     const data = {
       price,
@@ -64,7 +63,6 @@ const ProductList = (props) => {
       const keyword = localStorage.getItem("keyword");
       const data = props.location.state;
 
-
       // 카테고리에서 productlist로 넘어올 땐 localstorage에서 'keyword' remove 할 것
       // 카테고리 search 시에는 keword 제거, keyword search 시에는 카테고리 제거
 
@@ -95,33 +93,21 @@ const ProductList = (props) => {
         params.categoryId = categoryId;
       }
 
-      if(data.sortCheck == true)
-      {
-        if(data.sortOpt === "인기순")
-          params.sorted = "ranking";
-        else if(data.sortOpt === "별점순")
-          params.sorted = "rating";
-        else if(data.sortOpt === "판매순")
-          params.sorted = "sales";
-        else if(data.sortOpt === "가격△")
-          params.sorted = "price";
-        else if(data.sortOpt === "가격▽")
-          params.sorted = "priceAsc";
-        else if(data.sortOpt === "리뷰순")
-          params.sorted = "review";
-        else if(data.sortOpt === "등록일△")
-          params.sorted = "date";
-        else if(data.sortOpt === "등록일▽")
-          params.sorted = "dateAsc";
+      if (data.sortCheck == true) {
+        if (data.sortOpt === "인기순") params.sorted = "ranking";
+        else if (data.sortOpt === "별점순") params.sorted = "rating";
+        else if (data.sortOpt === "판매순") params.sorted = "sales";
+        else if (data.sortOpt === "가격△") params.sorted = "price";
+        else if (data.sortOpt === "가격▽") params.sorted = "priceAsc";
+        else if (data.sortOpt === "리뷰순") params.sorted = "review";
+        else if (data.sortOpt === "등록일△") params.sorted = "date";
+        else if (data.sortOpt === "등록일▽") params.sorted = "dateAsc";
       }
-      if(categoryId !== null)
-      {
+      if (categoryId !== null) {
         params.categoryId = categoryId;
-
       }
 
       const res = async () => {
-
         const result = await axios.request({
           url: "https://alconn.co/api/item/search",
           method: "get",
@@ -130,47 +116,42 @@ const ProductList = (props) => {
         setProductList(result.data.data.list);
       };
       res();
-    } else if(props.match.path == "/product/header/hot")
-    {
+    } else if (props.match.path == "/product/header/hot") {
       const res = async () => {
         const result = await axios.request({
           url: "https://alconn.co/api/item/search",
           method: "get",
-          params: {sorted: "ranking"},
+          params: { sorted: "ranking" },
         });
         setProductList(result.data.data.list);
       };
       res();
-    } else if(props.match.path == "/product/header/free")
-    {
+    } else if (props.match.path == "/product/header/free") {
       const res = async () => {
         const result = await axios.request({
           url: "https://alconn.co/api/item/search",
           method: "get",
-          params: {shippingChargeType: "FREE"},
+          params: { shippingChargeType: "FREE" },
         });
         setProductList(result.data.data.list);
       };
       res();
-    } else if(props.match.path == "/product/header/review")
-    {
+    } else if (props.match.path == "/product/header/review") {
       const res = async () => {
         const result = await axios.request({
           url: "https://alconn.co/api/item/search",
           method: "get",
-          params: {sorted: "review"},
+          params: { sorted: "review" },
         });
         setProductList(result.data.data.list);
-
       };
       res();
-    } else if(props.match.path == "/product/header/new")
-    {
+    } else if (props.match.path == "/product/header/new") {
       const res = async () => {
         const result = await axios.request({
           url: "https://alconn.co/api/item/search",
           method: "get",
-          params: {sorted: "date"},
+          params: { sorted: "date" },
         });
         setProductList(result.data.data.list);
       };
@@ -188,12 +169,9 @@ const ProductList = (props) => {
           params: { keyword : props.match.params.brand },
         });
         setProductList(result.data.data.list);
-      }
+      };
       res();
-    }
-    else
-    {
-      console.log(props.match.path);
+    } else {
       const res = async () => {
         const result = await axios.get(
           "https://alconn.co/api/item/list/categoryid=" +
@@ -205,14 +183,13 @@ const ProductList = (props) => {
       };
       res();
     }
-
   }, [props.location.state]);
 
   return (
     <div style={{ display: "flex" }}>
       {/* <div style={{ float: "left", width: "300px", height: "100px" }}> */}
       {/* <div style={{ marginTop: "10px" }}> */}
-      <div style={{ width: "20%" }}>
+      <div style={{ width: "15%" }}>
         <div>
           <input
             value={priceCheck}
@@ -235,13 +212,12 @@ const ProductList = (props) => {
             onChange={(e) => setPriceOpt(e.target.value)}
             className="form-control"
             id="price-option"
-            style={
-              {
-                // width: "80px",
-                // display: "inline-block",
-                // marginLeft: "10px",
-              }
-            }
+            style={{
+              // width: "80px",
+              // display: "inline-block",
+              // marginLeft: "10px",
+              marginTop: "18px",
+            }}
           >
             <option>이상</option>
             <option>이하</option>
@@ -266,13 +242,12 @@ const ProductList = (props) => {
             onChange={(e) => setDateOpt(e.target.value)}
             className="form-control"
             id="date-option"
-            style={
-              {
-                // width: "80px",
-                // display: "inline-block",
-                // marginLeft: "10px",
-              }
-            }
+            style={{
+              // width: "80px",
+              // display: "inline-block",
+              // marginLeft: "10px",
+              marginTop: "18px",
+            }}
           >
             <option>이전</option>
             <option>이후</option>
@@ -291,6 +266,7 @@ const ProductList = (props) => {
             className="form-control"
             id="sort-option"
             // style={{ width: "150px" }}
+            // style={{ marginTop: "18px" }}
           >
             <option selected>인기순</option>
             <option>별점순</option>
@@ -314,10 +290,14 @@ const ProductList = (props) => {
       </div>
       <div
         // style={{ display: "inline-block", width: "980px" }}
-        style={{ width: "77%", paddingLeft: "3%" }}
+        style={{ width: "85%", paddingLeft: "3%" }}
         // className="productlist"
       >
-        <ul className="searchproduct">
+        {/* <ul className="searchproduct"> */}
+        <div
+          className="searchproduct"
+          style={{ display: "flex", flexWrap: "wrap" }}
+        >
           {ProductList &&
             ProductList.map((row, idx) => (
               <ProductListRowItem
@@ -327,7 +307,9 @@ const ProductList = (props) => {
                 history={props.history}
               />
             ))}
-        </ul>
+          {/* style={{ display: "flex" }} */}
+        </div>
+        {/* </ul> */}
       </div>
     </div>
   );

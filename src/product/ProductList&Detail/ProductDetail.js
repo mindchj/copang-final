@@ -34,7 +34,6 @@ const ProductDetail = ({ match, history }) => {
     };
     res();
   }, []);
-  console.log(ProductOne)
   const [otherRecommandProduct, setOtherRecommandProduct] = useState([]);
 
   useEffect(() => {
@@ -162,8 +161,9 @@ const ProductDetail = ({ match, history }) => {
               </div>
             </div>
             <div className="productSeller">
-              <div className="seller">판매자 : {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList.sellerName}</div>
-              <div className="deliver">택배사 : {ProductOne.shipmentInfoForm&&ProductOne.shipmentInfoForm.logisticCompany}</div>
+              <div className="seller">판매자 : {
+                ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList.sellerName==null?"COPANG":ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList.sellerName}</div>
+              <div className="deliver">택배사 : {ProductOne.shipmentInfoForm&&ProductOne.shipmentInfoForm.logisticCompany==null?"HANJIN":ProductOne.shipmentInfoForm&&ProductOne.shipmentInfoForm.logisticCompany}</div>
             </div>
             <div className="cartPerchase" style={{ width: "500px" }}>
               <div className="prod-buy-quantity" style={{ float: "left" }}>

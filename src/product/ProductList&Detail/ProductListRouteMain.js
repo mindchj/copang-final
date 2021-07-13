@@ -22,7 +22,6 @@ const ProductListRouteMain = () => {
       <Route path="/product/category/:categoryId" component={ProductList} />
       <Route path="/product/search/option" component={ProductList} />
       <Route path="/product/selectOne/:itemId" component={ProductDetail}/>
-      <Route path="/order/do" component={OrderPageApp} />
       <Route path="/productReviewBottom/review/write/:itemId" component={ProductReviewWriteForm}/>
       <Route path="/mycopang" component={order} />
     </div>

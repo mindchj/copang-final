@@ -213,6 +213,7 @@ const ProductQuestionBottom = (props) => {
                   <td style={{ textAlign: "left" }}>
                     <div>
                       {ProductOne.itemDetailFormList &&
+                        ProductOne.itemDetailFormList[0].sellerName==null?"COPANG":ProductOne.itemDetailFormList &&
                         ProductOne.itemDetailFormList[0].sellerName}
                     </div>
                   </td>
@@ -302,7 +303,9 @@ const ProductQuestionBottom = (props) => {
                         </span>
                         <br />
                         <div style={{ fontSize: "10pt", color: "#777" }}>
-                          {row.itemName},{row.optionName},{row.optionValue}
+                          {row.itemName},{row.optionName},{row.optionValue} | {ProductOne.itemDetailFormList &&
+                        ProductOne.itemDetailFormList[0].sellerName==null?"COPANG":ProductOne.itemDetailFormList &&
+                        ProductOne.itemDetailFormList[0].sellerName}
                         </div>
 
                         <br />
