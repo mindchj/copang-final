@@ -65,7 +65,7 @@ const MainToday = ({ history }) => {
                         <div>
                           <div className="namedesc">
                             <div className="name" style={{ width: "230px" }}>
-                              {row.itemName}
+                              <p>{row.itemName}</p>
                             </div>
                           </div>
                           <div className="price-area">

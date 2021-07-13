@@ -58,6 +58,7 @@ const ProductQuestionBottom = (props) => {
   let itemId = props.itemId;
   const [Question, setQuestion] = useState([]);
 
+
   const Questionres = async () => {
     const result = await axios.get(
       "https://alconn.co/api/inquiry/" + itemId + "/item"
@@ -78,7 +79,7 @@ const ProductQuestionBottom = (props) => {
     };
     ProductOneres();
     Questionres();
-  }, []);
+  }, [itemId]);
 
   const [modalOpen, setModelOpen] = useState(false);
 
@@ -114,6 +115,7 @@ const ProductQuestionBottom = (props) => {
     axiosAddQuestion().then(() => Questionres());
     alert("문의등록이 되었습니다.");
     setModelOpen(false);
+    setContent({content: ""});
   };
   //답변등록 API
   const addReply = (idx) => {
@@ -184,7 +186,7 @@ const ProductQuestionBottom = (props) => {
                     상품정보
                   </th>
                   <td style={{ border: "1px solid #777777" }}>
-                    <div style={{ textAlign: "left" }}>
+                    <div style={{ textAlign: "left" ,marginLeft:'20px'}}>
                       <div>
                         {ProductOne.itemDetailFormList &&
                           ProductOne.itemDetailFormList[0].optionName}{" "}
@@ -211,7 +213,7 @@ const ProductQuestionBottom = (props) => {
                 <tr style={{ border: "1px solid #777777" }}>
                   <th style={{ border: "1px solid #777777" }}>판매자</th>
                   <td style={{ textAlign: "left" }}>
-                    <div>
+                    <div style={{marginLeft:'20px'}}>
                       {ProductOne.itemDetailFormList &&
                         ProductOne.itemDetailFormList[0].sellerName==null?"COPANG":ProductOne.itemDetailFormList &&
                         ProductOne.itemDetailFormList[0].sellerName}

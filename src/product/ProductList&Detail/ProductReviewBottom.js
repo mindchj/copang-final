@@ -25,7 +25,7 @@ const ProductReviewBottom = (props) => {
       setReview(result.data.data);
     };
     res();
-  }, []);
+  }, [itemId]);
   const [modalOpen, setModelOpen] = useState(false);
 
   const openModal = () => {
