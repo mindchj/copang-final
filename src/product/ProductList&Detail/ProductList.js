@@ -307,6 +307,9 @@ const ProductList = (props) => {
                 history={props.history}
               />
             ))}
+          {ProductList && ProductList.length == 0 && 
+            <h3 style={{marginLeft:'50px',marginTop:'100px'}}>상품 목록이 존재하지 않습니다.</h3>
+          }
           {/* style={{ display: "flex" }} */}
         </div>
         {/* </ul> */}

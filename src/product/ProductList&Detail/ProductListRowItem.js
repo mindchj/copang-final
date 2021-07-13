@@ -10,6 +10,8 @@ const ProductListRowItem = (props) => {
 
   let itemId = props.row.itemId;
   return (
+    <>
+    { itemId>1175 &&
     <div style={{ width: "23%", cursor: "pointer", marginRight: "2%" }}>
       <div
         className="RowItemList"
@@ -109,6 +111,8 @@ const ProductListRowItem = (props) => {
       </div>
       <hr />
     </div>
+    }
+    </>
   );
 };
 
