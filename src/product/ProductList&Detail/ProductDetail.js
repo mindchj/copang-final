@@ -25,25 +25,22 @@ const ProductDetail = ({ match, history }) => {
     res();
   }, [itemId]);
 
-
   const [ProductList, setProductList] = useState([]);
 
   useEffect(() => {
     const res = async () => {
       const result = await axios.get("https://alconn.co/api/item/list/categoryid="+1080);
       setProductList(result.data.data);
-      console.log(result.data.data)
     };
     res();
   }, []);
-
+  console.log(ProductOne)
   const [otherRecommandProduct, setOtherRecommandProduct] = useState([]);
 
   useEffect(() => {
     const res = async () => {
       const result = await axios.get("https://alconn.co/api/item/list/categoryid="+4069);
       setOtherRecommandProduct(result.data.data);
-      console.log(result.data.data)
     };
     res();
   }, []);
@@ -165,8 +162,8 @@ const ProductDetail = ({ match, history }) => {
               </div>
             </div>
             <div className="productSeller">
-              <div className="seller">판매자 : {ProductOne.sellerSID}</div>
-              <div className="deliver">택배사 : 우체국MES</div>
+              <div className="seller">판매자 : {ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList.sellerName}</div>
+              <div className="deliver">택배사 : {ProductOne.shipmentInfoForm&&ProductOne.shipmentInfoForm.logisticCompany}</div>
             </div>
             <div className="cartPerchase" style={{ width: "500px" }}>
               <div className="prod-buy-quantity" style={{ float: "left" }}>
@@ -288,7 +285,7 @@ const ProductDetail = ({ match, history }) => {
                 if (idx >= 10) return;
                 else
                   return (
-                    <li row={row} key={idx}
+                    <li className="DescBodyProduct1" row={row} key={idx}
                       onClick={
                         () => {
                           history.push("/product/selectOne/" + row.itemId);
@@ -331,7 +328,7 @@ const ProductDetail = ({ match, history }) => {
                 if (idx >= 5) return;
                 else
                   return (
-                    <li row={row} key={idx}
+                    <li className="DescBodyProduct1" row={row} key={idx}
                       onClick={
                         () => {
                           history.push("/product/selectOne/" + row.itemId);

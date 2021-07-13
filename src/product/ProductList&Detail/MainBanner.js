@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { withRouter } from "react-router";
 
 const MainBanner = (props) => {
+  const SHABATH="shabath"
   return (
     <div id="demo" className="carousel slide" data-ride="carousel">
       <ul className="carousel-indicators">
@@ -25,9 +26,9 @@ const MainBanner = (props) => {
             backgroundColor: "#ff494e",
           }}
         >
-          <img
+          <img onClick={()=>props.history.push("/product/category/"+1037)}
             className="layout"
-            style={{ width: "100%", height: "100%" }}
+            style={{ width: "100%", height: "100%", cursor:'pointer'}}
             src="https://static.alconn.co/image/aecd5871-3153-464e-847e-49ca115c2d48"
             alt="Los Angeles"
           />
@@ -39,13 +40,13 @@ const MainBanner = (props) => {
             height: "100%",
             // marginLeft: "10%",
             // marginTop: "5%",
-            backgroundColor: "#091438",
+            backgroundColor: "#c4c3bf",
           }}
         >
-          <img
+          <img onClick={()=>props.history.push("/product/keyword/"+SHABATH)}
             className="layout"
-            style={{ width: "100%", height: "100%" }}
-            src="https://static.alconn.co/image/8caf3d44-3e1d-4271-8a80-fc5424b25791"
+            style={{ width: "100%", height: "100%", cursor:'pointer'}}
+            src="https://static.alconn.co/image/21bd376f-1f84-4585-a46c-40aa219989cd"
             alt="Chicago"
           />
         </div>
@@ -56,12 +57,12 @@ const MainBanner = (props) => {
             height: "100%",
             // marginLeft: "10%",
             // marginTop: "5%",
-            backgroundColor: "#e8e3dd",
+            backgroundColor: "#e6e1db",
           }}
         >
-          <img
+          <img  onClick={()=>props.history.push("/product/selectOne/"+7002)}
             className="layout"
-            style={{ width: "100%", height: "100%" }}
+            style={{ width: "100%", height: "100%",cursor:'pointer' }}
             src="https://static.alconn.co/image/80126ed2-d110-40cb-994a-ed74c21b5675"
             alt="New York"
           />
@@ -78,4 +79,4 @@ const MainBanner = (props) => {
   );
 };
 
-export default MainBanner;
+export default withRouter(MainBanner);

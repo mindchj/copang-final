@@ -14,7 +14,6 @@ const MainDoYouNeed = ({ history }) => {
         "https://alconn.co/api/item/list/categoryid=" + AUDIO_CATEGORY_ID
       );
       setAudio(result.data.data);
-      console.log(result.data);
     };
     res();
   }, []);

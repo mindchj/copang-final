@@ -15,7 +15,6 @@ const MainToday = ({ history }) => {
         "https://alconn.co/api/item/list/categoryid=" + FURNITURE_CATEGORY_ID
       );
       setFuniture(result.data.data);
-      console.log(result.data);
     };
     res();
   }, []);

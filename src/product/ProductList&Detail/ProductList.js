@@ -4,6 +4,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Product.css";
 import ProductListRowItem from "./ProductListRowItem";
+// import CategorySidebar from "./CategorySidebar";
+
+const SHABATH = "shabath";
 
 const SHABATH = "shabath";
 
@@ -25,9 +28,11 @@ const ProductList = (props) => {
   const [date, setDate] = useState(convertDate());
   const [dateOpt, setDateOpt] = useState("이전");
   const [dateCheck, setDateCheck] = useState(false);
+
   const [sortOpt, setSortOpt] = useState("인기순");
   const [sortCheck, setSortCheck] = useState(false);
   const [keyword, setKeyword] = useState("");
+
 
   const clickOptionSearch = () => {
     const data = {
@@ -60,6 +65,7 @@ const ProductList = (props) => {
       const categoryId = localStorage.getItem("categoryId");
       const keyword = localStorage.getItem("keyword");
       const data = props.location.state;
+
 
       // 카테고리에서 productlist로 넘어올 땐 localstorage에서 'keyword' remove 할 것
       // 카테고리 search 시에는 keword 제거, keyword search 시에는 카테고리 제거
@@ -113,9 +119,11 @@ const ProductList = (props) => {
       if(categoryId !== null)
       {
         params.categoryId = categoryId;
+
       }
 
       const res = async () => {
+
         const result = await axios.request({
           url: "https://alconn.co/api/item/search",
           method: "get",
@@ -155,6 +163,7 @@ const ProductList = (props) => {
           params: {sorted: "review"},
         });
         setProductList(result.data.data.list);
+
       };
       res();
     } else if(props.match.path == "/product/header/new")
@@ -196,6 +205,7 @@ const ProductList = (props) => {
       };
       res();
     }
+
   }, [props.location.state]);
 
   return (

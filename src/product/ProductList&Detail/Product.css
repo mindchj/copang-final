@@ -470,10 +470,6 @@ span.ReviewCount {
   color: #aaa;
 }
 
-li.todayFind:hover {
-  border: 1px solid rgb(168, 166, 166);
-}
-
 li.todayShoping:hover {
   border: 1px solid rgb(247, 243, 243);
   text-decoration-line: underline;
@@ -535,6 +531,17 @@ li.RowItemList:hover {
 }
 
 li.RowItemList:hover img {
+  transform: scale(1.05);
+  transition: transform 0.5s;
+  filter: brightness(90%);
+}
+
+li.DescBodyProduct1:hover{
+  border: 1px solid rgb(247, 243, 243);
+  text-decoration-line: underline;
+}
+
+li.DescBodyProduct1:hover img{
   transform: scale(1.05);
   transition: transform 0.5s;
   filter: brightness(90%);

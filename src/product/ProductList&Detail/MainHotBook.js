@@ -15,7 +15,6 @@ const MainHotBook = ({ history }) => {
         "https://alconn.co/api/item/list/categoryid=" + BOOK_CATEGORY_ID
       );
       setBook(result.data.data);
-      console.log(result.data);
     };
     res();
   }, []);

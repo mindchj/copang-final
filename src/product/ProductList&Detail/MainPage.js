@@ -12,19 +12,6 @@ import "../../mainpagekue.css";
 import { Box, Typography } from "@material-ui/core";
 
 const MainPage = ({ history }) => {
-  let COMPUTER_CATEGORY_ID = 1083;
-
-  const [Computer, setComputer] = useState([]);
-  useEffect(() => {
-    const res = async () => {
-      const result = await axios.get(
-        "https://alconn.co/api/item/list/categoryid=" + COMPUTER_CATEGORY_ID
-      );
-      setComputer(result.data.data);
-      console.log(result.data);
-    };
-    res();
-  }, []);
 
   return (
     <div>
