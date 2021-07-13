@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Product.css";
 import ProductListRowItem from "./ProductListRowItem";
+import { PuffLoader } from 'react-spinners';
 // import CategorySidebar from "./CategorySidebar";
 
 const SHABATH = "샤바스";
@@ -19,6 +20,9 @@ const ProductList = (props) => {
 
     return year + month + date;
   };
+
+  
+
   const [ProductList, setProductList] = useState([]);
   const [price, setPrice] = useState(0);
   const [priceOpt, setPriceOpt] = useState("이상");
@@ -32,6 +36,9 @@ const ProductList = (props) => {
   const [keyword, setKeyword] = useState("");
 
   const [header, setHeader] = useState();
+
+  const [load2, setLoad2] = useState(false);
+  const [load1, setLoad1] = useState(false);
 
   const clickOptionSearch = () => {
     const data = {
@@ -123,7 +130,14 @@ const ProductList = (props) => {
           method: "get",
           params,
         });
-        setProductList(result.data.data.list);
+        if(result.data.data.list.length == 0)
+        {
+          setLoad1(true)
+        }
+        else
+        {
+          setProductList(result.data.data.list);
+        }
       };
       res();
     } else if (props.match.path === "/product/header/all") {
@@ -318,6 +332,12 @@ const ProductList = (props) => {
           className="searchproduct"
           style={{ display: "flex", flexWrap: "wrap" }}
         >
+          {ProductList && ProductList.length == 0 && !load1 &&
+            <PuffLoader /> 
+          }
+          {
+            load1 ? <h2 style={{marginTop:'100px',marginLeft:'100px'}}>상품이 없습니다</h2> : ""
+          }
           {ProductList &&
             ProductList.map((row, idx) => (
               <ProductListRowItem
@@ -327,9 +347,7 @@ const ProductList = (props) => {
                 history={props.history}
               />
             ))}
-          {ProductList && ProductList.length == 0 && 
-            <h3 style={{marginLeft:'50px',marginTop:'100px'}}>상품 목록이 존재하지 않습니다.</h3>
-          }
+          
           {/* style={{ display: "flex" }} */}
         </div>
         {/* </ul> */}
