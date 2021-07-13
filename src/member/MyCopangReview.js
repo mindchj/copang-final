@@ -79,83 +79,102 @@ const MyCopangReview = ({ history }) => {
   return (
     <div className="review-header" style={{ marginLeft: "5px" }}>
       <h2>리뷰관리</h2>
-      <React.Fragment>
-        <CardHeader
-          avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              {reviewList.data && reviewList.data[0].writerName.substring(0, 3)}
-            </Avatar>
-          }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title={reviewList.data && reviewList.data[0].writerName}
-          subheader="내가 바로 리뷰어.."
-        />
-        <div style={{ display: "flex", flexWrap: "wrap", width: "100%" }}>
-          {reviewList.data &&
-            reviewList.data.map((review, idx) => (
-              <Card className={classes.root}>
-                <CardActionArea style={{ minHeight: "340px" }}>
-                  <CardMedia
-                    component="img"
-                    alt="Contemplative Reptile"
-                    height="100%"
-                    image={review.image}
-                    title="Contemplative Reptile"
-                  />
-                  <CardContent style={{ padding: "5px" }}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {review.title}
-                    </Typography>
-                    <Box component="fieldset" mb={1} borderColor="transparent">
-                      <Rating
-                        name="simple-controlled"
-                        value={review.rating}
-                        readOnly
+      {reviewList.data && reviewList.data.length > 0 && (
+        <React.Fragment>
+          <CardHeader
+            avatar={
+              <Avatar aria-label="recipe" className={classes.avatar}>
+                {reviewList.data &&
+                  reviewList.data.length > 0 &&
+                  reviewList.data[0].writerName.substring(0, 3)}
+              </Avatar>
+            }
+            action={
+              <IconButton aria-label="settings">
+                <MoreVertIcon />
+              </IconButton>
+            }
+            title={
+              reviewList.data &&
+              reviewList.data.length > 0 &&
+              reviewList.data[0].writerName
+            }
+            subheader="내가 바로 리뷰어.."
+          />
+          <div style={{ display: "flex", flexWrap: "wrap", width: "100%" }}>
+            {reviewList.data &&
+              reviewList.data.map((review, idx) => (
+                <Card className={classes.root}>
+                  <CardActionArea style={{ minHeight: "340px" }}>
+                    {review.image != null && (
+                      <CardMedia
+                        component="img"
+                        alt="Contemplative Reptile"
+                        height="100%"
+                        image={review.image}
+                        title="Contemplative Reptile"
                       />
-                    </Box>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
+                    )}
+                    <CardContent style={{ padding: "5px" }}>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {review.title}
+                      </Typography>
+                      <Box
+                        component="fieldset"
+                        mb={1}
+                        borderColor="transparent"
+                      >
+                        <Rating
+                          name="simple-controlled"
+                          value={review.rating}
+                          readOnly
+                        />
+                      </Box>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        {review.itemName}{" "}
+                        {review.optionName
+                          ? review.optionName
+                          : "옵션이름 메롱"}
+                        ,{" "}
+                        {review.optionValue
+                          ? review.optionValue
+                          : "옶션값 널값"}{" "}
+                        등록일 : {review.registerDate}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        구매후기 : {review.content}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button size="small" className={classes.deleteBtn}>
+                      삭제
+                    </Button>
+                    <Button
+                      size="small"
+                      className={classes.updateBtn}
+                      onClick={() =>
+                        history.push("/mycopang/review-page/update", review)
+                      }
                     >
-                      {review.itemName}{" "}
-                      {review.optionName ? review.optionName : "옵션이름 메롱"},{" "}
-                      {review.optionValue ? review.optionValue : "옶션값 널값"}{" "}
-                      등록일 : {review.registerDate}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      구매후기 : {review.content}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  <Button size="small" className={classes.deleteBtn}>
-                    삭제
-                  </Button>
-                  <Button
-                    size="small"
-                    className={classes.updateBtn}
-                    onClick={() =>
-                      history.push("/mycopang/review-page/update", review)
-                    }
-                  >
-                    수정
-                  </Button>
-                </CardActions>
-                <br />
-              </Card>
-            ))}
-          <br />
-        </div>
-      </React.Fragment>
+                      수정
+                    </Button>
+                  </CardActions>
+                  <br />
+                </Card>
+              ))}
+            <br />
+          </div>
+        </React.Fragment>
+      )}
     </div>
   );
 };

@@ -21,7 +21,7 @@ import OrderComplete from "./purchase/OrderComplete";
 import OrderPageApp from "./purchase/OrderPageApp";
 
 import Menu from "./Menu";
-
+import Footer from "../src/Footer";
 import AddForm from "./youngjae/ProductAddTest";
 import Test22 from "./hyunjin/Test22";
 import Test from "./hyunjin/Test";
@@ -64,6 +64,7 @@ const RouteMain = () => {
         <Route path="/order/complete" component={Auth(OrderComplete)} />
         <Route path="/order/do" component={Auth(OrderPageApp)} />
       </Switch>
+      <Footer />
       {/* </Suspense> */}
     </div>
   );

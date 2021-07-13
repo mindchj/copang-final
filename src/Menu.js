@@ -8,6 +8,7 @@ const Menu = () => {
         justifyContent: "space-evenly",
         marginLeft: "100px",
         fontWeight: "bold",
+        marginTop: "20px",
       }}
     >
       {/* <Link to="/member/1">장바구니</Link>&nbsp;&nbsp; */}

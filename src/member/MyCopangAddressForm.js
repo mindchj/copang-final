@@ -93,11 +93,19 @@ export default function MyCopangAddressForm({ history }) {
 
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography
+        variant="h5"
+        gutterBottom
+        style={{ textAlign: "center", paddingRight: "8%", marginTop: "40px" }}
+      >
         배송지 주소 추가
       </Typography>
-      <Grid container spacing={4}>
-        <Grid item xs={xs} sm={4}>
+      <Grid
+        container
+        spacing={4}
+        style={{ paddingLeft: "30%", paddingRight: "30%" }}
+      >
+        <Grid item xs={xs}>
           <TextField
             required
             id="receiverName"
@@ -109,7 +117,7 @@ export default function MyCopangAddressForm({ history }) {
             onChange={handleChange}
           />
         </Grid>
-        <Grid item xs={xs} sm={6}>
+        <Grid item xs={xs}>
           <TextField
             required
             id="receiverPhone"
@@ -120,9 +128,7 @@ export default function MyCopangAddressForm({ history }) {
             onChange={handleChange}
           />
         </Grid>
-        <Grid item xs={xs} sm={6}>
-          <button onClick={handleClickOpen("paper")}>주소지 추가히기</button>
-        </Grid>
+
         <Grid item xs={xs}>
           <TextField
             required
@@ -162,7 +168,6 @@ export default function MyCopangAddressForm({ history }) {
           <Button variant="contained" color="primary" onClick={SubmitAddr}>
             저장하기
           </Button>
-          <Button onClick={() => console.log(addrValues)}>제발</Button>
         </Grid>
       </Grid>
 

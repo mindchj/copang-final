@@ -1,6 +1,7 @@
 .layout {
   min-width: 940px;
   max-width: 1280px;
+  /* min-height: 1000px; */
   margin: auto;
 }
 
@@ -15,22 +16,88 @@
 }
 
 .MainTodayDiscoverykue {
+  margin-bottom: 20px;
+  margin-top: 30px;
   width: 100%;
   height: auto;
   min-height: 1108px;
 }
 
 .MainTodaykue {
+  margin-bottom: 20px;
+  margin-top: 30px;
   clear: both;
   min-height: 430px;
 }
 
 .MainDoYouNeedkue {
+  margin-bottom: 20px;
+  margin-top: 30px;
   clear: both;
   min-height: 430px;
 }
 
 .MainHotBookkue {
+  margin-bottom: 20px;
+  margin-top: 30px;
   clear: both;
   min-height: 430px;
+}
+.footer_new .safe-service {
+  /* float: left; */
+  /* width: 270px; */
+  font-size: 11px;
+}
+.footer_new .footer-layer2 strong {
+  font-weight: bold;
+  font-size: 12px;
+}
+.footer_new .footer-layer2 .licensee,
+.footer_new .footer-layer2 .service-check {
+  text-decoration: underline;
+}
+.footer_new .contact-info {
+  float: left;
+  width: 340px;
+  color: #555;
+}
+.footer_new .footer-content address {
+  float: left;
+  width: 260px;
+}
+.footer_new .footer-layer2 h1 a {
+  background-position: -19px -34px;
+  width: 117px;
+  height: 34px;
+  margin-left: 10px;
+}
+.footer_new .footer-layer2 {
+  width: 1020px;
+  height: 100px;
+  margin: 30px auto;
+  font-size: 12px;
+  color: #555;
+  line-height: 150%;
+}
+.footer_new .safe-service {
+  float: left;
+  width: 270px;
+  font-size: 11px;
+}
+.footer_new .footer-layer1 a {
+  display: inline-block;
+  white-space: nowrap;
+  padding: 0 14px;
+  font-size: 12px;
+  color: #555;
+  height: 12px;
+  border-left: #888 solid 1px;
+}
+.footer_new .footer-layer1 {
+  border-top: #ddd solid 1px;
+  height: 34px;
+  text-align: center;
+  padding-top: 15px;
+  white-space: nowrap;
+  margin-top: 100px;
 }

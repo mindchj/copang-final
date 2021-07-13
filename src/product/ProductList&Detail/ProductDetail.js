@@ -29,7 +29,9 @@ const ProductDetail = ({ match, history }) => {
 
   useEffect(() => {
     const res = async () => {
-      const result = await axios.get("https://alconn.co/api/item/list/categoryid="+1080);
+      const result = await axios.get(
+        "https://alconn.co/api/item/list/categoryid=" + 1080
+      );
       setProductList(result.data.data);
     };
     res();
@@ -38,7 +40,9 @@ const ProductDetail = ({ match, history }) => {
 
   useEffect(() => {
     const res = async () => {
-      const result = await axios.get("https://alconn.co/api/item/list/categoryid="+4069);
+      const result = await axios.get(
+        "https://alconn.co/api/item/list/categoryid=" + 4069
+      );
       setOtherRecommandProduct(result.data.data);
     };
     res();
@@ -60,7 +64,7 @@ const ProductDetail = ({ match, history }) => {
   };
   return (
     <div className="total-wrap">
-      <div className="totaldesc">
+      <div className="totaldesc" style={{ marginTop: "50px" }}>
         <div className="header">
           <div
             className="dsecImage"
@@ -161,9 +165,22 @@ const ProductDetail = ({ match, history }) => {
               </div>
             </div>
             <div className="productSeller">
-              <div className="seller">판매자 : {
-                ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList.sellerName==null?"COPANG":ProductOne.itemDetailFormList&&ProductOne.itemDetailFormList.sellerName}</div>
-              <div className="deliver">택배사 : {ProductOne.shipmentInfoForm&&ProductOne.shipmentInfoForm.logisticCompany==null?"HANJIN":ProductOne.shipmentInfoForm&&ProductOne.shipmentInfoForm.logisticCompany}</div>
+              <div className="seller">
+                판매자 :{" "}
+                {ProductOne.itemDetailFormList &&
+                ProductOne.itemDetailFormList.sellerName == null
+                  ? "COPANG"
+                  : ProductOne.itemDetailFormList &&
+                    ProductOne.itemDetailFormList.sellerName}
+              </div>
+              <div className="deliver">
+                택배사 :{" "}
+                {ProductOne.shipmentInfoForm &&
+                ProductOne.shipmentInfoForm.logisticCompany == null
+                  ? "HANJIN"
+                  : ProductOne.shipmentInfoForm &&
+                    ProductOne.shipmentInfoForm.logisticCompany}
+              </div>
             </div>
             <div className="cartPerchase" style={{ width: "500px" }}>
               <div className="prod-buy-quantity" style={{ float: "left" }}>
@@ -278,19 +295,21 @@ const ProductDetail = ({ match, history }) => {
           </div>
         </div>
         <div className="otherProduct">
-          <h2>이 상품은 어떠신가요?</h2>
+          <h2 style={{ marginTop: "20px" }}>이 상품은 어떠신가요?</h2>
           <ul className="otherProduct-ul">
             {ProductList &&
               ProductList.map((row, idx) => {
                 if (idx >= 10) return;
                 else
                   return (
-                    <li className="DescBodyProduct1" row={row} key={idx}
-                      onClick={
-                        () => {
-                          history.push("/product/selectOne/" + row.itemId);
-                        }
-                      }>
+                    <li
+                      className="DescBodyProduct1"
+                      row={row}
+                      key={idx}
+                      onClick={() => {
+                        history.push("/product/selectOne/" + row.itemId);
+                      }}
+                    >
                       <dl>
                         <dt>
                           <img
@@ -321,19 +340,21 @@ const ProductDetail = ({ match, history }) => {
           </ul>
         </div>
         <div className="otherProduct">
-          <h2>이달의 HOT한 상품</h2>
+          <h2 style={{ marginTop: "20px" }}>이달의 HOT한 상품</h2>
           <ul className="otherProduct-ul">
             {otherRecommandProduct &&
               otherRecommandProduct.map((row, idx) => {
                 if (idx >= 5) return;
                 else
                   return (
-                    <li className="DescBodyProduct1" row={row} key={idx}
-                      onClick={
-                        () => {
-                          history.push("/product/selectOne/" + row.itemId);
-                        }
-                      }>
+                    <li
+                      className="DescBodyProduct1"
+                      row={row}
+                      key={idx}
+                      onClick={() => {
+                        history.push("/product/selectOne/" + row.itemId);
+                      }}
+                    >
                       <dl>
                         <dt>
                           <img

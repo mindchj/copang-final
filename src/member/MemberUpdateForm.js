@@ -69,6 +69,7 @@ const MemberUpdateForm = (props) => {
           required
           type="text"
           name="description"
+          value={info.description}
           fullWidth
           onChange={handleInfoChange}
         />

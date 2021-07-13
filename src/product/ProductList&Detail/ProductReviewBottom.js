@@ -59,7 +59,10 @@ const ProductReviewBottom = (props) => {
             </span>
             <button
               className="write-review"
-              onClick={() => {props.history.push("/mycopang")}}>
+              onClick={() => {
+                props.history.push("/mycopang");
+              }}
+            >
               상품리뷰 작성
             </button>
             <button className="review-rules" onClick={openModal}>
@@ -284,19 +287,21 @@ const ProductReviewBottom = (props) => {
                   </div>
                   <div className="product-review-content">
                     {row.content}
-                    <div
-                      style={{
-                        border: "1px solid black",
-                        width: "70px",
-                        height: "70px",
-                      }}
-                    >
-                      <img
-                        style={{ width: "100%", height: "100%" }}
-                        alt=""
-                        src={row.image}
-                      />
-                    </div>
+                    {row.image != null && (
+                      <div
+                        style={{
+                          border: "1px solid black",
+                          width: "70px",
+                          height: "70px",
+                        }}
+                      >
+                        <img
+                          style={{ width: "100%", height: "100%" }}
+                          alt=""
+                          src={row.image}
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
               );

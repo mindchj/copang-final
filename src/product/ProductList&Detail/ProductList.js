@@ -4,7 +4,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Product.css";
 import ProductListRowItem from "./ProductListRowItem";
-import { PuffLoader } from 'react-spinners';
+import { PuffLoader } from "react-spinners";
+import { css } from "@emotion/react";
+import { red } from "@material-ui/core/colors";
+
 // import CategorySidebar from "./CategorySidebar";
 
 const SHABATH = "샤바스";
@@ -21,7 +24,12 @@ const ProductList = (props) => {
     return year + month + date;
   };
 
-  
+  const override = css`
+    display: block;
+    margin: auto;
+    margin-top: 200px;
+    border-color: red;
+  `;
 
   const [ProductList, setProductList] = useState([]);
   const [price, setPrice] = useState(0);
@@ -137,12 +145,9 @@ const ProductList = (props) => {
           method: "get",
           params,
         });
-        if(result.data.data.list.length == 0)
-        {
-          setLoad1(true)
-        }
-        else
-        {
+        if (result.data.data.list.length == 0) {
+          setLoad1(true);
+        } else {
           setProductList(result.data.data.list);
         }
       };
@@ -154,8 +159,7 @@ const ProductList = (props) => {
       };
       res();
       setHeader("전체 상품목록");
-    }
-    else if (props.match.path == "/product/header/hot") {
+    } else if (props.match.path == "/product/header/hot") {
       const res = async () => {
         const result = await axios.request({
           url: "https://alconn.co/api/item/search",
@@ -199,35 +203,39 @@ const ProductList = (props) => {
       };
       res();
       setHeader("최신 등록 상품");
-    } else if(props.match.path == "/product/keyword/:brand")
-    {
+    } else if (props.match.path == "/product/keyword/:brand") {
       const res = async () => {
         console.log(props.match.params);
         const result = await axios.request({
           url: "https://alconn.co/api/item/search",
           method: "get",
-          params: { keyword : props.match.params.brand },
+          params: { keyword: props.match.params.brand },
         });
         setProductList(result.data.data.list);
       };
       res();
     } else {
-      const res = async () => {
-        const result = await axios.get(
-          "https://alconn.co/api/item/list/categoryid=" +
-            props.match.params.categoryId
-        );
-        localStorage.setItem("categoryId", props.match.params.categoryId);
-        localStorage.removeItem("keyword");
-        setProductList(result.data.data);
+      const res = () => {
+        axios
+          .get(
+            "https://alconn.co/api/item/list/categoryid=" +
+              props.match.params.categoryId
+          )
+          .then((res) => {
+            localStorage.setItem("categoryId", props.match.params.categoryId);
+            localStorage.removeItem("keyword");
+            setProductList(res.data.data);
+          })
+          .catch((err) => {
+            setLoad1(true);
+          });
       };
       res();
     }
   }, [props.location.state]);
 
   return (
-    <div style={{ display: "flex" }}>
-      <div className="1234">{header}</div>
+    <div style={{ display: "flex", marginTop: "40px" }}>
       {/* <div style={{ float: "left", width: "300px", height: "100px" }}> */}
       {/* <div style={{ marginTop: "10px" }}> */}
       <div style={{ width: "15%" }}>
@@ -275,7 +283,7 @@ const ProductList = (props) => {
           <input
             type="date"
             value={date}
-            onChange={(e)=>setDate(e.target.value)}
+            onChange={(e) => setDate(e.target.value)}
             className="form-control"
             // style={{ width: "170px", float: "left" }}
           />
@@ -336,16 +344,21 @@ const ProductList = (props) => {
         // className="productlist"
       >
         {/* <ul className="searchproduct"> */}
+        <div style={{ fontSize: "2em", fontWeight: "bold" }}>{header}</div>
         <div
           className="searchproduct"
           style={{ display: "flex", flexWrap: "wrap" }}
         >
-          {ProductList && ProductList.length == 0 && !load1 &&
-            <PuffLoader /> 
-          }
-          {
-            load1 ? <h2 style={{marginTop:'100px',marginLeft:'100px'}}>상품목록이 존재하지 않습니다</h2> : ""
-          }
+          {ProductList && ProductList.length == 0 && !load1 && (
+            <PuffLoader size={300} color={"dodgerblue"} css={override} />
+          )}
+          {load1 ? (
+            <h2 style={{ marginTop: "100px", marginLeft: "100px" }}>
+              상품목록이 존재하지 않습니다
+            </h2>
+          ) : (
+            ""
+          )}
           {ProductList &&
             ProductList.map((row, idx) => (
               <ProductListRowItem
@@ -355,7 +368,7 @@ const ProductList = (props) => {
                 history={props.history}
               />
             ))}
-          
+
           {/* style={{ display: "flex" }} */}
         </div>
         {/* </ul> */}

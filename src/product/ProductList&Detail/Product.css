@@ -480,6 +480,17 @@ li.hotBook:hover {
   text-decoration-line: underline;
 }
 
+.doYouNeed {
+  margin-top: 20px;
+}
+.hotBook {
+  margin-top: 20px;
+}
+
+.todayShoping {
+  margin-top: 20px;
+}
+
 li.doYouNeed:hover {
   border: 1px solid rgb(247, 243, 243);
   text-decoration-line: underline;
