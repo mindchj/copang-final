@@ -73,6 +73,11 @@ function ProductInfo({ location, history}) {
   const getAddr = async () => {
     const result = await axios.get("https://alconn.co/api/address");
     const address = result.data.data;
+    if(address.length==0)
+    {
+      alert("기본 배송지를 등록해 주세요");
+      history.goBack();
+    }
     let idx;
     for(let i=0; i<address.length;i++)
     {
@@ -104,7 +109,7 @@ function ProductInfo({ location, history}) {
                     )}
                   </select><br/>
                   <h5>요청 사항</h5>
-                  <input value={addr[idx].preRequest} type="textarea" className="form-control" style={{width:'520px',height:'100px',textAlign:'start'}}/>
+                  {addr && addr.length>0 && <input value={addr[idx].preRequest} type="textarea" className="form-control" style={{width:'520px',height:'100px',textAlign:'start'}}/>}
               </div>
             } 
         </div>
@@ -112,7 +117,7 @@ function ProductInfo({ location, history}) {
 
       {/* 매핑을 사용해서 상품 리스트를 읽어와서 반복출력을 한다 
         물론 바로구매로 들어왔으면 상품 한개만 출력이 된다*/}
-      {product.map((entry, idx) => {
+      {product && product.length>0 && product.map((entry, idx) => {
         return (
           <div key={idx} className="row product">
             <div className="col-1 productImage">
