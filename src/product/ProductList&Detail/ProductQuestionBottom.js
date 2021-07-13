@@ -116,22 +116,22 @@ const ProductQuestionBottom = (props) => {
     setModelOpen(false);
   };
   //답변등록 API
-  // const addReply = (idx) => {
-  //     const axiosAddReply = async () => {
-  //         const replyData = {
-  //             "inquiry": Question[idx].inquiryId,
-  //             "content": replyContent.replyContent,
-  //         }
-  //         await axios.post("https://alconn.co/api/inquiry/" + Question[idx].inquiryId + "/reply", replyData);
-  //         const result = await axios.get("https://alconn.co/api/inquiry/" + itemId + "/item");
-  //         setQuestion(result.data.data);
-  //         setRefresh(prev => prev + 1)
-  //     }
-  //     axiosAddReply();
+  const addReply = (idx) => {
+      const axiosAddReply = async () => {
+          const replyData = {
+              "inquiry": Question[idx].inquiryId,
+              "content": replyContent.replyContent,
+          }
+          await axios.post("https://alconn.co/api/inquiry/" + Question[idx].inquiryId + "/reply", replyData);
+          const result = await axios.get("https://alconn.co/api/inquiry/" + itemId + "/item");
+          setQuestion(result.data.data);
+          setRefresh(prev => prev + 1)
+      }
+      axiosAddReply();
 
-  //     alert("답변등록이 되었습니다.");
+      alert("답변등록이 되었습니다.");
 
-  // }
+  }
 
   const fixQuestion = (idx) => {
     const axiosfixQuestion = async () => {
@@ -307,13 +307,11 @@ const ProductQuestionBottom = (props) => {
 
                         <br />
                         <div style={{ height: "40px" }}>{row.content}</div>
-                        {/* <div><button onClick={() => onClickReply(idx, row)} style={{ border: 'none', backgroundColor: 'white', color: '#346AFF' }} >답글달기</button>&nbsp;&nbsp;<button onClick={() => onClickFixQuestion(idx, row)} style={{ border: 'none', backgroundColor: 'white', color: 'green' }}>수정</button></div> */}
-                        {/* {
+                        {/* <div><button onClick={() => onClickReply(idx, row)} style={{ border: 'none', backgroundColor: 'white', color: '#346AFF' }} >답글달기</button></div>
+                        {
                                                         row.check ? <div><textarea name="replyContent" onChange={handleChange3} value={replyContent.replyContent}></textarea><button onClick={() => addReply(idx)} style={{ border: 'none', backgroundColor: 'white', color: '#346AFF' }}>답글등록</button></div> : null
-                                                    }
-                                                    {
-                                                        row.check ? <div><textarea name="questionFix" value={questionFix.questionFix} placeholder={row.content} onChange={handleChange4}></textarea><button onClick={() => fixQuestion(idx)} style={{ border: 'none', backgroundColor: 'white', color: 'green' }}>수정완료</button></div> : null */}
-                        {/* } */}
+                                                    } */}
+                                                
                         {row.reply && (
                           <div className="question-reply-wrap">
                             <br></br>

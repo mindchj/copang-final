@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router";
 
 const MainBanner = (props) => {
-  const SHABATH="shabath"
+  const SHABATH="샤바스"
   return (
     <div id="demo" className="carousel slide" data-ride="carousel">
       <ul className="carousel-indicators">

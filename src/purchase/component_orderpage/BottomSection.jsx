@@ -83,7 +83,7 @@ function BottomSection(props) {
             console.log("delete 결과:");
             console.log(delres);
           }
-          //axiosDelCart();
+          axiosDelCart();
         }
       }
       //받아온 result를 완료창에 띄워줌

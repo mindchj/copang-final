@@ -3,7 +3,10 @@ import axios from "axios";
 import { Table, Button } from "reactstrap";
 import "./Cart.css";
 import productRedux from "../product/AddNewProduct/productRedux";
-
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 const Cart = (props) => {
   const [cart, setCart] = useState();
   const [total, setTotal] = useState(0);
@@ -174,7 +177,7 @@ const Cart = (props) => {
       <Table hover>
         <thead>
           <tr>
-            <td>
+            <td style={{width:'80px'}}>
               <div className="form-check">
                 <input
                   onChange={onChangeCheckAll}
@@ -185,27 +188,27 @@ const Cart = (props) => {
               </div>
             </td>
             <td style={{ width: "100px" }}>
-              <h4>
+              <h4 style={{textAlign:'center'}}>
                 <b>사진</b>
               </h4>
             </td>
-            <td style={{ width: "300px" }}>
-              <h4>
+            <td style={{ width: "500px" }}>
+              <h4 style={{textAlign:'center'}}>
                 <b>상품</b>
               </h4>
             </td>
             <td style={{ width: "100px" }}>
-              <h4>
+              <h4 style={{textAlign:'center'}}>
                 <b>가격</b>
               </h4>
             </td>
             <td style={{ width: "100px" }}>
-              <h4>
+              <h4 style={{textAlign:'center'}}>
                 <b>수량</b>
               </h4>
             </td>
             <td style={{ width: "100px" }}>
-              <h4>
+              <h4 style={{textAlign:'center'}}>
                 <b>합계</b>
               </h4>
             </td>
@@ -216,7 +219,7 @@ const Cart = (props) => {
                 onClick={() => removeUserCart(cart[0].userSID)}
               >
                 전체 비우기　
-                <i className="fas fa-trash" />
+                <DeleteOutlineIcon/>
               </Button>
             </td>
           </tr>
@@ -244,17 +247,17 @@ const Cart = (props) => {
                       src={item.mainImg}
                     />
                   </td>
-                  <td>{item.itemName}</td>
-                  <td>{numberFormat(item.price)}</td>
-                  <td>{item.amount}</td>
-                  <td> {numberFormat(item.price * item.amount)}</td>
+                  <td style={{textAlign:'left',verticalAlign:'middle',lineHeight:'50px',}}>{item.itemName}</td>
+                  <td style={{textAlign:'center'}}>{numberFormat(item.price)}</td>
+                  <td style={{textAlign:'center'}}>{item.amount}</td>
+                  <td style={{textAlign:'center'}}> {numberFormat(item.price * item.amount)}</td>
                   <td>
                     <Button
                       style={{ float: "right" }}
                       color="primary"
                       onClick={() => removeLineCart(item)}
                     >
-                      <i className="fas fa-trash-alt" />
+                      <DeleteForeverIcon/>
                     </Button>
                     &nbsp;&nbsp;&nbsp;
                     <Button
@@ -262,7 +265,7 @@ const Cart = (props) => {
                       color="primary"
                       onClick={() => removeOneCart(item)}
                     >
-                      <i className="fas fa-minus" />
+                      <ExpandMoreIcon/>
                     </Button>
                     &nbsp;&nbsp;&nbsp;
                     <Button
@@ -270,7 +273,7 @@ const Cart = (props) => {
                       color="primary"
                       onClick={() => addCart(item)}
                     >
-                      <i className="fas fa-plus" />
+                      <ExpandLessIcon/>
                     </Button>
                     &nbsp;&nbsp;&nbsp;
                   </td>

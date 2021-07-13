@@ -13,7 +13,11 @@ const RefundPage = (props) => {
                 amount : props.location.state.amount,
             }
             const result = await axios.post("https://alconn.co/api/orders/return/"+props.location.state.orderItemId, data);
-            console.log(result);
+            console.log(result.data.data);
+            console.log(result.data.data.cancelReceiptUrl);
+           window.open(result.data.data.cancelReceiptUrl,
+            'target', 'top=100, left=300, width=500, height=900, toolbar=no, menubar=no, location=no, status=no, scrollbars=no, resizable=no');
+            props.history.goBack();
         }
         axiosRefund();
     }
@@ -41,7 +45,7 @@ const RefundPage = (props) => {
                 <input onChange={(e)=>setReason(e.target.value)} type="textarea" className="form-control" style={{width:'520px',height:'100px',textAlign:'start'}}/>
                 <br/>
                 <button onClick={doRefund} className="btn btn-success">환불</button>&nbsp;
-                <button className="btn btn-primary">취소</button>
+                <button onClick={()=>props.history.goBack()} className="btn btn-primary">취소</button>
             </div>
             
         </div>
