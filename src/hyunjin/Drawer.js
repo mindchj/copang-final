@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Menu, MenuItem, Typography } from "@material-ui/core";
+import { Icon, Menu, MenuItem, Typography } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import NestedMenuItem from "material-ui-nested-menu-item";
 import { withRouter } from "react-router";
-import { borderRadius } from "@material-ui/system";
+import { borderRadius, fontSize } from "@material-ui/system";
 
 export const Drawer = ({ position, history }) => {
   const [refresh, setRefresh] = useState(0);
@@ -77,12 +77,16 @@ export const Drawer = ({ position, history }) => {
         parentMenuOpen={true}
         // onMouseEnter={()=>{setOpen(true)}}
         className="9999999"
-        style={{ backgroundColor: "red", borderRadius: "25%" }}
+        rightIcon="≡"
+        style={{
+          backgroundColor: "white",
+          borderRadius: "25%",
+          fontSize: "55px",
+          color: "black",
+        }}
       >
         {list && list.map((row, idx) => categoryList(row, 0))}
       </NestedMenuItem>
-
-      {/* </Menu> */}
     </div>
   );
 };

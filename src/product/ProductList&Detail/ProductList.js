@@ -186,10 +186,10 @@ const ProductList = (props) => {
   }, [props.location.state]);
 
   return (
-    <div>
+    <div style={{ display: "flex" }}>
       {/* <div style={{ float: "left", width: "300px", height: "100px" }}> */}
       {/* <div style={{ marginTop: "10px" }}> */}
-      <div>
+      <div style={{ width: "20%" }}>
         <div>
           <input
             value={priceCheck}
@@ -291,10 +291,9 @@ const ProductList = (props) => {
       </div>
       <div
         // style={{ display: "inline-block", width: "980px" }}
-        className="productlist"
+        style={{ width: "77%", paddingLeft: "3%" }}
+        // className="productlist"
       >
-        <br />
-        <br />
         <ul className="searchproduct">
           {ProductList &&
             ProductList.map((row, idx) => (

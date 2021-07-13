@@ -22,6 +22,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import Drawer from "../hyunjin/Drawer";
+import { borderRadius } from "@material-ui/system";
 const useStyles = makeStyles((theme) => ({
   linkBasic: {
     color: "black",
@@ -75,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
-      width: "20ch",
+      // width: "20ch",
     },
   },
   sectionDesktop: {
@@ -211,8 +212,11 @@ function Header(props) {
               <img src={logoImg} alt="logo" />
             </Link>
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
+          <div
+            className={classes.search}
+            style={{ border: "3px solid dodgerblue" }}
+          >
+            <div className={classes.searchIcon} style={{ color: "black" }}>
               <SearchIcon />
             </div>
             <InputBase
@@ -225,6 +229,7 @@ function Header(props) {
               onChange={(e) => setSearch(e.target.value)}
               onKeyPress={handleEnter}
               value={search}
+              style={{ width: "43ch", height: "45px" }}
             />
           </div>
           <div className={classes.grow} />
