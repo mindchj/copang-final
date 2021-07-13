@@ -30,8 +30,12 @@ import TableRow from '@material-ui/core/TableRow';
 //     )
 // }
 
-const MyCopangShip = () => {
-    const baseuri = 'http://info.sweettracker.co.kr/api/v1/trackingInfo?t_key='+process.env.REACT_APP_API_URL+'&t_code=04&t_invoice=' + 641402337145;
+const MyCopangShip = (props) => {
+    let receiver = props.location.state.address.receiverName;
+    let preRequest = props.location.state.address.preRequest;
+    let Invoice = props.location.state.orderItems[0].trackingNumber;
+
+    const baseuri = 'http://info.sweettracker.co.kr/api/v1/trackingInfo?t_key='+process.env.REACT_APP_API_URL+'&t_code=04&t_invoice=' + Invoice;
     const [deliverData, setDeliverData] = useState();
     const getApi = async () => {
         const data = await axios.get(baseuri);
@@ -45,11 +49,12 @@ const MyCopangShip = () => {
 
     return (
         <div>
+            {/* <button onClick={()=>console.log(props.location.state.orderItems[0].trackingNumber)}>확인하기</button> */}
             {deliverData && deliverData.status === false ? deliverData.msg : <section>
 
                 {deliverData && deliverData.result === "Y" ? <div><h2 style={{ color: 'red' }}>배송완료</h2> <div>송장번호 : {deliverData.invoiceNo}</div>
-                    <div>받는 사람 :{deliverData.receiverName}</div>
-                    <div>배송요청사항 :{deliverData.receiverAddr}</div>
+                    <div>받는 사람 :{receiver}</div>
+                    <div>배송요청사항 :{preRequest}</div>
                     <div>받는 물품 : {deliverData.itemName}</div>
 
                     <Table size="small">

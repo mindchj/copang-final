@@ -96,81 +96,81 @@ export const Order = ({ history }) => {
   return (
     <div className="mc-main-content">
       <MainTab />
-      {orderList.map((order) => (
-        <div className="container1">
-          <div className="box-header">
-            {/* <div className="header-date">{order.orderId}</div> */}
-            <div key={order.orderId}>
-              {order.orderDate.substring(0, 10)} 주문
+      {orderList.map((order,idx) => (
+        <div>
+        {order.orderItems[idx] && order.orderItems[idx].canceled === true ? <div className="container1">
+        <div className="box-header">
+
+          <div key={order.orderId}>
+            {order.orderDate.substring(0, 10)}  {order.orderItems[idx] && order.orderItems[idx].canceled === true ? "주문완료" : "주문취소"}
+          </div>
+          <div className="header-detail">
+            <Link to={{ pathname: "/mycopang/detail", state: { order } }}>
+              주문 상세 정보 보기
+            </Link>
+          </div>
+        </div>
+
+        {order.orderItems.map((product) => (
+          <div className="product-container">
+            <div className="product-image">
+              <img
+                src={product.mainImg}
+                style={{ width: "100%" }}
+                alt="product"
+              />
             </div>
-            <div className="header-detail">
-              <Link to={{ pathname: "/mycopang/detail", state: { order } }}>
-                주문 상세 정보 보기
-              </Link>
+            <div className="title-price-divide">
+
+              <div>{product.itemName}</div>
+              <div className="price-ea-basket-container">
+                <div className="price-ea-container">
+                  <div>{product.price} 원</div>
+                </div>
+
+                <div>{product.amount} 개</div>
+
+                <button
+                  className={classes.cartBtn}
+                  onClick={() => onSendCart(product)}
+                >
+                  <AddShoppingCart />
+                  장바구니
+                </button>
+              </div>
+              <br></br>
+            </div>
+            <div className="btn-container">
+              <div className="btn-container-flex">
+                <button
+                  className="content-btn btn-1"
+                  onClick={() => history.push("/ship-tracking",order)}
+                  style={{ borderColor: "dodgerblue" }}
+                >
+                  배송 조회
+                </button>
+                <button
+                  onClick={() => refund(order, product)}
+                  className="content-btn btn-2"
+                >
+                  환불 신청
+                </button>
+                <button
+                  className="content-btn btn-3"
+                  onClick={() =>
+                    history.push({
+                      pathname: "/mycopang/review",
+                      state: { orderInfo: order },
+                    })
+                  }
+                >
+                  리뷰 작성하기
+                </button>
+              </div>
             </div>
           </div>
-          {/* <div >{order.orderStatus}</div> */}
-          {order.orderItems.map((product) => (
-            <div className="product-container">
-              <div className="product-image">
-                <img
-                  src={product.mainImg}
-                  style={{ width: "100%" }}
-                  alt="product"
-                />
-              </div>
-              <div className="title-price-divide">
-                {/* <div>아이템 이름 : {product.itemName}</div> */}
-                <div>{product.itemName}</div>
-                <div className="price-ea-basket-container">
-                  <div className="price-ea-container">
-                    <div>{product.price} 원</div>
-                  </div>
-                  {/* <div>
-                    {product.optionName} : {product.optionValue}
-                  </div> */}
-                  <div>{product.amount} 개</div>
-
-                  <button
-                    className={classes.cartBtn}
-                    onClick={() => onSendCart(product)}
-                  >
-                    <AddShoppingCart />
-                    장바구니
-                  </button>
-                </div>
-                <br></br>
-              </div>
-              <div className="btn-container">
-                <div className="btn-container-flex">
-                  <button
-                    className="content-btn btn-1"
-                    onClick={() => history.push("/ship-tracking")}
-                    style={{ borderColor: "dodgerblue" }}
-                  >
-                    배송 조회
-                  </button>
-                  <button
-                    onClick={() => refund(order, product)}
-                    className="content-btn btn-2"
-                  >
-                    환불 신청
-                  </button>
-                  <button
-                    className="content-btn btn-3"
-                    onClick={() =>
-                      history.push({
-                        pathname: "/mycopang/review",
-                        state: { orderInfo: order },
-                      })
-                    }
-                  >
-                    리뷰 작성하기
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+        ))}
+      </div> : <div></div>}
         </div>
       ))}
     </div>
