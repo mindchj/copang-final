@@ -55,9 +55,7 @@ const Footer = () => {
                 target="_blank"
                 class="licensee"
                 title="수강생 정보 확인"
-              >
-                사업자정보 확인 &gt;
-              </a>
+              ></a>
             </address>
             <div class="contact-info">
               <a

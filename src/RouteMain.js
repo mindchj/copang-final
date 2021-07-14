@@ -36,7 +36,7 @@ const RouteMain = () => {
       {/* 자동로그인 */}
       {autoLoginWithAccessToken()}
       {/* <Suspense fallback={(<div>Loading...</div>)}> */}
-      <div className="layout">
+      <div className="layout2">
         <TopBar />
         <Header />
         <Menu />
@@ -64,7 +64,7 @@ const RouteMain = () => {
         <Route path="/order/complete" component={Auth(OrderComplete)} />
         <Route path="/order/do" component={Auth(OrderPageApp)} />
       </Switch>
-      <Footer />
+      {/* <Footer /> */}
       {/* </Suspense> */}
     </div>
   );
