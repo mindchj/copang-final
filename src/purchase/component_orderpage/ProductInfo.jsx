@@ -132,7 +132,7 @@ function ProductInfo({ location, history}) {
               <h6>Details: {"no data"}</h6> */}
             </div>
             <div className="col-2 my-auto">
-              <h6 className="text-right">{numberFormat(entry.price)}원</h6>
+              {entry && entry.price && <h6 className="text-right">{numberFormat(entry.price)}원</h6>}
             </div>
             <div className="col-2 my-auto">
               <h6 className="text-right">{entry.amount}개</h6>

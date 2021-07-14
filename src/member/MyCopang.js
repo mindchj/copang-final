@@ -97,8 +97,8 @@ export const Order = ({ history }) => {
     <div className="mc-main-content">
       <MainTab />
       {orderList.map((order,idx) => (
-        <div>
-        {order.orderItems[idx] && order.orderItems[idx].canceled === true ? <div className="container1">
+        
+         <div className="container1">
         <div className="box-header">
 
           <div key={order.orderId}>
@@ -170,7 +170,6 @@ export const Order = ({ history }) => {
             </div>
           </div>
         ))}
-      </div> : <div></div>}
         </div>
       ))}
     </div>
